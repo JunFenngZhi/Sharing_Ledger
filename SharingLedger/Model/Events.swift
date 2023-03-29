@@ -27,6 +27,7 @@ enum Category: String{
 }
 
 class PaymentsDetail {
+    var paymentName: String
     var expense: Double
     var category: String
     //participates contains the names of person
@@ -37,10 +38,11 @@ class PaymentsDetail {
     var note: Note
     
     init() {
-        self.expense = 0
+        self.paymentName = "Mexico Taco"
+        self.expense = 123.45
         self.category = Category.Restaurant.rawValue
-        self.participates = []
-        self.payers = []
+        self.participates = ["Junfeng Zhi", "Suchuan Xing", "Dingzhou Wang"]
+        self.payers = ["Junfeng Zhi"]
         self.note = Note()
     }
 }
