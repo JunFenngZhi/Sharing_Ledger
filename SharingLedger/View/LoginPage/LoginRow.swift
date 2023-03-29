@@ -17,6 +17,6 @@ struct LoginRow: View {
 
 struct LoginRow_Previews: PreviewProvider {
     static var previews: some View {
-        LoginRow(personDetail: PersonDetail(lname: "Xing", fname: "Suchuan"))
+        LoginRow(personDetail: PersonDetail(id: "", lname: "Xing", fname: "Suchuan", joinedEventNames: []))
     }
 }

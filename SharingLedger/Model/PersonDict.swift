@@ -7,19 +7,33 @@
 
 import Foundation
 
-class PersonDetail {
+class PersonDetail: Identifiable, Hashable {
+    var id: String //capture firestore id
     var lastname: String
     var firstname: String
-    var name: String
     var joinedEventNames: [String]
     var picture: String
     
-    init(lname: String, fname: String){
+    init(id: String, lname: String, fname: String, joinedEventNames: [String]){
+        self.id = id
         self.lastname = lname
         self.firstname = fname
-        self.name = fname + " " + lname
-        self.joinedEventNames = []
         self.picture = base64pic("Unknown")!
+
+        self.joinedEventNames = joinedEventNames
+    }
+    
+    // Conform to the Hashable protocol by providing a hash(into:) method
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+//        hasher.combine(lastname)
+//        hasher.combine(firstname)
+//        hasher.combine(joinedEventNames)
+    }
+    
+    // Conform to the Equatable protocol by providing an == operator
+    static func == (lhs: PersonDetail, rhs: PersonDetail) -> Bool {
+        return lhs.id == rhs.id && lhs.lastname == rhs.lastname && lhs.firstname == rhs.firstname && lhs.joinedEventNames == rhs.joinedEventNames
     }
 }
 
