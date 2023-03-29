@@ -12,6 +12,7 @@ import FirebaseFirestore
 class ViewModel: ObservableObject{
     @Published var list = [PersonDetail]()
     
+    
     func getData(){
         // get ref to the database
         let db = Firestore.firestore()
@@ -37,4 +38,19 @@ class ViewModel: ObservableObject{
         }
         
     }
+    
+    func addData(firstname: String, lastname: String, joinedEventNames: [String]){
+        let db = Firestore.firestore()
+        db.collection("PersonDetail").addDocument(data: ["firstname":firstname, "lastname":lastname, "joinedEventNames":joinedEventNames]){ error in
+            // Check error
+            if error == nil{
+                // get data to retrieve latest data
+                self.getData()
+            }
+            else{
+                
+            }
+        }
+    }
+    
 }
