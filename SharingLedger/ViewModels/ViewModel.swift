@@ -53,4 +53,22 @@ class ViewModel: ObservableObject{
         }
     }
     
+    func deleteData(toDelete: PersonDetail){
+        let db = Firestore.firestore()
+        
+        db.collection("PersonDetail").document(toDelete.id).delete{ error in
+            if error == nil{
+                
+                DispatchQueue.main.async {
+                    self.list.removeAll{ persondetail in
+                        return persondetail.id == toDelete.id
+                        
+                    }
+                }
+                
+            }
+        }
+        
+    }
+    
 }

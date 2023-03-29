@@ -20,10 +20,21 @@ struct ContentView: View {
 //        Text("Hello, world!")
         VStack{
             List (model.list, id : \.self){ item in
-                Text(item.firstname+" "+item.lastname+" ")
+                HStack{
+                    Text(item.firstname+" "+item.lastname+" ")
+                    Spacer()
+                    Button {
+                        model.deleteData(toDelete: item)
+                    } label: {
+                        Image(systemName: "minus.circle")
+                    }
+
+                }
             }
             Divider()
             
+            
+            // add data
             VStack(spacing: 5){
                 TextField("FirstName", text: $firstname)
                 
