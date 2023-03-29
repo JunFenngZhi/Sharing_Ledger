@@ -12,12 +12,14 @@ class PersonDetail {
     var firstname: String
     var name: String
     var joinedEventNames: [String]
+    var picture: String
     
     init(lname: String, fname: String){
         self.lastname = lname
         self.firstname = fname
         self.name = fname + " " + lname
         self.joinedEventNames = []
+        self.picture = base64pic("Unknown")!
     }
 }
 
