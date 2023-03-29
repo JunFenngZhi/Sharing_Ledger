@@ -17,6 +17,7 @@
 		04FCBB3029D3C90500C971F2 /* StorageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB2F29D3C90500C971F2 /* StorageModel.swift */; };
 		9C885F16486889673F235A3D /* Pods_SharingLedger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4B9D8DB5D6D9DFF5663DB4F /* Pods_SharingLedger.framework */; };
 		A802860429D3E2DD007EE814 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A802860329D3E2DD007EE814 /* GoogleService-Info.plist */; };
+		A80C414B29D4AA4E00A06A43 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80C414A29D4AA4E00A06A43 /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		04FCBB2F29D3C90500C971F2 /* StorageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageModel.swift; sourceTree = "<group>"; };
 		10DCCF6864F1024AAA80A40D /* Pods-SharingLedger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SharingLedger.debug.xcconfig"; path = "Target Support Files/Pods-SharingLedger/Pods-SharingLedger.debug.xcconfig"; sourceTree = "<group>"; };
 		A802860329D3E2DD007EE814 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A80C414A29D4AA4E00A06A43 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		E4B9D8DB5D6D9DFF5663DB4F /* Pods_SharingLedger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SharingLedger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1BDE30DB3F54C91CAD79F56 /* Pods-SharingLedger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SharingLedger.release.xcconfig"; path = "Target Support Files/Pods-SharingLedger/Pods-SharingLedger.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,6 +70,7 @@
 		04FCBB1229D0C71800C971F2 /* SharingLedger */ = {
 			isa = PBXGroup;
 			children = (
+				A80C414929D4AA3500A06A43 /* ViewModels */,
 				04FCBB2329D0C75200C971F2 /* View */,
 				04FCBB2229D0C74700C971F2 /* Model */,
 				04FCBB2129D0C73400C971F2 /* Resources */,
@@ -127,7 +130,6 @@
 				10DCCF6864F1024AAA80A40D /* Pods-SharingLedger.debug.xcconfig */,
 				F1BDE30DB3F54C91CAD79F56 /* Pods-SharingLedger.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -137,6 +139,14 @@
 				E4B9D8DB5D6D9DFF5663DB4F /* Pods_SharingLedger.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A80C414929D4AA3500A06A43 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A80C414A29D4AA4E00A06A43 /* ViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +270,7 @@
 				04FCBB3029D3C90500C971F2 /* StorageModel.swift in Sources */,
 				04FCBB2E29D3C13500C971F2 /* LoginView.swift in Sources */,
 				04FCBB2729D0C86500C971F2 /* PersonDict.swift in Sources */,
+				A80C414B29D4AA4E00A06A43 /* ViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

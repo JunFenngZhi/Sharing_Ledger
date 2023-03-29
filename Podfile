@@ -6,6 +6,6 @@ target 'SharingLedger' do
   use_frameworks!
 
   # Pods for SharingLedger
-  	pod 'FirebaseFirestore'
+  pod 'FirebaseFirestore'
 
 end
