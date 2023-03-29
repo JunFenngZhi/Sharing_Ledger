@@ -71,4 +71,16 @@ class ViewModel: ObservableObject{
         
     }
     
+    func updateData(toUpdate: PersonDetail){
+        let db = Firestore.firestore()
+
+        // merge: true -> only update specific, and keep other unchange part
+        db.collection("PersonDetail").document(toUpdate.id).setData(["joinedEventNames": "new_event"], merge: true){ error in
+            if error == nil{
+                self.getData()
+            }
+            
+        }
+    }
+    
 }

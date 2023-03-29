@@ -22,13 +22,24 @@ struct ContentView: View {
             List (model.list, id : \.self){ item in
                 HStack{
                     Text(item.firstname+" "+item.lastname+" ")
+                    
                     Spacer()
+                    
+                    //update
+                    Button {
+                        model.updateData(toUpdate: item)
+                    } label: {
+                        Image(systemName: "pencil")
+                    }
+                    .buttonStyle(BorderlessButtonStyle())
+                    
+                    // delete
                     Button {
                         model.deleteData(toDelete: item)
                     } label: {
                         Image(systemName: "minus.circle")
                     }
-
+                    .buttonStyle(BorderlessButtonStyle())
                 }
             }
             Divider()
