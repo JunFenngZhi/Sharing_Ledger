@@ -13,6 +13,8 @@
 		04FCBB1B29D0C71C00C971F2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FCBB1A29D0C71C00C971F2 /* Preview Assets.xcassets */; };
 		04FCBB2729D0C86500C971F2 /* PersonDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB2629D0C86500C971F2 /* PersonDict.swift */; };
 		04FCBB2929D0CA6100C971F2 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB2829D0CA6100C971F2 /* Events.swift */; };
+		04FCBB2E29D3C13500C971F2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB2D29D3C13500C971F2 /* LoginView.swift */; };
+		04FCBB3029D3C90500C971F2 /* StorageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB2F29D3C90500C971F2 /* StorageModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		04FCBB1A29D0C71C00C971F2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		04FCBB2629D0C86500C971F2 /* PersonDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDict.swift; sourceTree = "<group>"; };
 		04FCBB2829D0CA6100C971F2 /* Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
+		04FCBB2D29D3C13500C971F2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		04FCBB2F29D3C90500C971F2 /* StorageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +90,7 @@
 			children = (
 				04FCBB2629D0C86500C971F2 /* PersonDict.swift */,
 				04FCBB2829D0CA6100C971F2 /* Events.swift */,
+				04FCBB2F29D3C90500C971F2 /* StorageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -93,8 +98,17 @@
 		04FCBB2329D0C75200C971F2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04FCBB2C29D3C12100C971F2 /* LoginPage */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		04FCBB2C29D3C12100C971F2 /* LoginPage */ = {
+			isa = PBXGroup;
+			children = (
+				04FCBB2D29D3C13500C971F2 /* LoginView.swift */,
+			);
+			path = LoginPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +184,8 @@
 				04FCBB2929D0CA6100C971F2 /* Events.swift in Sources */,
 				04FCBB1629D0C71800C971F2 /* ContentView.swift in Sources */,
 				04FCBB1429D0C71800C971F2 /* SharingLedgerApp.swift in Sources */,
+				04FCBB3029D3C90500C971F2 /* StorageModel.swift in Sources */,
+				04FCBB2E29D3C13500C971F2 /* LoginView.swift in Sources */,
 				04FCBB2729D0C86500C971F2 /* PersonDict.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
