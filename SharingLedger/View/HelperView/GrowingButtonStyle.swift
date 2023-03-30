@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct GrowingButton: ButtonStyle {
+    let backGroundColor: Color
+    let foreGroundColor: Color
+    
+    init(backGroundColor: Color, foreGroundColor: Color){
+        self.backGroundColor = backGroundColor
+        self.foreGroundColor = foreGroundColor
+    }
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .background(.blue)
-            .foregroundColor(.white)
+            .background(backGroundColor)
+            .foregroundColor(foreGroundColor)
             .clipShape(Capsule())
             .scaleEffect(configuration.isPressed ? 1.2 : 1)
             .animation(.easeOut(duration: 0.2), value: configuration.isPressed)

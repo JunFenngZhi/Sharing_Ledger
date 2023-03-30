@@ -23,7 +23,7 @@ struct EventDetailsView: View {
                 
                 List{
                     NavigationLink {
-                        PaymentDetailsView()
+                        PaymentDetailsView(payment: PaymentsDetail())
                     } label: {
                         PaymentRow(payment: PaymentsDetail())
                     }.listRowInsets(EdgeInsets())
@@ -35,7 +35,7 @@ struct EventDetailsView: View {
                     print("Button pressed!")
                     //TODO: jump NewPaymentView
                 }
-                .buttonStyle(GrowingButton())
+                .buttonStyle(GrowingButton(backGroundColor: .blue, foreGroundColor: .white))
             }
             
         }

@@ -13,7 +13,7 @@ class Note {
     var pictures: [String]
     
     init() {
-        self.texts = []
+        self.texts = [""]
         self.pictures = []
     }
 }
@@ -36,6 +36,7 @@ class PaymentsDetail {
     var payers: [String]
     //note contains text notes and picture notes
     var note: Note
+    var time: Date
     
     init() {
         self.paymentName = "Mexico Taco"
@@ -44,6 +45,7 @@ class PaymentsDetail {
         self.participates = ["Junfeng Zhi", "Suchuan Xing", "Dingzhou Wang"]
         self.payers = ["Junfeng Zhi"]
         self.note = Note()
+        self.time = Date()
     }
 }
 
