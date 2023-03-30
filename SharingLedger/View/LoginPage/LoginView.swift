@@ -8,8 +8,33 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var storageModel: StorageModel
+    
+    var personlist: [PersonDetail] {
+        var res: [PersonDetail] = []
+        for person in storageModel.personInfo.values {
+            res.append(person)
+        }
+        return res
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text("Welcome To Sharing Ledger")
+                .lineLimit(2)
+                .font(.custom("Inter", size: 40))
+            
+            NavigationView {
+                List(personlist) { person in
+                    NavigationLink {
+                        HomePageView()
+                    } label: {
+                        LoginRow(personDetail: person)
+                    }
+                }
+                .navigationTitle("Who Are You?")
+            }
+        }
     }
 }
 

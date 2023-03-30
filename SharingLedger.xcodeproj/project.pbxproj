@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		046C6E5C29D607EF000F82C3 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C6E5B29D607EF000F82C3 /* HomePageView.swift */; };
 		04FCBB1429D0C71800C971F2 /* SharingLedgerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB1329D0C71800C971F2 /* SharingLedgerApp.swift */; };
 		04FCBB1629D0C71800C971F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB1529D0C71800C971F2 /* ContentView.swift */; };
 		04FCBB1829D0C71C00C971F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FCBB1729D0C71C00C971F2 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		046C6E5B29D607EF000F82C3 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		04FCBB1029D0C71800C971F2 /* SharingLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SharingLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04FCBB1329D0C71800C971F2 /* SharingLedgerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingLedgerApp.swift; sourceTree = "<group>"; };
 		04FCBB1529D0C71800C971F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +71,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		046C6E5A29D607DD000F82C3 /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				046C6E5B29D607EF000F82C3 /* HomePageView.swift */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
 		04FCBB0729D0C71700C971F2 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 		04FCBB2329D0C75200C971F2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				046C6E5A29D607DD000F82C3 /* HomePage */,
 				2EDD95CA29D4E930007B05E5 /* HelperView */,
 				2EDD95CE29D4E930007B05E5 /* EventPage */,
 				2EDD95D029D4E930007B05E5 /* PaymentPage */,
@@ -342,6 +353,7 @@
 				A80C414B29D4AA4E00A06A43 /* ViewModel.swift in Sources */,
 				2EDD95D629D4E930007B05E5 /* EventDetailsView.swift in Sources */,
 				2EDD95D829D4E930007B05E5 /* PaymentRow.swift in Sources */,
+				046C6E5C29D607EF000F82C3 /* HomePageView.swift in Sources */,
 				2EDD95D529D4E930007B05E5 /* EventSummary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
