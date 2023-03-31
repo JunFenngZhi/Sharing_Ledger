@@ -12,12 +12,13 @@ struct EventDetailsView: View {
         NavigationView {
             VStack{
                 HStack{
-                    Text("Ledger Name")
+                    Text("Event Name")
                         .font(.headline)
                         .fontWeight(.heavy)
                     Spacer()
+                    OverlapPersonPicture(nameList: ["Junfeng", "DingZhou", "Suchuan"]) //TODO:
                 }
-                .padding(.top)
+                .padding([.trailing, .leading])
                 
                 EventSummary(totalExpense: 1234.56)
                 
@@ -31,11 +32,12 @@ struct EventDetailsView: View {
                 .padding(.horizontal, -15.0)
                 .padding(.top, -10.0)
                 
+                
                 Button("New Payment") {
                     print("Button pressed!")
                     //TODO: jump NewPaymentView
                 }
-                .buttonStyle(GrowingButton(backGroundColor: .blue, foreGroundColor: .white))
+                .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
             }
             
         }

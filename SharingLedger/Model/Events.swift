@@ -71,7 +71,6 @@ class EventInfo {
         self.conclusion = EventConclusion()
         self.payments = [:]
         self.participates = []
-        
     }
     
 }

@@ -19,7 +19,7 @@ struct PaymentDetailsView: View {
                     Spacer()
                     Button("Edit✏️") {
                     }
-                    .buttonStyle(GrowingButton(backGroundColor: .blue, foreGroundColor: .white))
+                    .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
                 }
                 .padding()
                 
@@ -27,30 +27,34 @@ struct PaymentDetailsView: View {
                     .font(.title)
                     .bold()
                     .padding(.leading)
-                //TODO: 加一个间隔
             }
             
+            Spacer()
+            Rectangle().fill(Color(UIColor.systemGroupedBackground))
+                .frame(height: 16)
+
             List(){
-                Section(header: Text("Participants: ").bold().font(.title2).foregroundColor(.black)){
+                Section(header: Text("Participants: ").font(.subheadline).foregroundColor(.cyan).bold()){
                     ForEach(payment.participates.indices){
                         ParticipantRow(name: payment.participates[$0], amount: Double(payment.expense)/Double(payment.participates.count))
                     }
                 }
                 .listRowInsets(EdgeInsets())
                 
-                Section(header: Text("Payers: ").bold().font(.title2).foregroundColor(.black)){
+                Section(header: Text("Payers: ").font(.subheadline).foregroundColor(.cyan).bold()){
                     ForEach(payment.payers.indices){
-                        ParticipantRow(name: payment.participates[$0], amount: Double(payment.expense)/Double(payment.payers.count))
+                        PayerRow(name: payment.payers[$0])
                     }
                 }
                 .listRowInsets(EdgeInsets())
-                
-                Section(header: Text("Notes: ").bold().font(.title2).foregroundColor(.black)){
+
+                Section(header: Text("Notes: ").font(.subheadline).foregroundColor(.cyan).bold()){
                     Text(payment.note.texts[0])
                 }
                 .listRowInsets(EdgeInsets())
             }
             .padding(.horizontal, -15.0)
+            .padding(.top, -9.0)
             
             Button("Delete🗑") {
                 //TODO: delte this payment
