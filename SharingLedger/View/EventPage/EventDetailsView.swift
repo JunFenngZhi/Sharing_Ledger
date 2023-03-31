@@ -12,18 +12,19 @@ struct EventDetailsView: View {
         NavigationView {
             VStack{
                 HStack{
-                    Text("Ledger Name")
+                    Text("Event Name")
                         .font(.headline)
                         .fontWeight(.heavy)
                     Spacer()
+                    OverlapPersonPicture(nameList: ["Junfeng", "DingZhou", "Suchuan"]) //TODO:
                 }
-                .padding(.top)
+                .padding([.trailing, .leading])
                 
                 EventSummary(totalExpense: 1234.56)
                 
                 List{
                     NavigationLink {
-                        PaymentDetailsView()
+                        PaymentDetailsView(payment: PaymentsDetail())
                     } label: {
                         PaymentRow(payment: PaymentsDetail())
                     }.listRowInsets(EdgeInsets())
@@ -31,11 +32,12 @@ struct EventDetailsView: View {
                 .padding(.horizontal, -15.0)
                 .padding(.top, -10.0)
                 
+                
                 Button("New Payment") {
                     print("Button pressed!")
                     //TODO: jump NewPaymentView
                 }
-                .buttonStyle(GrowingButton())
+                .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
             }
             
         }

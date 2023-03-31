@@ -11,7 +11,7 @@ struct PaymentRow: View {
     let payment: PaymentsDetail
     var body: some View {
         HStack{
-            PaymentRowCircleImage(image: Image("Unknown")) //TODO: update image based on category
+            SmallCircleImage(image: Image("Unknown")) //TODO: update image based on category
             VStack(alignment: .leading){
                 Text(payment.paymentName)
                     .font(.headline)

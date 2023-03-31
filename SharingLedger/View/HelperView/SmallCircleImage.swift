@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PaymentRowCircleImage: View {
+struct SmallCircleImage: View {
     var image: Image
     var body: some View {
         image
@@ -22,8 +22,8 @@ struct PaymentRowCircleImage: View {
 
 }
 
-struct PaymentRowCircleImage_Previews: PreviewProvider {
+struct SmallCircleImage_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentRowCircleImage(image: Image("testImage"))
+        SmallCircleImage(image: Image("testImage"))
     }
 }

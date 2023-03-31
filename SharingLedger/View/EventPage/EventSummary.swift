@@ -15,7 +15,8 @@ struct EventSummary: View {
                 Text("$" + String(format:"%.2f",totalExpense))
                     .font(.title)
                     .bold()
-                Text("Total Expenses").padding(.horizontal)
+                    .foregroundColor(.white)
+                Text("Total Expenses").padding(.horizontal).foregroundColor(.white)
             }
             Spacer()
             Button(action: {
@@ -23,7 +24,7 @@ struct EventSummary: View {
                 // TODO: settle the event
             }, label: {
                 Text("Settle >")
-                    .foregroundColor(.black)
+                    .foregroundColor(.white)
                     .bold()
             })
             .padding()
