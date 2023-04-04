@@ -66,6 +66,6 @@ struct PaymentDetailsView: View {
 
 struct PaymentDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentDetailsView(payment: PaymentsDetail())
+        PaymentDetailsView(payment: PaymentsDetail(paymentName: "chick-fil-a", expense: 23.45, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Junfeng Zhi"], note: "lunch", time: Date.now))
     }
 }

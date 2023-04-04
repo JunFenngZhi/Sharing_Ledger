@@ -8,28 +8,34 @@
 import SwiftUI
 
 struct EventDetailsView: View {
+    let eventName: String
+    
+    @EnvironmentObject var storageModel: StorageModel
     @Binding var showEditPaymentView: Bool
     
     var body: some View {
+        let event: EventInfo = storageModel.allEvents[eventName]!
         NavigationView {
             VStack{
                 HStack{
-                    Text("Event Name")
+                    Text(eventName)
                         .font(.headline)
                         .fontWeight(.heavy)
                     Spacer()
-                    OverlapPersonPicture(nameList: ["Junfeng", "DingZhou", "Suchuan"]) //TODO:
+                    OverlapPersonPicture(nameList: event.participates)
                 }
                 .padding([.trailing, .leading])
                 
-                EventSummary(totalExpense: 1234.56)
+                EventSummary(totalExpense: event.conclusion.totalExpense)
                 
                 List{
-                    NavigationLink {
-                        PaymentDetailsView(payment: PaymentsDetail())
-                    } label: {
-                        PaymentRow(payment: PaymentsDetail())
-                    }.listRowInsets(EdgeInsets())
+                    ForEach(Array(event.payments.keys), id: \.self) { name in // TODO: payments order may varied. sorted by key/time
+                        NavigationLink {
+                            PaymentDetailsView(payment: event.payments[name]!)
+                        } label: {
+                            PaymentRow(payment: event.payments[name]!)
+                        }.listRowInsets(EdgeInsets())
+                    }
                 }
                 .padding(.horizontal, -15.0)
                 .padding(.top, -10.0)
@@ -48,6 +54,6 @@ struct EventDetailsView: View {
 
 struct EventDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        EventDetailsView(showEditPaymentView: .constant(true))
+        EventDetailsView(eventName: "Development", showEditPaymentView: .constant(true)).environmentObject(StorageModel())
     }
 }

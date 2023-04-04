@@ -21,7 +21,7 @@ struct PaymentRow: View {
                     .foregroundColor(.gray)
             }
             Spacer()
-            Text("$123.45")
+            Text("$" + String(format:"%.2f",payment.expense))
                 .font(.title2)
                 .bold()
         }
@@ -31,6 +31,6 @@ struct PaymentRow: View {
 
 struct PaymentRow_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentRow(payment: PaymentsDetail())
+        PaymentRow(payment: PaymentsDetail(paymentName: "chick-fil-a", expense: 23.45, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Junfeng Zhi"], note: "lunch", time: Date.now))
     }
 }

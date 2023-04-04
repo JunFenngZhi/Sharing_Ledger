@@ -12,8 +12,8 @@ class Note {
     var texts: [String]
     var pictures: [String]
     
-    init() {
-        self.texts = [""]
+    init(text: String) {
+        self.texts = [text]
         self.pictures = []
     }
 }
@@ -30,23 +30,24 @@ enum Category: String{
 class PaymentsDetail {
     var paymentName: String
     var expense: Double
-    var category: String
+    var category: Category
     //participates contains the names of person
-    var participates: [String]
+    var participates: [String] // TODO: need to guarantee names are correct
     //payers contains the names of person
     var payers: [String]
-    //note contains text notes and picture notes
+    //note contains text notes and picture notes. we only handle text notes for now.
     var note: Note
     var time: Date
     
-    init() {
-        self.paymentName = "Mexico Taco"
-        self.expense = 123.45
-        self.category = Category.Restaurant.rawValue
-        self.participates = ["Junfeng Zhi", "Suchuan Xing", "Dingzhou Wang"]
-        self.payers = ["Junfeng Zhi"]
-        self.note = Note()
-        self.time = Date()
+    init(paymentName: String, expense: Double, category: Category, participates: [String],
+         payers: [String], note: String, time: Date) {
+        self.paymentName = paymentName
+        self.expense = expense
+        self.category = category
+        self.participates = participates
+        self.payers = payers
+        self.note = Note(text: note)
+        self.time = time
     }
 }
 
@@ -64,14 +65,24 @@ class EventInfo {
     var eventname: String
     var conclusion: EventConclusion
     var payments: [String: PaymentsDetail]
-    var participates: [String]
-    
+    var participates: [String]  //TODO: check participates are not repeated?
     
     init(name: String) {
         self.eventname = name
         self.conclusion = EventConclusion()
         self.payments = [:]
         self.participates = []
+        
+        initForTest() // only for preview test
+    }
+    
+    private func initForTest() {
+        self.participates = ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing","youKnowWho"]
+        let payments_1 = PaymentsDetail(paymentName: "chick-fil-a", expense: 23.45, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Junfeng Zhi"], note: "lunch", time: Date.now)
+        let payments_2 = PaymentsDetail(paymentName: "nuro taco", expense: 45.67, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Suchuan Xing"], note: "dinner", time: Date.now)
+        self.payments["chick-fil-a"] = payments_1
+        self.payments["nuro taco"] = payments_2
+        self.conclusion.totalExpense += payments_1.expense + payments_2.expense
     }
     
 }

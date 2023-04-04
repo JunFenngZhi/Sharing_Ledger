@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditPaymentView: View {
+    let eventName: String
     private let categoryList = [
         Category.Restaurant, Category.Shopping, Category.Tickets, Category.Hotel, Category.Traffic
     ]
@@ -18,11 +19,12 @@ struct EditPaymentView: View {
     @State private var notes = ""
     @State private var date = Date.now
     
-    
+    @EnvironmentObject var storageModel: StorageModel
     @Binding var showEditPaymentView: Bool
 
     
     var body: some View {
+        let event: EventInfo = storageModel.allEvents[eventName]!
         VStack(){
             VStack(alignment: .leading){
                 Text("Category").font(.title2)
@@ -93,6 +95,6 @@ struct EditPaymentView: View {
 
 struct EditPaymentView_Previews: PreviewProvider {
     static var previews: some View {
-        EditPaymentView(showEditPaymentView: .constant(true))
+        EditPaymentView(eventName: "Development", showEditPaymentView: .constant(true)).environmentObject(StorageModel())
     }
 }

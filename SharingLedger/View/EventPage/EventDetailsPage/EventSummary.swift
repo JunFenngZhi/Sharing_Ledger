@@ -11,14 +11,18 @@ struct EventSummary: View {
     var totalExpense: Double
     var body: some View {
         HStack{
-            VStack{
+            VStack(alignment: .leading){
                 Text("$" + String(format:"%.2f",totalExpense))
                     .font(.title)
                     .bold()
                     .foregroundColor(.white)
-                Text("Total Expenses").padding(.horizontal).foregroundColor(.white)
+                Text("Total Expenses")
+                    .foregroundColor(.white)
             }
+            .padding(.horizontal)
+            
             Spacer()
+            
             Button(action: {
                 print("click settle")
                 // TODO: settle the event
@@ -30,7 +34,7 @@ struct EventSummary: View {
             .padding()
         }
         .frame(height: 100)
-        .background(Color(red: 0.436, green: 0.705, blue: 0.791))
+        .background(themeColor)
     }
 }
 

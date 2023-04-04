@@ -8,7 +8,14 @@
 import Foundation
 
 class StorageModel: ObservableObject {
-
     @Published var personInfo: [String: PersonDetail] = [:]
     @Published var allEvents: [String: EventInfo] = [:]
+    
+    init(){
+        initForTest()
+    }
+    
+    func initForTest(){
+        self.allEvents["Development"] = EventInfo(name: "Development")
+    }
 }
