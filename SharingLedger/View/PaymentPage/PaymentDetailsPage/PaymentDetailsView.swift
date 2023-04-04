@@ -14,7 +14,7 @@ struct PaymentDetailsView: View {
             VStack(alignment: .leading){
                 //Text(DateFormatter().string(from: payment.time))
                 HStack{
-                    SmallCircleImage(image: Image("Unknown"))
+                    SmallCircleImage(image: Image("Unknown"), width: 50, height: 50)
                     Text(payment.paymentName).font(.headline)
                     Spacer()
                     Button("Edit✏️") {

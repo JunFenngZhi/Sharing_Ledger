@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EventDetailsView: View {
+    @Binding var showEditPaymentView: Bool
+    
     var body: some View {
         NavigationView {
             VStack{
@@ -34,8 +36,8 @@ struct EventDetailsView: View {
                 
                 
                 Button("New Payment") {
+                    showEditPaymentView.toggle()
                     print("Button pressed!")
-                    //TODO: jump NewPaymentView
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
             }
@@ -46,6 +48,6 @@ struct EventDetailsView: View {
 
 struct EventDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        EventDetailsView()
+        EventDetailsView(showEditPaymentView: .constant(true))
     }
 }
