@@ -22,6 +22,8 @@ struct CategoryPicker: View {
                         Image(categoryList[index].rawValue)
                             .resizable()
                             .frame(width: 50, height: 50)
+                            .colorInvert()
+                            .grayscale(index == selectedCategoryIndex ? 0.5 : 1.0)
                         Text(categoryList[index].rawValue)
                             .fontWeight(.light)
                             .font(.footnote)
@@ -29,14 +31,13 @@ struct CategoryPicker: View {
                     }
                 }
                 .accentColor(index == selectedCategoryIndex ? .blue : .primary) // highlight the button
-                
             }
         }
     }
 }
 
 struct CategoryPicker_Previews: PreviewProvider {
-    @State static var selectedCategoryIndex: Int = 1
+    @State static var selectedCategoryIndex: Int = 0
     static var previews: some View {
         CategoryPicker(categoryList:[.Hotel, .Traffic], selectedCategoryIndex: $selectedCategoryIndex)
     }
