@@ -26,6 +26,7 @@ enum Category: String{
     case Tickets = "Tickets"
 }
 
+
 class PaymentsDetail {
     var paymentName: String
     var expense: Double

@@ -12,7 +12,7 @@ struct ParticipantRow: View {
     let amount: Double
     var body: some View {
         HStack{
-            SmallCircleImage(image: Image("Unknown")) //TODO: update image
+            SmallCircleImage(image: Image("Unknown"), width: 50, height: 50) //TODO: update image
             Text(name)
                 .font(.headline)
                 .padding()

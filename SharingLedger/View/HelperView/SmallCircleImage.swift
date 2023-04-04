@@ -9,10 +9,12 @@ import SwiftUI
 
 struct SmallCircleImage: View {
     var image: Image
+    var width: CGFloat
+    var height: CGFloat
     var body: some View {
         image
             .resizable()
-            .frame(width: 50, height: 50)
+            .frame(width: width, height: height)
             .clipShape(Circle())
             .overlay{
                 Circle().stroke(.gray, lineWidth: 4)
@@ -24,6 +26,6 @@ struct SmallCircleImage: View {
 
 struct SmallCircleImage_Previews: PreviewProvider {
     static var previews: some View {
-        SmallCircleImage(image: Image("testImage"))
+        SmallCircleImage(image: Image("Unknown"), width: 50, height: 50)
     }
 }
