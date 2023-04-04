@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EventView: View {
-    @State var showEditPaymentView: Bool = false
+    @State private var showEditPaymentView: Bool = false
     
     var body: some View {
         ZStack{

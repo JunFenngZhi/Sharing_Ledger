@@ -23,6 +23,7 @@
 		2E0139BD29DB53A1002FFCD0 /* EditPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0139BC29DB53A1002FFCD0 /* EditPaymentView.swift */; };
 		2E0139BF29DB562E002FFCD0 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0139BE29DB562E002FFCD0 /* EventView.swift */; };
 		2E0139C629DBA435002FFCD0 /* CategoryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0139C529DBA435002FFCD0 /* CategoryPicker.swift */; };
+		2E0139C829DC7F00002FFCD0 /* ExpenseAmountInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0139C729DC7F00002FFCD0 /* ExpenseAmountInput.swift */; };
 		2EDD95D329D4E930007B05E5 /* SmallCircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD95CB29D4E930007B05E5 /* SmallCircleImage.swift */; };
 		2EDD95D429D4E930007B05E5 /* GrowingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD95CC29D4E930007B05E5 /* GrowingButtonStyle.swift */; };
 		2EDD95D529D4E930007B05E5 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD95CD29D4E930007B05E5 /* EventSummary.swift */; };
@@ -57,6 +58,7 @@
 		2E0139BC29DB53A1002FFCD0 /* EditPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPaymentView.swift; sourceTree = "<group>"; };
 		2E0139BE29DB562E002FFCD0 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		2E0139C529DBA435002FFCD0 /* CategoryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPicker.swift; sourceTree = "<group>"; };
+		2E0139C729DC7F00002FFCD0 /* ExpenseAmountInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAmountInput.swift; sourceTree = "<group>"; };
 		2EDD95CB29D4E930007B05E5 /* SmallCircleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallCircleImage.swift; sourceTree = "<group>"; };
 		2EDD95CC29D4E930007B05E5 /* GrowingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrowingButtonStyle.swift; sourceTree = "<group>"; };
 		2EDD95CD29D4E930007B05E5 /* EventSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			children = (
 				2E0139BC29DB53A1002FFCD0 /* EditPaymentView.swift */,
 				2E0139C529DBA435002FFCD0 /* CategoryPicker.swift */,
+				2E0139C729DC7F00002FFCD0 /* ExpenseAmountInput.swift */,
 			);
 			path = EditPaymentPage;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				2E0139BD29DB53A1002FFCD0 /* EditPaymentView.swift in Sources */,
 				A80C414B29D4AA4E00A06A43 /* ViewModel.swift in Sources */,
 				2E0139BF29DB562E002FFCD0 /* EventView.swift in Sources */,
+				2E0139C829DC7F00002FFCD0 /* ExpenseAmountInput.swift in Sources */,
 				2EDD95D629D4E930007B05E5 /* EventDetailsView.swift in Sources */,
 				2EDD95D829D4E930007B05E5 /* PaymentRow.swift in Sources */,
 				046C6E5C29D607EF000F82C3 /* HomePageView.swift in Sources */,

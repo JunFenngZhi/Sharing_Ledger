@@ -11,13 +11,15 @@ struct EditPaymentView: View {
     private let categoryList = [
         Category.Restaurant, Category.Shopping, Category.Tickets, Category.Hotel, Category.Traffic
     ]
+
+    @State private var selectedCategory = 0
+    @State private var expenseName = ""
+    @State private var expenseAmount = ""
+    @State private var notes = ""
+    @State private var date = Date.now
+    
     
     @Binding var showEditPaymentView: Bool
-    
-    @State var selectedCategory = 0
-    @State var name = ""
-    @State var amount = ""
-    @State var notes = ""
 
     
     var body: some View {
@@ -32,17 +34,16 @@ struct EditPaymentView: View {
         
             Form{
                 Section(header:Text("Payment name")){
-                    TextField("Enter name", text: $name)
+                    TextField("Enter name", text: $expenseName)
                 }.listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
 
                 Section(header: Text("amaount")){
-                    TextField("$0.00", text: $amount)
-                    //TODO: date picker
+                    ExpenseAmountInput(expenseAmount: $expenseAmount)
                 }.listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                 
                 Section(header:Text("Time")){
-                    Button("select time") {
-                        print("Button pressed!")
+                    DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
+                        Text("Select a date").foregroundColor(.blue)
                     }
                 }.listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                 
@@ -61,8 +62,7 @@ struct EditPaymentView: View {
                 }.listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                 
                 Section(header: Text("notes")){
-                    //TextField("", text: $notes)
-                    Text("\(selectedCategory)")
+                    TextField("", text: $notes)
                 }.listRowInsets(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
             }
             .padding(.horizontal, -8.0)
