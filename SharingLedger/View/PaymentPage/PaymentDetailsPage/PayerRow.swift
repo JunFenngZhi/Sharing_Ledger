@@ -11,7 +11,7 @@ struct PayerRow: View {
     let name: String
     var body: some View {
         HStack{
-            SmallCircleImage(image: Image("Unknown"), width: 50, height: 50) //TODO: update image
+            SmallCircleImage(image: Image("Unknown"), width: 50, height: 50, shadowRadius: 7) //TODO: update image
             Text(name)
                 .font(.headline)
                 .padding()

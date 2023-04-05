@@ -24,6 +24,9 @@
 		2E0139BF29DB562E002FFCD0 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0139BE29DB562E002FFCD0 /* EventView.swift */; };
 		2E0139C629DBA435002FFCD0 /* CategoryPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0139C529DBA435002FFCD0 /* CategoryPicker.swift */; };
 		2E0139C829DC7F00002FFCD0 /* ExpenseAmountInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0139C729DC7F00002FFCD0 /* ExpenseAmountInput.swift */; };
+		2E0139CA29DCFACB002FFCD0 /* SelectPayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0139C929DCFACB002FFCD0 /* SelectPayerView.swift */; };
+		2E0139CC29DDC5C2002FFCD0 /* SelectParticipantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0139CB29DDC5C2002FFCD0 /* SelectParticipantView.swift */; };
+		2E0139CE29DDC7D7002FFCD0 /* SelectedParticipantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0139CD29DDC7D7002FFCD0 /* SelectedParticipantList.swift */; };
 		2EDD95D329D4E930007B05E5 /* SmallCircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD95CB29D4E930007B05E5 /* SmallCircleImage.swift */; };
 		2EDD95D429D4E930007B05E5 /* GrowingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD95CC29D4E930007B05E5 /* GrowingButtonStyle.swift */; };
 		2EDD95D529D4E930007B05E5 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD95CD29D4E930007B05E5 /* EventSummary.swift */; };
@@ -59,6 +62,9 @@
 		2E0139BE29DB562E002FFCD0 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		2E0139C529DBA435002FFCD0 /* CategoryPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPicker.swift; sourceTree = "<group>"; };
 		2E0139C729DC7F00002FFCD0 /* ExpenseAmountInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseAmountInput.swift; sourceTree = "<group>"; };
+		2E0139C929DCFACB002FFCD0 /* SelectPayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPayerView.swift; sourceTree = "<group>"; };
+		2E0139CB29DDC5C2002FFCD0 /* SelectParticipantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectParticipantView.swift; sourceTree = "<group>"; };
+		2E0139CD29DDC7D7002FFCD0 /* SelectedParticipantList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedParticipantList.swift; sourceTree = "<group>"; };
 		2EDD95CB29D4E930007B05E5 /* SmallCircleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallCircleImage.swift; sourceTree = "<group>"; };
 		2EDD95CC29D4E930007B05E5 /* GrowingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrowingButtonStyle.swift; sourceTree = "<group>"; };
 		2EDD95CD29D4E930007B05E5 /* EventSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
@@ -209,6 +215,9 @@
 				2E0139BC29DB53A1002FFCD0 /* EditPaymentView.swift */,
 				2E0139C529DBA435002FFCD0 /* CategoryPicker.swift */,
 				2E0139C729DC7F00002FFCD0 /* ExpenseAmountInput.swift */,
+				2E0139C929DCFACB002FFCD0 /* SelectPayerView.swift */,
+				2E0139CB29DDC5C2002FFCD0 /* SelectParticipantView.swift */,
+				2E0139CD29DDC7D7002FFCD0 /* SelectedParticipantList.swift */,
 			);
 			path = EditPaymentPage;
 			sourceTree = "<group>";
@@ -385,6 +394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E0139CE29DDC7D7002FFCD0 /* SelectedParticipantList.swift in Sources */,
 				04FCBB3529D4BD4400C971F2 /* DukeStorageModel.swift in Sources */,
 				04FCBB2929D0CA6100C971F2 /* Events.swift in Sources */,
 				2EDD95D729D4E930007B05E5 /* PaymentDetailsView.swift in Sources */,
@@ -396,6 +406,8 @@
 				2EDD95E229D65C7C007B05E5 /* OverlapPersonPicture.swift in Sources */,
 				04FCBB3029D3C90500C971F2 /* StorageModel.swift in Sources */,
 				04FCBB3729D4BE6A00C971F2 /* Utilities.swift in Sources */,
+				2E0139CA29DCFACB002FFCD0 /* SelectPayerView.swift in Sources */,
+				2E0139CC29DDC5C2002FFCD0 /* SelectParticipantView.swift in Sources */,
 				2E0139C629DBA435002FFCD0 /* CategoryPicker.swift in Sources */,
 				2EDD95DE29D62964007B05E5 /* PayerRow.swift in Sources */,
 				04FCBB2E29D3C13500C971F2 /* LoginView.swift in Sources */,

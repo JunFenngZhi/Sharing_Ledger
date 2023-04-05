@@ -22,12 +22,12 @@ struct OverlapPersonPicture: View {
                         Circle().stroke(.gray, lineWidth: 4)
                     }
                     .offset(x: -50 + CGFloat(index * 20))
-                    .shadow(radius: 7)
+                    .shadow(radius: 3)
             }
             Circle()
                 .frame(width: 30, height: 30)
                 .foregroundColor(.pink)
-                .shadow(radius: 7)
+                .shadow(radius: 3)
                 .offset(x: -50 + CGFloat(2 * 20))
             Text("\(nameList.count)")
                 .offset(x: -10)

@@ -14,7 +14,7 @@ struct PaymentDetailsView: View {
             VStack(alignment: .leading){
                 //Text(DateFormatter().string(from: payment.time))
                 HStack{
-                    SmallCircleImage(image: Image("Unknown"), width: 50, height: 50)
+                    SmallCircleImage(image: Image("Unknown"), width: 50, height: 50, shadowRadius: 7)
                     Text(payment.paymentName).font(.headline)
                     Spacer()
                     Button("Edit✏️") {
@@ -49,7 +49,7 @@ struct PaymentDetailsView: View {
                 .listRowInsets(EdgeInsets())
 
                 Section(header: Text("Notes: ").font(.subheadline).foregroundColor(.cyan).bold()){
-                    Text(payment.note.texts[0])
+                    Text(payment.note.texts[0]).padding(.horizontal)
                 }
                 .listRowInsets(EdgeInsets())
             }
