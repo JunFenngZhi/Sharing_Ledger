@@ -111,6 +111,7 @@ struct EditPaymentView: View {
                 Spacer()
                 Button(" Conform ") {
                     //TODO: interact with storage model, add new payment
+                    showEditPaymentView.toggle()
                     print("Button pressed!")
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))

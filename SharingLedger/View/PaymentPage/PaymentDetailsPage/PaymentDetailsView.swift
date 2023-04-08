@@ -9,6 +9,10 @@ import SwiftUI
 
 struct PaymentDetailsView: View {
     let payment: PaymentsDetail
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State var showEdit = true
+    
     var body: some View {
         VStack{
             VStack(alignment: .leading){
@@ -18,8 +22,12 @@ struct PaymentDetailsView: View {
                     Text(payment.paymentName).font(.headline)
                     Spacer()
                     Button("Edit✏️") {
+                        showEdit.toggle()
                     }
                     .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
+                    .sheet(isPresented: $showEdit){
+                        // A new view simialr to editPaymentView
+                    }
                 }
                 .padding()
                 
@@ -58,6 +66,7 @@ struct PaymentDetailsView: View {
             
             Button("Delete🗑") {
                 //TODO: delte this payment
+                self.presentationMode.wrappedValue.dismiss()  // jump bakc to previous view
             }
             .buttonStyle(GrowingButton(backGroundColor: .red, foreGroundColor: .white))
         }
