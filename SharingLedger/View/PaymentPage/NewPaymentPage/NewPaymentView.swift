@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EditPaymentView: View {
+struct NewPaymentView: View {
     let eventName: String
     private let categoryList = [
         Category.Restaurant, Category.Shopping, Category.Tickets, Category.Hotel, Category.Traffic
@@ -22,11 +22,12 @@ struct EditPaymentView: View {
     @State private var selectedParticipant: Set<String> = []
     
     @EnvironmentObject var storageModel: StorageModel
-    @Binding var showEditPaymentView: Bool
+    
     @State var showSelectPayerView: Bool = false
     @State var showSelectParticipantView: Bool = false
-
     
+    @Binding var showNewPaymentView: Bool
+
     var body: some View {
         let event: EventInfo = storageModel.allEvents[eventName]!
         VStack(){
@@ -104,14 +105,14 @@ struct EditPaymentView: View {
             HStack{
                 Spacer()
                 Button("  Back  ") {
-                    showEditPaymentView.toggle()
+                    showNewPaymentView.toggle()
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
                 .frame(maxWidth: .infinity, maxHeight: 50)
                 Spacer()
                 Button(" Conform ") {
                     //TODO: interact with storage model, add new payment
-                    showEditPaymentView.toggle()
+                    showNewPaymentView.toggle()
                     print("Button pressed!")
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
@@ -136,6 +137,6 @@ struct EditPaymentView: View {
 
 struct EditPaymentView_Previews: PreviewProvider {
     static var previews: some View {
-        EditPaymentView(eventName: "Development", showEditPaymentView: .constant(true)).environmentObject(StorageModel())
+        NewPaymentView(eventName: "Development", showNewPaymentView: .constant(true)).environmentObject(StorageModel())
     }
 }

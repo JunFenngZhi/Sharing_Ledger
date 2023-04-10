@@ -11,7 +11,7 @@ struct EventDetailsView: View {
     let eventName: String
     
     @EnvironmentObject var storageModel: StorageModel
-    @Binding var showEditPaymentView: Bool
+    @Binding var showNewPaymentView: Bool
     
     var body: some View {
         let event: EventInfo = storageModel.allEvents[eventName]!
@@ -42,7 +42,7 @@ struct EventDetailsView: View {
                 
                 
                 Button("New Payment") {
-                    showEditPaymentView.toggle()
+                    showNewPaymentView.toggle()
                     print("Button pressed!")
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
@@ -54,6 +54,6 @@ struct EventDetailsView: View {
 
 struct EventDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        EventDetailsView(eventName: "Development", showEditPaymentView: .constant(true)).environmentObject(StorageModel())
+        EventDetailsView(eventName: "Development", showNewPaymentView: .constant(true)).environmentObject(StorageModel())
     }
 }

@@ -11,7 +11,7 @@ struct PaymentDetailsView: View {
     let payment: PaymentsDetail
     @Environment(\.presentationMode) var presentationMode
     
-    @State var showEdit = true
+    @State var showEdit = false
     
     var body: some View {
         VStack{
@@ -22,12 +22,10 @@ struct PaymentDetailsView: View {
                     Text(payment.paymentName).font(.headline)
                     Spacer()
                     Button("Edit✏️") {
+                        //TODO: pop out the view to edit payment.
                         showEdit.toggle()
                     }
                     .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
-                    .sheet(isPresented: $showEdit){
-                        // A new view simialr to editPaymentView
-                    }
                 }
                 .padding()
                 

@@ -10,14 +10,14 @@ import SwiftUI
 struct EventView: View {
     let eventName: String
     @EnvironmentObject var storageModel: StorageModel
-    @State private var showEditPaymentView: Bool = false
+    @State private var showNewPaymentView: Bool = false
     
     var body: some View {
         ZStack{
-            if showEditPaymentView == false{
-                EventDetailsView(eventName: "Development", showEditPaymentView: $showEditPaymentView)
+            if showNewPaymentView == false{
+                EventDetailsView(eventName: "Development", showNewPaymentView: $showNewPaymentView)
             }else{
-                EditPaymentView(eventName: "Development", showEditPaymentView: $showEditPaymentView)
+                NewPaymentView(eventName: "Development", showNewPaymentView: $showNewPaymentView)
             }
             
         }
