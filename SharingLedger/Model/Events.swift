@@ -56,13 +56,13 @@ class PaymentsDetail {
 class EventConclusion {
     var totalExpense: Double
     var personExpense: [String: Double] = [:]  // count the amount of expense for each participants. Expense = spend - pay
-    var transferList: [String: [String:Double]] =  [:] // {a:[b pays a 100],[c pays a 50]...}
+    var allSettlementResults: [String: [(String,Double)]] =  [:] // {a:[b pays a 100],[c pays a 50]...}
     
     init(participates: [String]) {
         self.totalExpense = 0
         for personName in participates{
             personExpense[personName] = 0
-            transferList[personName] = [:]
+            allSettlementResults[personName] = []
         }
     }
     
