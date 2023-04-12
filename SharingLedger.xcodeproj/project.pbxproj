@@ -32,6 +32,7 @@
 		2EBBE63C29E4AAD000FCB744 /* SettlementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBE63B29E4AAD000FCB744 /* SettlementView.swift */; };
 		2EBBE64029E4E64B00FCB744 /* PersonRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBE63F29E4E64B00FCB744 /* PersonRow.swift */; };
 		2EBBE64229E5B14900FCB744 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBE64129E5B14900FCB744 /* DetailsView.swift */; };
+		2EBBE64829E7383700FCB744 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBE64729E7383700FCB744 /* HelperFunctions.swift */; };
 		2EDD95D329D4E930007B05E5 /* SmallCircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD95CB29D4E930007B05E5 /* SmallCircleImage.swift */; };
 		2EDD95D429D4E930007B05E5 /* GrowingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD95CC29D4E930007B05E5 /* GrowingButtonStyle.swift */; };
 		2EDD95D529D4E930007B05E5 /* EventSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDD95CD29D4E930007B05E5 /* EventSummary.swift */; };
@@ -75,6 +76,7 @@
 		2EBBE63B29E4AAD000FCB744 /* SettlementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettlementView.swift; sourceTree = "<group>"; };
 		2EBBE63F29E4E64B00FCB744 /* PersonRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRow.swift; sourceTree = "<group>"; };
 		2EBBE64129E5B14900FCB744 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
+		2EBBE64729E7383700FCB744 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		2EDD95CB29D4E930007B05E5 /* SmallCircleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmallCircleImage.swift; sourceTree = "<group>"; };
 		2EDD95CC29D4E930007B05E5 /* GrowingButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrowingButtonStyle.swift; sourceTree = "<group>"; };
 		2EDD95CD29D4E930007B05E5 /* EventSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventSummary.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				04FCBB2129D0C73400C971F2 /* Resources */,
 				04FCBB1329D0C71800C971F2 /* SharingLedgerApp.swift */,
 				04FCBB1529D0C71800C971F2 /* ContentView.swift */,
+				2EBBE64729E7383700FCB744 /* HelperFunctions.swift */,
 				04FCBB1729D0C71C00C971F2 /* Assets.xcassets */,
 				A802860329D3E2DD007EE814 /* GoogleService-Info.plist */,
 				04FCBB1929D0C71C00C971F2 /* Preview Content */,
@@ -417,6 +420,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EBBE64829E7383700FCB744 /* HelperFunctions.swift in Sources */,
 				2E0139CE29DDC7D7002FFCD0 /* SelectedParticipantList.swift in Sources */,
 				04FCBB3529D4BD4400C971F2 /* DukeStorageModel.swift in Sources */,
 				04FCBB2929D0CA6100C971F2 /* Events.swift in Sources */,

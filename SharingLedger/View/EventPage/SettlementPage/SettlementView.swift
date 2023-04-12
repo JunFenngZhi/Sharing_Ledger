@@ -28,7 +28,8 @@ struct SettlementView: View {
             }.background(themeColor)
             
             Text("Reminder: This app only provides the settlement plan. The actual payments need to be done using other methods, like transfering through venmo or zelle.")
-                .font(.subheadline).foregroundColor(.gray)
+                .font(.subheadline)
+                .foregroundColor(.gray)
                 .padding(.vertical, -5)
             
             List{
@@ -36,15 +37,18 @@ struct SettlementView: View {
                     let personName = event.participates[index]
                     
                     VStack {
-                        PersonRow(picture: Image("Unknown"), name: personName, payAmount: conclusion.personExpense[personName]!, index: index, selectedRow: $selectedRow)
-                            .padding(.vertical, 10).padding(.leading, -10)
+                        PersonRow(picture: Image("Unknown"), name: personName, payAmount: conclusion.personExpenseList[personName]!, index: index, selectedRow: $selectedRow)
+                        .padding(.vertical, 10)
+                        .padding(.leading, -10)
                         .onTapGesture {
                             selectedRow = selectedRow == index ? nil : index
                         }
                         
                         // settlement details for each person
                         if selectedRow == index {
-                            DetailsView(myName: "Junfeng", transferList: [("DingZhou Wang", 123.45),("Suchuan Xing", -456.78)]).padding(.horizontal, -40)
+                            DetailsView(myName: personName, transferList: conclusion.allSettlementResults[personName]!)
+                            .padding(.horizontal, -40)
+                            .padding(.vertical)
                         }
                     }
                 }

@@ -59,7 +59,7 @@ struct DetailsView: View {
                             //TODO: add notification
                         } label: {
                             Text("Notify").font(.title2)
-                                .foregroundColor(amount > 0 ? Color.red : Color.green)
+                                .foregroundColor(amount > 0 && isZero_Double(num: abs(amount)) == false ? Color.red : Color.green)
                         }.offset(x:-15)
                     }.padding(.horizontal, 30)
                 }

@@ -26,7 +26,7 @@ struct EventDetailsView: View {
                 }
                 .padding([.trailing, .leading])
                 
-                EventSummary(totalExpense: event.conclusion.totalExpense, viewType: $viewType)
+                EventSummary(eventName: eventName, viewType: $viewType)
                 
                 List{
                     ForEach(Array(event.payments.keys), id: \.self) { name in // TODO: payments order may varied. sorted by key/time

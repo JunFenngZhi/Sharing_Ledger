@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct EventSummary: View {
-    var totalExpense: Double
+    let eventName: String
+    
     @Binding var viewType: ViewType
+    @EnvironmentObject var storageModel: StorageModel
     
     var body: some View {
+        let curEvent = storageModel.allEvents[eventName]!
         HStack{
             VStack(alignment: .leading){
-                Text("$" + String(format:"%.2f",totalExpense))
+                Text("$" + String(format:"%.2f",curEvent.conclusion.totalExpense))
                     .font(.title)
                     .bold()
                     .foregroundColor(.white)
@@ -27,6 +30,7 @@ struct EventSummary: View {
             
             Button(action: {
                 print("click settle")
+                curEvent.conclusion.settle(participates: curEvent.participates, allPayments: curEvent.payments)
                 viewType = .SettlementView
             }, label: {
                 Text("Settle >")
@@ -43,6 +47,6 @@ struct EventSummary: View {
 struct EventSummary_Previews: PreviewProvider {
     @State static var viewType: ViewType = .EventDetailsView
     static var previews: some View {
-        EventSummary(totalExpense: 1234.56, viewType: $viewType)
+        EventSummary(eventName: "Development", viewType: $viewType).environmentObject(StorageModel())
     }
 }

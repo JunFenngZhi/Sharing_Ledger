@@ -23,7 +23,7 @@ struct PersonRow: View {
             Spacer()
             Text(payAmount > 0 ? "pay: $" + String(format:"%.2f", payAmount) : "get:$ " + String(format:"%.2f", abs(payAmount)))
                 .font(.subheadline)
-                .foregroundColor(payAmount > 0 ? .red: .green)
+                .foregroundColor(payAmount > 0 && isZero_Double(num: abs(payAmount)) == false ? .red: .green)
         }
     }
 }
