@@ -110,36 +110,36 @@ class PaymentsDetail: Codable {
 
 class EventConclusion {
     var totalExpense: Double
-    //may contain other info
-    init() {
+    var personExpense: [String: Double] = [:]  // count the amount of expense for each participants. Expense = spend - pay
+    var allSettlementResults: [String: [(String,Double)]] =  [:] // {a:[b pays a 100],[c pays a 50]...}
+    
+    init(participates: [String]) {
         self.totalExpense = 0
+        for personName in participates{
+            personExpense[personName] = 0
+            allSettlementResults[personName] = []
+        }
     }
+    
+    func settle(){
+        //TODO: calculate transferList, this function needs to be called when enter settle page,
+    }
+    //TODO: totalExpense, personExpense needs to be updated when add/delete payments
+    //TODO: EventConclusion needs to update if more people are invited to current event.
 }
 
 class EventInfo {
     var eventname: String
     var conclusion: EventConclusion
-    var payments: [String: PaymentsDetail] // paymentName: PaymentsDetail.id
+    var payments: [String: PaymentsDetail] = [:] // paymentName: PaymentsDetail.id
     var participates: [String]  //TODO: check participates are not repeated?
     
-    init(name: String) {
-        self.eventname = name
-        self.conclusion = EventConclusion()
-        self.payments = [:]
-        self.participates = []
-        
-        initForTest() // only for preview test
+    init(eventName: String, participates: [String]) {
+        self.eventname = eventName
+        self.participates = participates
+        self.conclusion = EventConclusion(participates: participates)
     }
-    
-    private func initForTest() {
-        self.participates = ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing","youKnowWho"]
-        let payments_1 = PaymentsDetail(paymentName: "chick-fil-a", expense: 23.45, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Junfeng Zhi"], note: "lunch", time: Date.now)
-        let payments_2 = PaymentsDetail(paymentName: "nuro taco", expense: 45.67, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Suchuan Xing"], note: "dinner", time: Date.now)
-        self.payments["chick-fil-a"] = payments_1
-        self.payments["nuro taco"] = payments_2
-        self.conclusion.totalExpense += payments_1.expense + payments_2.expense
-    }
-    
+
 }
 
 class AllEvents { //TODO: add to firestore

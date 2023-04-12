@@ -26,7 +26,7 @@ struct NewPaymentView: View {
     @State var showSelectPayerView: Bool = false
     @State var showSelectParticipantView: Bool = false
     
-    @Binding var showNewPaymentView: Bool
+    @Binding var viewType: ViewType
 
     var body: some View {
         let event: EventInfo = storageModel.allEvents[eventName]!
@@ -105,14 +105,14 @@ struct NewPaymentView: View {
             HStack{
                 Spacer()
                 Button("  Back  ") {
-                    showNewPaymentView.toggle()
+                    viewType = .EventDetailsView
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
                 .frame(maxWidth: .infinity, maxHeight: 50)
                 Spacer()
                 Button(" Conform ") {
                     //TODO: interact with storage model, add new payment
-                    showNewPaymentView.toggle()
+                    viewType = .EventDetailsView
                     print("Button pressed!")
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
@@ -135,8 +135,9 @@ struct NewPaymentView: View {
     }
 }
 
-struct EditPaymentView_Previews: PreviewProvider {
+struct NewPaymentView_Previews: PreviewProvider {
+    @State static var viewType: ViewType = .NewPaymentView
     static var previews: some View {
-        NewPaymentView(eventName: "Development", showNewPaymentView: .constant(true)).environmentObject(StorageModel())
+        NewPaymentView(eventName: "Development", viewType: $viewType).environmentObject(StorageModel())
     }
 }
