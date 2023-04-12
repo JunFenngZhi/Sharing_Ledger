@@ -27,4 +27,22 @@ class StorageModel: ObservableObject { //TODO: add to firestore
         personInfo["Dingzhou Wang"] = PersonDetail(id: "b", lname: "Wang", fname: "Dingzhou", joinedEventNames: [])
         personInfo["Junfeng Zhi"] = PersonDetail(id: "c", lname: "Zhi", fname: "Junfeng", joinedEventNames: [])
     }
+    
+    
+    private func buildPersonDetailFromDukePerson(dukePerson: DukePerson) -> PersonDetail{
+        var id: String = dukePerson.firstname + " " + dukePerson.lastname
+        var lname: String = dukePerson.lastname
+        var fname: String = dukePerson.firstname
+        var personDetail: PersonDetail = PersonDetail(id: id, lname: lname, fname: fname, joinedEventNames: [])
+        personDetail.picture = dukePerson.picture
+        return personDetail
+    }
+    
+    func initFromDukeStorageModel(dukeStorageModel: DukeStorageModel){
+        for netid in dukeStorageModel.personDict.keys {
+            var dukePerson: DukePerson = dukeStorageModel.personDict[netid]!
+            var personDetail: PersonDetail = buildPersonDetailFromDukePerson(dukePerson: dukePerson)
+            personInfo[personDetail.firstname + " " + personDetail.lastname] = personDetail
+        }
+    }
 }

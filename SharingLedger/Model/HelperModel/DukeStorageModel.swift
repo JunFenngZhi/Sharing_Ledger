@@ -25,10 +25,10 @@ class DukeStorageModel: ObservableObject {
 
     
     //this is for Replace
-    func getDataFromServer(){
+    func getDataFromServer(storageModel: StorageModel){
         //var res : [String : DukePerson] = [:]
         //let decoder = JSONDecoder()
-        
+        print("start get data from server")
         let getAllHttp_URL = URL(string: getAllHttpString)!
         var urlRequest = URLRequest(url: getAllHttp_URL)
         urlRequest.httpMethod = "GET"
@@ -71,6 +71,8 @@ class DukeStorageModel: ObservableObject {
                             
                         }
                         self.personDict = res
+                        //this is update
+                        storageModel.initFromDukeStorageModel(dukeStorageModel: self)
                         print(self.personDict["ys331"] as Any)
                         
                     } catch let error {

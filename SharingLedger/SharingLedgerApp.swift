@@ -10,14 +10,23 @@ import FirebaseCore
 
 @main
 struct SharingLedgerApp: App {
-
+    @StateObject private var storageModel = StorageModel()
+    @StateObject private var dukeStorageModel = DukeStorageModel()
+    
     init(){
         FirebaseApp.configure()
+        
+        
     }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            EntryView()
+                .environmentObject(storageModel)
+                .onAppear(){
+                    dukeStorageModel.getDataFromServer(storageModel: storageModel)
+                    print("start init storageModel")
+                }
         }
     }
 }
