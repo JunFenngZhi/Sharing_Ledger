@@ -22,5 +22,9 @@ class StorageModel: ObservableObject { //TODO: add to firestore
         self.allEvents["Development"]?.payments["chick-fil-a"] = payments_1
         self.allEvents["Development"]?.payments["nuro taco"] = payments_2
         //self.allEvents["Development"]?.conclusion.totalExpense += payments_1.expense + payments_2.expense
+        
+        personInfo["Suchuan Xing"] = PersonDetail(id: "a", lname: "Xing", fname: "Suchuan", joinedEventNames: [])
+        personInfo["Dingzhou Wang"] = PersonDetail(id: "b", lname: "Wang", fname: "Dingzhou", joinedEventNames: [])
+        personInfo["Junfeng Zhi"] = PersonDetail(id: "c", lname: "Zhi", fname: "Junfeng", joinedEventNames: [])
     }
 }
