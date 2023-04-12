@@ -11,7 +11,7 @@ struct EventDetailsView: View {
     let eventName: String
     
     @EnvironmentObject var storageModel: StorageModel
-    @Binding var showNewPaymentView: Bool
+    @Binding var viewType: ViewType
     
     var body: some View {
         let event: EventInfo = storageModel.allEvents[eventName]!
@@ -26,7 +26,7 @@ struct EventDetailsView: View {
                 }
                 .padding([.trailing, .leading])
                 
-                EventSummary(totalExpense: event.conclusion.totalExpense)
+                EventSummary(totalExpense: event.conclusion.totalExpense, viewType: $viewType)
                 
                 List{
                     ForEach(Array(event.payments.keys), id: \.self) { name in // TODO: payments order may varied. sorted by key/time
@@ -42,7 +42,7 @@ struct EventDetailsView: View {
                 
                 
                 Button("New Payment") {
-                    showNewPaymentView.toggle()
+                    viewType = .NewPaymentView
                     print("Button pressed!")
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
@@ -53,7 +53,8 @@ struct EventDetailsView: View {
 }
 
 struct EventDetailsView_Previews: PreviewProvider {
+    @State static var viewType: ViewType = .EventDetailsView
     static var previews: some View {
-        EventDetailsView(eventName: "Development", showNewPaymentView: .constant(true)).environmentObject(StorageModel())
+        EventDetailsView(eventName: "Development", viewType: $viewType).environmentObject(StorageModel())
     }
 }

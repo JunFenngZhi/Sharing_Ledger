@@ -13,6 +13,7 @@ struct SettlementView: View {
     @EnvironmentObject var storageModel: StorageModel
     
     @State var selectedRow: Int?
+    @Binding var viewType: ViewType
 
     var body: some View {
         let event: EventInfo = storageModel.allEvents[eventName]!
@@ -55,7 +56,7 @@ struct SettlementView: View {
     
     private var backButton: some View {
         Button(action: {
-            //presentationMode.wrappedValue.dismiss()
+            viewType = .EventDetailsView
         }, label: {
             HStack {
                 Image(systemName: "arrow.left")
@@ -67,7 +68,8 @@ struct SettlementView: View {
 }
 
 struct SettlementView_Previews: PreviewProvider {
+    @State static var viewType: ViewType = .SettlementView
     static var previews: some View {
-        SettlementView(eventName: "Development").environmentObject(StorageModel())
+        SettlementView(eventName: "Development", viewType: $viewType).environmentObject(StorageModel())
     }
 }

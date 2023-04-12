@@ -7,17 +7,25 @@
 
 import SwiftUI
 
+enum ViewType: String{
+    case EventDetailsView = "EventDetails"
+    case NewPaymentView = "NewPaymentView"
+    case SettlementView = "SettlementView"
+}
+
 struct EventView: View {
     let eventName: String
     @EnvironmentObject var storageModel: StorageModel
-    @State private var showNewPaymentView: Bool = false
+    @State private var viewType: ViewType  = .EventDetailsView
     
     var body: some View {
         ZStack{
-            if showNewPaymentView == false{
-                EventDetailsView(eventName: "Development", showNewPaymentView: $showNewPaymentView)
+            if viewType == .EventDetailsView{
+                EventDetailsView(eventName: "Development", viewType: $viewType)
+            }else if viewType == .NewPaymentView{
+                NewPaymentView(eventName: "Development", viewType: $viewType)
             }else{
-                NewPaymentView(eventName: "Development", showNewPaymentView: $showNewPaymentView)
+                SettlementView(eventName: "Development", viewType: $viewType)
             }
             
         }

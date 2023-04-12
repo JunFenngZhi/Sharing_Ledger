@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EventSummary: View {
     var totalExpense: Double
+    @Binding var viewType: ViewType
+    
     var body: some View {
         HStack{
             VStack(alignment: .leading){
@@ -25,7 +27,7 @@ struct EventSummary: View {
             
             Button(action: {
                 print("click settle")
-                // TODO: settle the event
+                viewType = .SettlementView
             }, label: {
                 Text("Settle >")
                     .foregroundColor(.white)
@@ -39,7 +41,8 @@ struct EventSummary: View {
 }
 
 struct EventSummary_Previews: PreviewProvider {
+    @State static var viewType: ViewType = .EventDetailsView
     static var previews: some View {
-        EventSummary(totalExpense: 1234.56)
+        EventSummary(totalExpense: 1234.56, viewType: $viewType)
     }
 }
