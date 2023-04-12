@@ -7,7 +7,7 @@
 
 import Foundation
 
-class StorageModel: ObservableObject {
+class StorageModel: ObservableObject { //TODO: add to firestore
     @Published var personInfo: [String: PersonDetail] = [:]
     @Published var allEvents: [String: EventInfo] = [:]
     

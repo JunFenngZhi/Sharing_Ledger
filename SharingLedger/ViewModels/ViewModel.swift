@@ -51,6 +51,20 @@ class ViewModel: ObservableObject{
                 
             }
         }
+        
+//        let p_detail = PaymentsDetail(paymentName: "test_payment1", expense: 1234, category: Category.Restaurant, participates: ["Suchuan Xing", "Dingzhou Wang"], payers: ["Suchuan Xing"], note: "test_note", time: Date())
+//
+//        let dict: [String: PaymentsDetail] = ["test_payment_name": p_detail]
+//        db.collection("EventInfo").addDocument(data: ["conclusion":100, "eventname":"test_event_name", "participates":["Suchuan Xing", "Dingzhou Wang"], "payments": dict]){ error in
+//            // Check error
+//            if error == nil{
+//                // get data to retrieve latest data
+//                self.getData()
+//            }
+//            else{
+//                print(error!)
+//            }
+//        }
     }
     
     func deleteData(toDelete: PersonDetail){
@@ -82,5 +96,46 @@ class ViewModel: ObservableObject{
             
         }
     }
+    
+    public struct City: Codable {
+
+        let name: String
+        let state: String?
+        let country: String?
+        let isCapital: Bool?
+        let population: Int64?
+
+        enum CodingKeys: String, CodingKey {
+            case name
+            case state
+            case country
+            case isCapital = "capital"
+            case population
+        }
+
+    }
+    
+    func updateData_(toUpdate: PersonDetail) {
+        let city = City(name: "Los Angeles",
+                        state: "CA",
+                        country: "USA",
+                        isCapital: false,
+                        population: 5000000)
+        
+        let p_detail = PaymentsDetail(paymentName: "test_payment1", expense: 1234, category: Category.Restaurant, participates: ["Suchuan Xing", "Dingzhou Wang"], payers: ["Suchuan Xing"], note: "test_note", time: Date())
+
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(p_detail)
+            let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+
+            let db = Firestore.firestore()
+            try db.collection("PaymentsDetail").document("ID1").setData(dictionary)
+        } catch let error {
+            print("Error writing city to Firestore: \(error)")
+        }
+    }
+
+    
     
 }

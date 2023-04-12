@@ -27,7 +27,7 @@ struct ContentView: View {
                     
                     //update
                     Button {
-                        model.updateData(toUpdate: item)
+                        model.updateData_(toUpdate: item)
                     } label: {
                         Image(systemName: "pencil")
                     }
