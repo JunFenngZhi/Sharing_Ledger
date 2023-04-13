@@ -53,8 +53,9 @@ struct ContentView: View {
                 
                 TextField("joinedEventNames", text: $joinedEventNames)
                 
+                let pd = PersonDetail(id: "test_id1", lname: lastname, fname: firstname, joinedEventNames: joinedEventNames.components(separatedBy: ","))
                 Button(action: {
-                    model.addData(firstname: firstname, lastname: lastname, joinedEventNames: joinedEventNames.components(separatedBy: ","))
+                    model.addData(toAdd: pd)
                     lastname = ""
                     firstname = ""
                     joinedEventNames = ""

@@ -39,9 +39,11 @@ class ViewModel: ObservableObject{
         
     }
     
-    func addData(firstname: String, lastname: String, joinedEventNames: [String]){
+    //    func addData(firstname: String, lastname: String, joinedEventNames: [String]){
+    func addData(toAdd: PersonDetail){
+
         let db = Firestore.firestore()
-        db.collection("PersonDetail").addDocument(data: ["firstname":firstname, "lastname":lastname, "joinedEventNames":joinedEventNames]){ error in
+        db.collection("PersonDetail").document(toAdd.id).setData(["firstname":toAdd.firstname, "lastname":toAdd.lastname, "joinedEventNames":toAdd.joinedEventNames]){ error in
             // Check error
             if error == nil{
                 // get data to retrieve latest data
