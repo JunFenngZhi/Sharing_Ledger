@@ -41,7 +41,9 @@ struct EventDetailsView: View {
             
             
             Button("New Payment") {
-                viewType = .NewPaymentView
+                withAnimation {
+                    viewType = .NewPaymentView
+                }
                 print("Button pressed!")
             }
             .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))

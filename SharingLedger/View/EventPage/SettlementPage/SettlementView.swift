@@ -21,9 +21,8 @@ struct SettlementView: View {
         VStack{
             HStack{
                 backButton
-                Spacer()
-                Text("Settlement Page").font(.title).bold()
-                    .offset(x: -10)
+                Text("Settlement Page").font(.title2).bold()
+                    .offset(x:30)
                 Spacer()
             }.background(themeColor)
             
@@ -63,7 +62,9 @@ struct SettlementView: View {
             viewType = .EventDetailsView
         }, label: {
             HStack {
-                Image(systemName: "arrow.left")
+                Image(systemName: "chevron.backward")
+                Text("Event")
+                    .offset(x: -5)
             }
         })
         .foregroundColor(.blue)

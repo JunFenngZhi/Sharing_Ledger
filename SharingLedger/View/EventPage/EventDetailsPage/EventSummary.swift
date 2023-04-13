@@ -31,7 +31,10 @@ struct EventSummary: View {
             Button(action: {
                 print("click settle")
                 curEvent.conclusion.settle(participates: curEvent.participates, allPayments: curEvent.payments)
-                viewType = .SettlementView
+                withAnimation {
+                    viewType = .SettlementView
+                }
+                
             }, label: {
                 Text("Settle >")
                     .foregroundColor(.white)
