@@ -24,8 +24,10 @@ struct EventView: View {
                 EventDetailsView(eventName: "Development", viewType: $viewType)
             }else if viewType == .NewPaymentView{
                 NewPaymentView(eventName: "Development", viewType: $viewType)
+                    .navigationBarBackButtonHidden(true)
             }else{
                 SettlementView(eventName: "Development", viewType: $viewType)
+                    .navigationBarBackButtonHidden(true)
             }
             
         }

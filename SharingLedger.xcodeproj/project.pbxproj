@@ -155,11 +155,11 @@
 				04FCBB2329D0C75200C971F2 /* View */,
 				04FCBB2229D0C74700C971F2 /* Model */,
 				A80C414929D4AA3500A06A43 /* ViewModels */,
+				2EBBE64929E854D300FCB744 /* Helper */,
 				04FCBB2129D0C73400C971F2 /* Resources */,
 				04FCBB1329D0C71800C971F2 /* SharingLedgerApp.swift */,
 				046C6E6E29E7654D000F82C3 /* EntryView.swift */,
 				04FCBB1529D0C71800C971F2 /* ContentView.swift */,
-				2EBBE64729E7383700FCB744 /* HelperFunctions.swift */,
 				04FCBB1729D0C71C00C971F2 /* Assets.xcassets */,
 				A802860329D3E2DD007EE814 /* GoogleService-Info.plist */,
 				04FCBB1929D0C71C00C971F2 /* Preview Content */,
@@ -285,6 +285,14 @@
 				2EBBE64129E5B14900FCB744 /* DetailsView.swift */,
 			);
 			path = SettlementPage;
+			sourceTree = "<group>";
+		};
+		2EBBE64929E854D300FCB744 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				2EBBE64729E7383700FCB744 /* HelperFunctions.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		2EDD95CA29D4E930007B05E5 /* HelperView */ = {
