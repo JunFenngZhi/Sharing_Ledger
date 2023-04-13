@@ -29,6 +29,15 @@ struct HomePageView: View {
                 Text("Sharing Ledger")
                     .font(.custom("Inter", size: 30))
                     .fontWeight(.bold)
+                HStack{
+                    SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[name]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                    Text("Welcome, " + name + " !")
+                        .font(.custom("Inter", size: 15))
+                        .fontWeight(.bold)
+                    Spacer()
+                }
+                .padding(.leading)
+                
                 
                 AddEventRow()
                 
