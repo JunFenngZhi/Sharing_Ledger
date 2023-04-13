@@ -27,7 +27,7 @@ struct LoginRow: View {
 
 struct LoginRow_Previews: PreviewProvider {
     static var previews: some View {
-        LoginRow(personDetail: PersonDetail(id: "", lname: "Xing", fname: "Suchuan", joinedEventNames: []))
+        LoginRow(personDetail: PersonDetail(id: "", lname: "Xing", fname: "Suchuan", joinedEventNames: [])).environmentObject(StorageModel())
     }
 }
 

@@ -152,9 +152,9 @@
 		04FCBB1229D0C71800C971F2 /* SharingLedger */ = {
 			isa = PBXGroup;
 			children = (
-				A80C414929D4AA3500A06A43 /* ViewModels */,
 				04FCBB2329D0C75200C971F2 /* View */,
 				04FCBB2229D0C74700C971F2 /* Model */,
+				A80C414929D4AA3500A06A43 /* ViewModels */,
 				04FCBB2129D0C73400C971F2 /* Resources */,
 				04FCBB1329D0C71800C971F2 /* SharingLedgerApp.swift */,
 				046C6E6E29E7654D000F82C3 /* EntryView.swift */,

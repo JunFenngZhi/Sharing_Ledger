@@ -51,6 +51,6 @@ struct HomePageView: View {
 
 struct HomePageView_Previews: PreviewProvider {
     static var previews: some View {
-        HomePageView(name: "Suchuan Xing")
+        HomePageView(name: "Suchuan Xing").environmentObject(StorageModel())
     }
 }

@@ -63,6 +63,6 @@ struct HomePageRow: View {
 
 struct HomePageRow_Previews: PreviewProvider {
     static var previews: some View {
-        HomePageRow(eventName: "a test name")
+        HomePageRow(eventName: "Development").environmentObject(StorageModel())
     }
 }
