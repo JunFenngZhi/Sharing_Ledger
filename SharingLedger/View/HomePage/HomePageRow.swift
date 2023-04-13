@@ -36,9 +36,6 @@ struct HomePageRow: View {
                             SmallCircleImage(image: Image(uiImage: imageFromString(storageModel.personInfo[storageModel.allEvents[eventName]!.participates[i]]!.picture)), width: 35, height: 35, shadowRadius: 0)
                         }
                         
-                        ForEach(0..<(4-joinedPeopleNumber)) { i in
-                            SmallCircleImage(image: Image("Unknown"), width: 35, height: 35, shadowRadius: 0)
-                        }
                         
                         
                         
