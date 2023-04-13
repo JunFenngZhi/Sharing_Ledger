@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomePageView: View {
     @EnvironmentObject var storageModel: StorageModel
+    @State private var showSheet = false
     
     var name: String
     var joinedEventList: [EventInfo] {
@@ -31,15 +32,23 @@ struct HomePageView: View {
                     .fontWeight(.bold)
                 HStack{
                     SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[name]!.picture)), width: 28, height: 28, shadowRadius: 0)
-                    Text("Welcome, " + name + " !")
+                    Text("Welcome, " + name + "!")
                         .font(.custom("Inter", size: 15))
                         .fontWeight(.bold)
                     Spacer()
                 }
                 .padding(.leading)
                 
+                Button {
+                    showSheet = true
+                }label: {
+                    AddEventRow()
+                        .sheet(isPresented: $showSheet){
+                            NewLedgerView(isNewLedgerShown: $showSheet)
+                                .environmentObject(storageModel)
+                        }
+                }
                 
-                AddEventRow()
                 
                 ForEach(joinedEventList, id: \.self){eventInfo in
                     NavigationLink {
