@@ -25,6 +25,7 @@ struct SharingLedgerApp: App {
                 .environmentObject(storageModel)
                 .onAppear(){
                     dukeStorageModel.getDataFromServer(storageModel: storageModel)
+                    
                     print("start init storageModel")
                 }
         }

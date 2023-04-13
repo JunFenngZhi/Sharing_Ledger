@@ -10,12 +10,12 @@ import SwiftUI
 
 struct LoginRow: View {
     
-    
+    @EnvironmentObject var storageModel: StorageModel
     var personDetail: PersonDetail
     
     var body: some View {
         HStack{
-            Image(uiImage: imageFromString(personDetail.picture))
+            Image(uiImage: imageFromString(storageModel.personInfo[personDetail.firstname+" "+personDetail.lastname]!.picture))
                 .resizable()
                 .frame(width: 50, height: 50)
             Text(personDetail.firstname + " " + personDetail.lastname)

@@ -8,6 +8,14 @@
 import SwiftUI
 
 struct HomePageRow: View {
+    @EnvironmentObject var storageModel: StorageModel
+    let eventName: String
+    var joinedPeopleNumber: Int {
+        return storageModel.allEvents[eventName]!.participates.count >= 4 ? 4 : storageModel.allEvents[eventName]!.participates.count
+    }
+    
+    
+    
     var body: some View {
         VStack{
             HStack{
@@ -21,20 +29,21 @@ struct HomePageRow: View {
                     .frame(width: 332, height: 133)
                     .shadow(color: Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.25)), radius:4, x:0, y:4)
                 VStack{
-                    Text("Alaska").font(.custom("Inter Bold", size: 14)).multilineTextAlignment(.center)
+                    Text(eventName).font(.custom("Inter Bold", size: 14)).multilineTextAlignment(.center)
                     
                     HStack{
+                        ForEach(0..<joinedPeopleNumber) { i in
+                            SmallCircleImage(image: Image(uiImage: imageFromString(storageModel.personInfo[storageModel.allEvents[eventName]!.participates[i]]!.picture)), width: 35, height: 35, shadowRadius: 0)
+                        }
                         
-                        SmallCircleImage(image: Image("Unknown"), width: 35, height: 35, shadowRadius: 0)
-                        SmallCircleImage(image: Image("Unknown"), width: 35, height: 35, shadowRadius: 0)
-                        SmallCircleImage(image: Image("Unknown"), width: 35, height: 35, shadowRadius: 0)
-                        SmallCircleImage(image: Image("Unknown"), width: 35, height: 35, shadowRadius: 0)
+                        ForEach(0..<(4-joinedPeopleNumber)) { i in
+                            SmallCircleImage(image: Image("Unknown"), width: 35, height: 35, shadowRadius: 0)
+                        }
+                        
+                        
                         
                         Text("...").font(.custom("Inter Bold", size: 14)).multilineTextAlignment(.center)
-                        
-                        Circle()
-                            .fill(Color(#colorLiteral(red: 0.1585937738418579, green: 0.7221303582191467, blue: 0.8458333611488342, alpha: 1)))
-                        .frame(width: 40, height: 40)
+                        PlusButton()
                         
                         
                     }
@@ -57,6 +66,6 @@ struct HomePageRow: View {
 
 struct HomePageRow_Previews: PreviewProvider {
     static var previews: some View {
-        HomePageRow()
+        HomePageRow(eventName: "a test name")
     }
 }

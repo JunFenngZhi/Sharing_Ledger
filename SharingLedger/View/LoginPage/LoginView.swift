@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject var storageModel: StorageModel
     
+    @State private var showingWelcomeView = false
     var personlist: [PersonDetail] {
         var res: [PersonDetail] = []
         for person in storageModel.personInfo.values {
@@ -20,19 +21,28 @@ struct LoginView: View {
     
     var body: some View {
         VStack{
-            Text("Welcome To Sharing Ledger")
-                .lineLimit(2)
-                .font(.custom("Inter", size: 40))
-            
             NavigationView {
-                List(personlist) { person in
-                    NavigationLink {
-                        HomePageView()
-                    } label: {
-                        LoginRow(personDetail: person)
+                VStack{
+                    Text("Welcome To Sharing Ledger")
+                        .lineLimit(2)
+                        .font(.custom("Inter", size: 40))
+                    Divider()
+                    
+                    Text("Who Are You?")
+                        .lineLimit(2)
+                        .font(.custom("AmericanTypewriter", size: 25))
+                    
+                    List(personlist) { person in
+                        NavigationLink {
+                            HomePageView(name: person.firstname + " " + person.lastname)
+                                .environmentObject(storageModel)
+                        } label: {
+                            LoginRow(personDetail: person)
+                                .environmentObject(storageModel)
+                        }
                     }
+                    
                 }
-                .navigationTitle("Who Are You?")
             }
         }
     }

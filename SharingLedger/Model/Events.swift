@@ -190,6 +190,18 @@ class EventInfo {
 
 }
 
+extension EventInfo: Hashable{
+    func hash(into hasher: inout Hasher) {
+            hasher.combine(eventname)
+        }
+    
+    static func == (lhs: EventInfo, rhs: EventInfo) -> Bool {
+        return lhs.eventname == rhs.eventname
+    }
+    
+    
+}
+
 class AllEvents { //TODO: add to firestore
     //The key of eventDict is eventname
     var eventDict: [String: EventInfo] = [:]

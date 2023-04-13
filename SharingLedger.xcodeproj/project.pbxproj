@@ -12,6 +12,8 @@
 		046C6E6529DF3478000F82C3 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C6E6429DF3478000F82C3 /* Avatar.swift */; };
 		046C6E6D29E76334000F82C3 /* ECE564Cohort.json in Resources */ = {isa = PBXBuildFile; fileRef = 046C6E6C29E76334000F82C3 /* ECE564Cohort.json */; };
 		046C6E6F29E7654D000F82C3 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C6E6E29E7654D000F82C3 /* EntryView.swift */; };
+		049146A029E79EF300AD1644 /* AddEventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0491469F29E79EF300AD1644 /* AddEventRow.swift */; };
+		049146A229E7DAC800AD1644 /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049146A129E7DAC800AD1644 /* PlusButton.swift */; };
 		04FCBB1429D0C71800C971F2 /* SharingLedgerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB1329D0C71800C971F2 /* SharingLedgerApp.swift */; };
 		04FCBB1629D0C71800C971F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB1529D0C71800C971F2 /* ContentView.swift */; };
 		04FCBB1829D0C71C00C971F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FCBB1729D0C71C00C971F2 /* Assets.xcassets */; };
@@ -56,6 +58,8 @@
 		046C6E6429DF3478000F82C3 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		046C6E6C29E76334000F82C3 /* ECE564Cohort.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ECE564Cohort.json; sourceTree = "<group>"; };
 		046C6E6E29E7654D000F82C3 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
+		0491469F29E79EF300AD1644 /* AddEventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventRow.swift; sourceTree = "<group>"; };
+		049146A129E7DAC800AD1644 /* PlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButton.swift; sourceTree = "<group>"; };
 		04FCBB1029D0C71800C971F2 /* SharingLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SharingLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04FCBB1329D0C71800C971F2 /* SharingLedgerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingLedgerApp.swift; sourceTree = "<group>"; };
 		04FCBB1529D0C71800C971F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -115,8 +119,16 @@
 				046C6E5B29D607EF000F82C3 /* HomePageView.swift */,
 				046C6E6229DF3466000F82C3 /* HomePageRow.swift */,
 				046C6E6429DF3478000F82C3 /* Avatar.swift */,
+				0491469F29E79EF300AD1644 /* AddEventRow.swift */,
 			);
 			path = HomePage;
+			sourceTree = "<group>";
+		};
+		049146A329E7DD3700AD1644 /* AddEventView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddEventView;
 			sourceTree = "<group>";
 		};
 		04FCBB0729D0C71700C971F2 = {
@@ -184,6 +196,7 @@
 		04FCBB2329D0C75200C971F2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				049146A329E7DD3700AD1644 /* AddEventView */,
 				046C6E5A29D607DD000F82C3 /* HomePage */,
 				2EDD95CA29D4E930007B05E5 /* HelperView */,
 				2EDD95CE29D4E930007B05E5 /* EventPage */,
@@ -280,6 +293,7 @@
 				2EDD95CB29D4E930007B05E5 /* SmallCircleImage.swift */,
 				2EDD95CC29D4E930007B05E5 /* GrowingButtonStyle.swift */,
 				2EDD95DF29D62D57007B05E5 /* Color.swift */,
+				049146A129E7DAC800AD1644 /* PlusButton.swift */,
 			);
 			path = HelperView;
 			sourceTree = "<group>";
@@ -428,6 +442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EBBE64829E7383700FCB744 /* HelperFunctions.swift in Sources */,
+				049146A229E7DAC800AD1644 /* PlusButton.swift in Sources */,
 				2E0139CE29DDC7D7002FFCD0 /* SelectedParticipantList.swift in Sources */,
 				04FCBB3529D4BD4400C971F2 /* DukeStorageModel.swift in Sources */,
 				04FCBB2929D0CA6100C971F2 /* Events.swift in Sources */,
@@ -437,6 +452,7 @@
 				04FCBB1429D0C71800C971F2 /* SharingLedgerApp.swift in Sources */,
 				046C6E6529DF3478000F82C3 /* Avatar.swift in Sources */,
 				04FCBB3B29D4C38300C971F2 /* LoginRow.swift in Sources */,
+				049146A029E79EF300AD1644 /* AddEventRow.swift in Sources */,
 				2EDD95DC29D5EA2C007B05E5 /* ParticipantRow.swift in Sources */,
 				04FCBB3329D4BD2C00C971F2 /* DukePerson.swift in Sources */,
 				2EDD95E229D65C7C007B05E5 /* OverlapPersonPicture.swift in Sources */,
