@@ -62,7 +62,7 @@ struct SettlementView: View {
             viewType = .EventDetailsView
         }, label: {
             HStack {
-                Image(systemName: "chevron.backward")
+                Image(systemName: "chevron.backward").bold()
                 Text("Event")
                     .offset(x: -5)
             }
