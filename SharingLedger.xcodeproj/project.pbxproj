@@ -14,6 +14,7 @@
 		046C6E6F29E7654D000F82C3 /* EntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C6E6E29E7654D000F82C3 /* EntryView.swift */; };
 		049146A029E79EF300AD1644 /* AddEventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0491469F29E79EF300AD1644 /* AddEventRow.swift */; };
 		049146A229E7DAC800AD1644 /* PlusButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049146A129E7DAC800AD1644 /* PlusButton.swift */; };
+		049146A529E870AB00AD1644 /* SmallRoundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049146A429E870AB00AD1644 /* SmallRoundImage.swift */; };
 		04FCBB1429D0C71800C971F2 /* SharingLedgerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB1329D0C71800C971F2 /* SharingLedgerApp.swift */; };
 		04FCBB1629D0C71800C971F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FCBB1529D0C71800C971F2 /* ContentView.swift */; };
 		04FCBB1829D0C71C00C971F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FCBB1729D0C71C00C971F2 /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		046C6E6E29E7654D000F82C3 /* EntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryView.swift; sourceTree = "<group>"; };
 		0491469F29E79EF300AD1644 /* AddEventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventRow.swift; sourceTree = "<group>"; };
 		049146A129E7DAC800AD1644 /* PlusButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButton.swift; sourceTree = "<group>"; };
+		049146A429E870AB00AD1644 /* SmallRoundImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallRoundImage.swift; sourceTree = "<group>"; };
 		04FCBB1029D0C71800C971F2 /* SharingLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SharingLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04FCBB1329D0C71800C971F2 /* SharingLedgerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingLedgerApp.swift; sourceTree = "<group>"; };
 		04FCBB1529D0C71800C971F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 		2EDD95CA29D4E930007B05E5 /* HelperView */ = {
 			isa = PBXGroup;
 			children = (
+				049146A429E870AB00AD1644 /* SmallRoundImage.swift */,
 				2EDD95CB29D4E930007B05E5 /* SmallCircleImage.swift */,
 				2EDD95CC29D4E930007B05E5 /* GrowingButtonStyle.swift */,
 				2EDD95DF29D62D57007B05E5 /* Color.swift */,
@@ -471,6 +474,7 @@
 				2EBBE63C29E4AAD000FCB744 /* SettlementView.swift in Sources */,
 				2E0139CC29DDC5C2002FFCD0 /* SelectParticipantView.swift in Sources */,
 				2E0139C629DBA435002FFCD0 /* CategoryPicker.swift in Sources */,
+				049146A529E870AB00AD1644 /* SmallRoundImage.swift in Sources */,
 				2EDD95DE29D62964007B05E5 /* PayerRow.swift in Sources */,
 				04FCBB2E29D3C13500C971F2 /* LoginView.swift in Sources */,
 				2EDD95D329D4E930007B05E5 /* SmallCircleImage.swift in Sources */,

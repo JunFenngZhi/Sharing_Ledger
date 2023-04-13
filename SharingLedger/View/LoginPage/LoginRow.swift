@@ -15,9 +15,7 @@ struct LoginRow: View {
     
     var body: some View {
         HStack{
-            Image(uiImage: imageFromString(storageModel.personInfo[personDetail.firstname+" "+personDetail.lastname]!.picture))
-                .resizable()
-                .frame(width: 50, height: 50)
+            SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[personDetail.firstname+" "+personDetail.lastname]!.picture)), width: 50, height: 50, shadowRadius: 0)
             Text(personDetail.firstname + " " + personDetail.lastname)
             
             Spacer()
