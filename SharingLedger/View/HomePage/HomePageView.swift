@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomePageView: View {
     @EnvironmentObject var storageModel: StorageModel
+    @Environment(\.presentationMode) var presentationMode
     
     var name: String
     var joinedEventList: [EventInfo] {
@@ -54,7 +55,22 @@ struct HomePageView: View {
                 
             }
         }
-        
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: backButton)
+    }
+    
+    private var backButton: some View {
+        Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }, label: {
+            HStack {
+                Image(systemName: "chevron.backward").bold()
+                Text("Login")
+                    .offset(x: -5)
+            }
+        })
+        .foregroundColor(.blue)
+        .offset(x: -10)
     }
 }
 
