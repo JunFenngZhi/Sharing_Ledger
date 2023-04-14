@@ -35,8 +35,12 @@ struct NewLedgerView: View {
                     
                     Button(action: {
                                 // Add your action here
-                        
-                        addedPeopleList.append(peopleOption[selection].firstname+" "+peopleOption[selection].lastname)
+                        let newname = peopleOption[selection].firstname+" "+peopleOption[selection].lastname
+                        if addedPeopleList.contains(newname) {
+                            isPeopleRepeatedAlertPresented = true
+                            return
+                        }
+                        addedPeopleList.append(newname)
                             }) {
                                 Text("add")
                                     .fontWeight(.bold)
@@ -47,14 +51,12 @@ struct NewLedgerView: View {
                             .background(Color.blue)
                             .cornerRadius(10)
                             
-
                     Picker("", selection: $selection) {
                         ForEach(0..<peopleOption.count) { index in
                             HStack{
                                 SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[peopleOption[index].firstname+" "+peopleOption[index].lastname+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
                                 Text(peopleOption[index].firstname+" "+peopleOption[index].lastname)
                             }
-                            
                         }
                     }
                     .pickerStyle(.wheel)
@@ -63,14 +65,26 @@ struct NewLedgerView: View {
                         print("Invite member: \(peopleOption[value])")
                         // perform any action here
                     }
+                }
+                
+                ForEach(addedPeopleList, id: \.self){ addedPeopleName in
                     
-                    ForEach(addedPeopleList, id: \.self){ addedPeopleName in
-                        HStack{
-                            SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[addedPeopleName+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
-                            Text(addedPeopleName)
-                            Spacer()
-                        }
+                    HStack{
+                        SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[addedPeopleName+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                        Text(addedPeopleName)
+                        Spacer()
                     }
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            if let index = addedPeopleList.firstIndex(of: addedPeopleName) {
+                                addedPeopleList.remove(at: index)
+                            }
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                        .tint(.red)
+                    }
+                    
                 }
             }
             .multilineTextAlignment(.leading)
@@ -123,6 +137,12 @@ struct NewLedgerView: View {
                 .alert("Event name already exists", isPresented: $isEventNameExistAlertPresented) {
                 Button("OK") {
                     isEventNameExistAlertPresented = false
+                }
+                    
+                }
+                .alert("This person has already been added", isPresented: $isPeopleRepeatedAlertPresented) {
+                Button("OK") {
+                    isPeopleRepeatedAlertPresented = false
                 }
                     
                 }

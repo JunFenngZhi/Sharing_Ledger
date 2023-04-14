@@ -29,9 +29,9 @@ class StorageModel: ObservableObject {
         var dingzhou_pic: String = personInfo["Dingzhou Wang_ID"]?.picture ?? "No pic"
         var junfeng_pic: String = personInfo["Junfeng Zhi_ID"]?.picture ?? "No pic"
         
-        personInfo["Suchuan Xing_ID"] = PersonDetail(id: "Suchuan Xing", lname: "Xing", fname: "Suchuan", joinedEventNames: ["Development"])
-        personInfo["Dingzhou Wang_ID"] = PersonDetail(id: "Dingzhou Wang", lname: "Wang", fname: "Dingzhou", joinedEventNames: ["Development"])
-        personInfo["Junfeng Zhi_ID"] = PersonDetail(id: "Junfeng Zhi", lname: "Zhi", fname: "Junfeng", joinedEventNames: ["Development"])
+        personInfo["Suchuan Xing_ID"] = PersonDetail(id: "Suchuan Xing", lname: "Xing", fname: "Suchuan", joinedEventNames: ["Development_ID"])
+        personInfo["Dingzhou Wang_ID"] = PersonDetail(id: "Dingzhou Wang", lname: "Wang", fname: "Dingzhou", joinedEventNames: ["Development_ID"])
+        personInfo["Junfeng Zhi_ID"] = PersonDetail(id: "Junfeng Zhi", lname: "Zhi", fname: "Junfeng", joinedEventNames: ["Development_ID"])
         
         personInfo["Suchuan Xing_ID"]!.picture = suchuan_pic
         personInfo["Dingzhou Wang_ID"]!.picture = dingzhou_pic

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomePageView: View {
+    
     @EnvironmentObject var storageModel: StorageModel
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
@@ -44,6 +45,7 @@ struct HomePageView: View {
                     showSheet = true
                 }label: {
                     AddEventRow()
+                        .foregroundColor(.black)
                         .sheet(isPresented: $showSheet){
                             NewLedgerView(isNewLedgerShown: $showSheet)
                                 .environmentObject(storageModel)
@@ -58,6 +60,7 @@ struct HomePageView: View {
                     }label: {
                         HomePageRow(eventName: eventInfo.eventname)
                             .environmentObject(storageModel)
+                            .foregroundColor(.black)
                         
                     }
                 }
@@ -66,6 +69,7 @@ struct HomePageView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: backButton)
+        
     }
     
     private var backButton: some View {
