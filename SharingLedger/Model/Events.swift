@@ -9,8 +9,15 @@ import Foundation
 
 class Note: Codable {
     //Note contains text notes and picture notes
+    var id: String = ""
     var texts: [String]
     var pictures: [String]
+    
+    init(id: String, text: String) {
+        self.id = id
+        self.texts = [text]
+        self.pictures = []
+    }
     
     init(text: String) {
         self.texts = [text]

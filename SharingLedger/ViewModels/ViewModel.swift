@@ -331,13 +331,80 @@ class ViewModel: ObservableObject{
     
     
     // delete
-    func delete_EventInfo(){}
+    func delete_EventInfo(toDelete: EventInfo){
+        let db = Firestore.firestore()
+        
+        db.collection("EventInfo").document(toDelete.id).delete{ error in
+            if error == nil{
+                
+                DispatchQueue.main.async {
+                    self.EventInfo_list.removeAll{ eventinfo in
+                        return eventinfo.id == toDelete.id
+                    }
+                    self.allEvents.removeValue(forKey: toDelete.id)
+                }
+                
+            }else{
+                print("error in delete_EventInfo")
+            }
+        }
+    }
     
-    func delete_Note(){}
+    func delete_Note(toDelete: Note){
+        let db = Firestore.firestore()
+        
+        db.collection("Note").document(toDelete.id).delete{ error in
+            if error == nil{
+                DispatchQueue.main.async {
+                    self.Note_list.removeAll{ note in
+                        return note.id == toDelete.id
+                    }
+                }
+                
+            }else{
+                print("error in delete_Note")
+            }
+        }
+    }
     
-    func delete_PaymentsDetail(){}
+    func delete_PaymentsDetail(toDelete: PaymentsDetail){
+        let db = Firestore.firestore()
+        
+        db.collection("PaymentsDetail").document(toDelete.id).delete{ error in
+            if error == nil{
+                
+                DispatchQueue.main.async {
+                    self.PaymentsDetail_list.removeAll{ paymentsdetail in
+                        return paymentsdetail.id == toDelete.id
+                    }
+                    self.allPayments.removeValue(forKey: toDelete.id)
+                }
+                
+            }else{
+                print("error in delete_PaymentsDetail")
+            }
+        }
+    }
     
-    func delete_PersonDetail(){}
+    func delete_PersonDetail(toDelete: PersonDetail){
+        let db = Firestore.firestore()
+        
+        db.collection("PersonDetail").document(toDelete.id).delete{ error in
+            if error == nil{
+                
+                DispatchQueue.main.async {
+                    self.PersonDetail_list.removeAll{ persondetail in
+                        return persondetail.id == toDelete.id
+                    }
+                    self.personInfo.removeValue(forKey: toDelete.id)
+                }
+                
+            }else{
+                print("error in delete_PersonDetail")
+            }
+        }
+    }
+    
     
     
     // update
