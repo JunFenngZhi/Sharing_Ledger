@@ -10,6 +10,7 @@ import Foundation
 class StorageModel: ObservableObject { //TODO: add to firestore
     @Published var personInfo: [String: PersonDetail] = [:]
     @Published var allEvents: [String: EventInfo] = [:]
+    @Published var allPayments: [String: PaymentsDetail] = [:]
     
     init(){
         initForTest()

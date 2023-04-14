@@ -54,8 +54,10 @@ struct ContentView: View {
                 TextField("joinedEventNames", text: $joinedEventNames)
                 
                 let pd = PersonDetail(id: "test_id1", lname: lastname, fname: firstname, joinedEventNames: joinedEventNames.components(separatedBy: ","))
+                let p_detail = PaymentsDetail(paymentName: "test_payment1", expense: 1234, category: Category.Restaurant, participates: ["Suchuan Xing", "Dingzhou Wang"], payers: ["Suchuan Xing"], note: "test_note", time: Date())
                 Button(action: {
                     model.addData(toAdd: pd)
+                    model.add_PaymentsDetail(toAdd: p_detail)
                     lastname = ""
                     firstname = ""
                     joinedEventNames = ""

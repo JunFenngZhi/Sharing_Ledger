@@ -43,7 +43,8 @@ class ViewModel: ObservableObject{
     func addData(toAdd: PersonDetail){
 
         let db = Firestore.firestore()
-        db.collection("PersonDetail").document(toAdd.id).setData(["firstname":toAdd.firstname, "lastname":toAdd.lastname, "joinedEventNames":toAdd.joinedEventNames]){ error in
+//        db.collection("PersonDetail").document(toAdd.id).setData(["firstname":toAdd.firstname, "lastname":toAdd.lastname, "joinedEventNames":toAdd.joinedEventNames]){ error in
+        db.collection("PersonDetail").addDocument(data: ["firstname":toAdd.firstname, "lastname":toAdd.lastname, "joinedEventNames":toAdd.joinedEventNames]){ error in
             // Check error
             if error == nil{
                 // get data to retrieve latest data
@@ -123,7 +124,7 @@ class ViewModel: ObservableObject{
                         country: "USA",
                         isCapital: false,
                         population: 5000000)
-        
+//        let note = Note()
         let p_detail = PaymentsDetail(paymentName: "test_payment1", expense: 1234, category: Category.Restaurant, participates: ["Suchuan Xing", "Dingzhou Wang"], payers: ["Suchuan Xing"], note: "test_note", time: Date())
 
         do {
@@ -138,6 +139,108 @@ class ViewModel: ObservableObject{
         }
     }
 
+    // data_base function
+    // get
+    func get_EventInfo(){}
+    
+    func get_Note(){
+        
+    }
+    
+    func get_PaymentsDetail(){}
+    
+    func get_PersonDetail(){
+        
+    }
+    
+    
+    // add
+    func add_EventInfo(toAdd: EventInfo){
+        let db = Firestore.firestore()
+        db.collection("EventInfo").addDocument(data: ["eventname":toAdd.eventname, "conclusion":toAdd.conclusion, "payments":toAdd.payments, "participates": toAdd.participates]){ error in
+            // Check error
+            if error == nil{
+                // get data to retrieve latest data
+                self.get_EventInfo()
+            }
+            else{
+                print("error in get_Note")
+            }
+        }
+    }
+    
+    func add_Note(toAdd: Note){
+        let db = Firestore.firestore()
+        db.collection("Note").addDocument(data: ["texts":toAdd.texts, "pictures":toAdd.pictures]){ error in
+            // Check error
+            if error == nil{
+                // get data to retrieve latest data
+                self.get_Note()
+            }
+            else{
+                print("error in get_Note")
+            }
+        }
+    }
+    
+    func add_PaymentsDetail(toAdd: PaymentsDetail){
+        let db = Firestore.firestore()
+        db.collection("PaymentsDetail").addDocument(data: ["paymentName":toAdd.paymentName, "expense":toAdd.expense, "category":toAdd.category.rawValue, "participates":toAdd.participates, "payers":toAdd.payers, "note": toAdd.note.texts, "time": toAdd.time]){ error in
+            // Check error
+            if error == nil{
+                // get data to retrieve latest data
+                self.get_PersonDetail()
+            }
+            else{
+                print("error in get_PersonDetail")
+            }
+        }
+    }
+    
+    func add_PersonDetail(toAdd: PersonDetail){
+        let db = Firestore.firestore()
+        db.collection("PersonDetail").addDocument(data: ["firstname":toAdd.firstname, "lastname":toAdd.lastname, "joinedEventNames":toAdd.joinedEventNames]){ error in
+            // Check error
+            if error == nil{
+                // get data to retrieve latest data
+                self.get_PersonDetail()
+            }
+            else{
+                print("error in get_PersonDetail")
+            }
+        }
+    }
+    
+    
+    // delete
+    func delete_EventInfo(){}
+    
+    func delete_Note(){}
+    
+    func delete_PaymentsDetail(){}
+    
+    func delete_PersonDetail(){}
+    
+    
+    // update
+    func update_EventInfo(){}
+    
+    func update_Note(){}
+    
+    func update_PaymentsDetail(){}
+    
+    func update_PersonDetail(){}
+    
+    
+    // search
+    func search_EventInfo(){}
+    
+    func search_Note(){}
+    
+    func search_PaymentsDetail(){}
+    
+    func search_PersonDetail(){}
+    
     
     
 }
