@@ -160,7 +160,6 @@ class ViewModel: ObservableObject{
                             let eventInfo = EventInfo(
                                 id: d.documentID,
                                 eventName: d["eventname"] as! String,
-                                conclusion: d["conclusion"] as! Double,
                                 payments: d["payments"] as! [String],
                                 participates: d["participates"] as! [String]
                             )
@@ -275,7 +274,7 @@ class ViewModel: ObservableObject{
     // add
     func add_EventInfo(toAdd: EventInfo){
         let db = Firestore.firestore()
-        db.collection("EventInfo").addDocument(data: ["eventname":toAdd.eventname, "conclusion":toAdd.conclusion, "payments":toAdd.payments, "participates": toAdd.participates]){ error in
+        db.collection("EventInfo").addDocument(data: ["eventname":toAdd.eventname, "payments":toAdd.payments, "participates": toAdd.participates]){ error in
             // Check error
             if error == nil{
                 // get data to retrieve latest data
@@ -408,13 +407,46 @@ class ViewModel: ObservableObject{
     
     
     // update
-    func update_EventInfo(){}
+    func update_EventInfo(toUpdate: EventInfo){
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(toUpdate)
+            let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+
+            let db = Firestore.firestore()
+            try db.collection("EventInfo").document(toUpdate.id).setData(dictionary)
+        } catch let error {
+            print("Error updating EventInfo to Firestore: \(error)")
+        }
+    }
     
     func update_Note(){}
     
-    func update_PaymentsDetail(){}
+    func update_PaymentsDetail(toUpdate: PaymentsDetail){
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(toUpdate)
+            let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+
+            let db = Firestore.firestore()
+            try db.collection("PaymentsDetail").document(toUpdate.id).setData(dictionary)
+        } catch let error {
+            print("Error updating PaymentsDetail to Firestore: \(error)")
+        }
+    }
     
-    func update_PersonDetail(){}
+    func update_PersonDetail(toUpdate: PersonDetail){
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(toUpdate)
+            let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+
+            let db = Firestore.firestore()
+            try db.collection("PersonDetail").document(toUpdate.id).setData(dictionary)
+        } catch let error {
+            print("Error updating PersonDetail to Firestore: \(error)")
+        }
+    }
     
     
 }

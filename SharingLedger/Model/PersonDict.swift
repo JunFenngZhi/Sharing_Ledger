@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PersonDetail: Identifiable, Hashable {
+class PersonDetail: Identifiable, Hashable, Codable {
     var id: String //capture firestore id
     var lastname: String
     var firstname: String

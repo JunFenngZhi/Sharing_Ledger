@@ -197,25 +197,22 @@ class EventConclusion {
     }
 }
 
-class EventInfo {
+class EventInfo: Codable {
     var id: String = ""
     var eventname: String
-    var conclusion: EventConclusion
     var payments: [String] = [] // [PaymentsDetail.id]
     var participates: [String]  //TODO: check participates are not repeated?
     
-    init(id: String, eventName: String, conclusion: Double, payments: [String], participates: [String]){
+    init(id: String, eventName: String, payments: [String], participates: [String]){
         self.id = id
         self.eventname = eventName
         self.participates = participates
         self.payments = payments
-        self.conclusion = EventConclusion(participates: participates)
     }
     
     init(eventName: String, participates: [String]) {
         self.eventname = eventName
         self.participates = participates
-        self.conclusion = EventConclusion(participates: participates)
     }
 
 }

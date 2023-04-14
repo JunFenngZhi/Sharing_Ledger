@@ -20,8 +20,10 @@ class StorageModel: ObservableObject { //TODO: add to firestore
         self.allEvents["Development"] = EventInfo(eventName: "Development", participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"])
         let payments_1 = PaymentsDetail(paymentName: "chick-fil-a", expense: 20, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Junfeng Zhi"], note: "lunch", time: Date.now)
         let payments_2 = PaymentsDetail(paymentName: "nuro taco", expense: 40, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Suchuan Xing"], note: "dinner", time: Date.now)
-        self.allEvents["Development"]?.payments["chick-fil-a"] = payments_1
-        self.allEvents["Development"]?.payments["nuro taco"] = payments_2
+        self.allPayments["payments_1"] = payments_1
+        self.allPayments["payments_2"] = payments_2
+        self.allEvents["Development"]?.payments[0] = "payments_1"
+        self.allEvents["Development"]?.payments[1] = "payments_2"
         //self.allEvents["Development"]?.conclusion.totalExpense += payments_1.expense + payments_2.expense
         
         var suchuan_pic: String = personInfo["Suchuan Xing"]?.picture ?? "No pic"
