@@ -17,13 +17,13 @@ class StorageModel: ObservableObject {
     }
     
     func initForTest(){
-        self.allEvents["Development"] = EventInfo(eventName: "Development", participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"])
+        self.allEvents["Development_ID"] = EventInfo(eventName: "Development", participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"])
         let payments_1 = PaymentsDetail(paymentName: "chick-fil-a", expense: 20, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Junfeng Zhi_ID"], note: "lunch", time: Date.now)
         let payments_2 = PaymentsDetail(paymentName: "nuro taco", expense: 40, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Suchuan Xing_ID"], note: "dinner", time: Date.now)
         self.allPayments["payments_1_ID"] = payments_1
         self.allPayments["payments_2_ID"] = payments_2
-        self.allEvents["Development"]?.payments.append("payments_1_ID")
-        self.allEvents["Development"]?.payments.append("payments_2_ID")
+        self.allEvents["Development_ID"]?.payments.append("payments_1_ID")
+        self.allEvents["Development_ID"]?.payments.append("payments_2_ID")
         
         var suchuan_pic: String = personInfo["Suchuan Xing_ID"]?.picture ?? "No pic"
         var dingzhou_pic: String = personInfo["Dingzhou Wang_ID"]?.picture ?? "No pic"
@@ -39,8 +39,9 @@ class StorageModel: ObservableObject {
     }
     
     
+    
     private func buildPersonDetailFromDukePerson(dukePerson: DukePerson) -> PersonDetail{
-        let id: String = dukePerson.firstname + " " + dukePerson.lastname
+        let id: String = dukePerson.firstname + " " + dukePerson.lastname + "_ID"
         let lname: String = dukePerson.lastname
         let fname: String = dukePerson.firstname
         let personDetail: PersonDetail = PersonDetail(id: id, lname: lname, fname: fname, joinedEventNames: [])
@@ -52,7 +53,7 @@ class StorageModel: ObservableObject {
         for netid in dukeStorageModel.personDict.keys {
             let dukePerson: DukePerson = dukeStorageModel.personDict[netid]!
             let personDetail: PersonDetail = buildPersonDetailFromDukePerson(dukePerson: dukePerson)
-            personInfo[personDetail.firstname + " " + personDetail.lastname] = personDetail
+            personInfo[personDetail.firstname + " " + personDetail.lastname + "_ID"] = personDetail
         }
     }
 }

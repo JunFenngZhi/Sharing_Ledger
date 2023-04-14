@@ -11,7 +11,7 @@ struct HomePageRow: View {
     @EnvironmentObject var storageModel: StorageModel
     let eventName: String
     var joinedPeopleNumber: Int {
-        return storageModel.allEvents[eventName]!.participates.count >= 4 ? 4 : storageModel.allEvents[eventName]!.participates.count
+        return storageModel.allEvents[eventName+"_ID"]!.participates.count >= 4 ? 4 : storageModel.allEvents[eventName+"_ID"]!.participates.count
     }
     
     
@@ -33,7 +33,7 @@ struct HomePageRow: View {
                     
                     HStack{
                         ForEach(0..<joinedPeopleNumber) { i in
-                            SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[storageModel.allEvents[eventName]!.participates[i]]!.picture)), width: 35, height: 35, shadowRadius: 0)
+                            SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[storageModel.allEvents[eventName+"_ID"]!.participates[i]]!.picture)), width: 35, height: 35, shadowRadius: 0)
                         }
                         
                         

@@ -17,7 +17,7 @@ struct HomePageView: View {
         var res: [EventInfo] = []
         
         for eventName in storageModel.allEvents.keys {
-            if storageModel.personInfo[name]!.joinedEventNames.contains(eventName){
+            if storageModel.personInfo[name + "_ID"]!.joinedEventNames.contains(eventName){
                 res.append(storageModel.allEvents[eventName]!)
             }
         }
@@ -32,7 +32,7 @@ struct HomePageView: View {
                     .font(.custom("Inter", size: 30))
                     .fontWeight(.bold)
                 HStack{
-                    SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[name]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                    SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[name+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
                     Text("Welcome, " + name + "!")
                         .font(.custom("Inter", size: 15))
                         .fontWeight(.bold)

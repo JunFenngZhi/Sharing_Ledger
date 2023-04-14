@@ -16,7 +16,7 @@ struct NewLedgerView: View {
     @State var isAlertPresented: Bool = false
     @State var isEventNameEmptyAlertPresented: Bool = false
     @State var isEventNameExistAlertPresented: Bool = false
-    
+    @State var isPeopleRepeatedAlertPresented: Bool = false
     var peopleOption: [PersonDetail] {
         var res: [PersonDetail] = []
         for person in storageModel.personInfo.values {
@@ -35,6 +35,7 @@ struct NewLedgerView: View {
                     
                     Button(action: {
                                 // Add your action here
+                        
                         addedPeopleList.append(peopleOption[selection].firstname+" "+peopleOption[selection].lastname)
                             }) {
                                 Text("add")
@@ -50,7 +51,7 @@ struct NewLedgerView: View {
                     Picker("", selection: $selection) {
                         ForEach(0..<peopleOption.count) { index in
                             HStack{
-                                SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[peopleOption[index].firstname+" "+peopleOption[index].lastname]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                                SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[peopleOption[index].firstname+" "+peopleOption[index].lastname+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
                                 Text(peopleOption[index].firstname+" "+peopleOption[index].lastname)
                             }
                             
@@ -65,7 +66,7 @@ struct NewLedgerView: View {
                     
                     ForEach(addedPeopleList, id: \.self){ addedPeopleName in
                         HStack{
-                            SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[addedPeopleName]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                            SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[addedPeopleName+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
                             Text(addedPeopleName)
                             Spacer()
                         }
@@ -99,7 +100,7 @@ struct NewLedgerView: View {
                 let newEvent: EventInfo = EventInfo(eventName: eventName, participates: addedPeopleList)
                 storageModel.allEvents[eventName] = newEvent
                 for name in addedPeopleList {
-                    storageModel.personInfo[name]!.joinedEventNames.append(eventName)
+                    storageModel.personInfo[name+"_ID"]!.joinedEventNames.append(eventName)
                 }
                 isNewLedgerShown = false
                 //TODO: add database function
