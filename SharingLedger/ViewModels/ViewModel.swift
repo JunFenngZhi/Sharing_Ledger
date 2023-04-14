@@ -13,6 +13,14 @@ class ViewModel: ObservableObject{
     @Published var list = [PersonDetail]()
     
     
+    @Published var PersonDetail_list = [PersonDetail]()
+    @Published var personInfo: [String: PersonDetail] = [:] // PersonDetail.id : PersonDetail
+    @Published var EventInfo_list = [EventInfo]()
+    @Published var allEvents: [String: EventInfo] = [:] // EventInfo.id : EventInfo
+    @Published var PaymentsDetail_list = [PaymentsDetail]()
+    @Published var allPayments: [String: PaymentsDetail] = [:] // PaymentsDetail.id : PaymentsDetail
+    @Published var Note_list = [Note]()
+    
     func getData(){
         // get ref to the database
         let db = Firestore.firestore()
@@ -141,16 +149,126 @@ class ViewModel: ObservableObject{
 
     // data_base function
     // get
-    func get_EventInfo(){}
-    
-    func get_Note(){
+    func get_EventInfo(){
+        let db = Firestore.firestore()
         
+        db.collection("EventInfo").getDocuments { snapshot, error in
+            if error == nil{
+                if let snapshot = snapshot{
+                    DispatchQueue.main.async {
+                        self.EventInfo_list = snapshot.documents.map { d in
+                            let eventInfo = EventInfo(
+                                id: d.documentID,
+                                eventName: d["eventname"] as! String,
+                                conclusion: d["conclusion"] as! Double,
+                                payments: d["payments"] as! [String],
+                                participates: d["participates"] as! [String]
+                            )
+                            self.allEvents[eventInfo.id] = eventInfo
+                            return eventInfo
+                        }
+                    }
+                }
+            }else{
+                // handle
+                print("error in get_PersonDetail")
+                self.EventInfo_list = []
+                self.allEvents = [:]
+            }
+            
+        }
     }
     
-    func get_PaymentsDetail(){}
+    func get_Note(){
+        let db = Firestore.firestore()
+        
+        db.collection("Note").getDocuments { snapshot, error in
+            if error == nil{
+                if let snapshot = snapshot{
+                    DispatchQueue.main.async {
+                        self.Note_list = snapshot.documents.map { d in
+                            return Note(text: d["text"] as! String)
+                        }
+                    }
+                }
+            }else{
+                // handle
+                print("error in get_Note")
+                self.Note_list = []
+            }
+            
+        }
+    }
+    
+    func get_PaymentsDetail(){
+        // get ref to the database
+        let db = Firestore.firestore()
+        
+        db.collection("PaymentsDetail").getDocuments { snapshot, error in
+            if error == nil{
+                // no errors
+                if let snapshot = snapshot{
+                    // Update in main thread
+                    DispatchQueue.main.async {
+                        // get all documents and create todos
+                        //for doc in snapshot.documents , we can write like this
+                        self.PaymentsDetail_list = snapshot.documents.map { d in
+                            // create item of PersonDetail
+                            let payments = PaymentsDetail(
+                                paymentName: d["paymentName"] as! String,
+                                expense: d["expense"] as! Double,
+                                category: Category(rawValue: d["category"] as! String) ?? .Default,
+                                participates: d["participates"] as! [String],
+                                payers: d["payers"] as! [String],
+                                note: d["note"] as! String,
+                                time: d["time"] as! Date
+                            )
+                            self.allPayments[payments.id] = payments
+                            return payments
+                        }
+                    }
+                }
+            }else{
+                // handle
+                print("error in get_PaymentsDetail")
+                self.PaymentsDetail_list = []
+            }
+            
+        }
+    }
     
     func get_PersonDetail(){
+        // get ref to the database
+        let db = Firestore.firestore()
         
+        db.collection("PersonDetail").getDocuments { snapshot, error in
+            if error == nil{
+                // no errors
+                if let snapshot = snapshot{
+                    // Update in main thread
+                    DispatchQueue.main.async {
+                        // get all documents and create todos
+                        //for doc in snapshot.documents , we can write like this
+                        self.PersonDetail_list = snapshot.documents.map { d in
+                            // create item of PersonDetail
+                            let person = PersonDetail(
+                                id: d.documentID,
+                                lname: d["lastname"] as? String ?? "",
+                                fname: d["firstname"] as? String ?? "",
+                                joinedEventNames: d["joinedEventNames"] as? [String] ?? [""]
+                            )
+                            self.personInfo[person.id] = person
+                            return person
+                        }
+                    }
+                }
+            }else{
+                // handle
+                print("error in get_PersonDetail")
+                self.list = []
+            }
+            
+        }
     }
     
     
@@ -230,17 +348,6 @@ class ViewModel: ObservableObject{
     func update_PaymentsDetail(){}
     
     func update_PersonDetail(){}
-    
-    
-    // search
-    func search_EventInfo(){}
-    
-    func search_Note(){}
-    
-    func search_PaymentsDetail(){}
-    
-    func search_PersonDetail(){}
-    
     
     
 }

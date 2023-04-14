@@ -41,7 +41,8 @@ enum Category: String, Codable {
     case Traffic = "Traffic"
     case Hotel = "Hotel"
     case Tickets = "Tickets"
-
+    case Default = "Default"
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let rawValue = try container.decode(String.self)
@@ -51,6 +52,7 @@ enum Category: String, Codable {
 
 
 class PaymentsDetail: Codable {
+    var id: String = ""
     var paymentName: String
     var expense: Double
     var category: Category
@@ -70,6 +72,18 @@ class PaymentsDetail: Codable {
         case payers
         case note
         case time
+    }
+    
+    init(id: String, paymentName: String, expense: Double, category: Category, participates: [String],
+         payers: [String], note: String, time: Date) {
+        self.id = id
+        self.paymentName = paymentName
+        self.expense = expense
+        self.category = category
+        self.participates = participates
+        self.payers = payers
+        self.note = Note(text: note)
+        self.time = time
     }
     
     init(paymentName: String, expense: Double, category: Category, participates: [String],
@@ -177,10 +191,19 @@ class EventConclusion {
 }
 
 class EventInfo {
+    var id: String = ""
     var eventname: String
     var conclusion: EventConclusion
-    var payments: [String: PaymentsDetail] = [:] // paymentName: PaymentsDetail.id
+    var payments: [String] = [] // [PaymentsDetail.id]
     var participates: [String]  //TODO: check participates are not repeated?
+    
+    init(id: String, eventName: String, conclusion: Double, payments: [String], participates: [String]){
+        self.id = id
+        self.eventname = eventName
+        self.participates = participates
+        self.payments = payments
+        self.conclusion = EventConclusion(participates: participates)
+    }
     
     init(eventName: String, participates: [String]) {
         self.eventname = eventName
