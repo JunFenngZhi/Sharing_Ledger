@@ -54,15 +54,12 @@ struct HomePageView: View {
                 
                 
                 ForEach(joinedEventList, id: \.self){eventInfo in
-                    NavigationLink {
-                        EventView(eventName: eventInfo.eventname)
-                            .environmentObject(storageModel)
-                    }label: {
-                        HomePageRow(eventName: eventInfo.eventname)
-                            .environmentObject(storageModel)
-                            .foregroundColor(.black)
+                   
+                    HomePageRow(eventName: eventInfo.eventname)
+                        .environmentObject(storageModel)
+                        .foregroundColor(.black)
                         
-                    }
+                    
                 }
                 
             }
