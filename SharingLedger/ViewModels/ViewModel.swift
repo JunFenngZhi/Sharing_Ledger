@@ -420,7 +420,18 @@ class ViewModel: ObservableObject{
         }
     }
     
-    func update_Note(){}
+    func update_Note(toUpdate: Note){
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(toUpdate)
+            let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+
+            let db = Firestore.firestore()
+            try db.collection("Note").document(toUpdate.id).setData(dictionary)
+        } catch let error {
+            print("Error updating Note to Firestore: \(error)")
+        }
+    }
     
     func update_PaymentsDetail(toUpdate: PaymentsDetail){
         do {
