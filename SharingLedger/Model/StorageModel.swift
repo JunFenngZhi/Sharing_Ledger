@@ -7,7 +7,7 @@
 
 import Foundation
 
-class StorageModel: ObservableObject { //TODO: add to firestore
+class StorageModel: ObservableObject {
     @Published var personInfo: [String: PersonDetail] = [:] // PersonDetail.id : PersonDetail
     @Published var allEvents: [String: EventInfo] = [:] // EventInfo.id : EventInfo
     @Published var allPayments: [String: PaymentsDetail] = [:] // PaymentsDetail.id : PaymentsDetail
@@ -17,25 +17,25 @@ class StorageModel: ObservableObject { //TODO: add to firestore
     }
     
     func initForTest(){
-        self.allEvents["Development"] = EventInfo(eventName: "Development", participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"])
-        let payments_1 = PaymentsDetail(paymentName: "chick-fil-a", expense: 20, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Junfeng Zhi"], note: "lunch", time: Date.now)
-        let payments_2 = PaymentsDetail(paymentName: "nuro taco", expense: 40, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Suchuan Xing"], note: "dinner", time: Date.now)
-        self.allPayments["payments_1"] = payments_1
-        self.allPayments["payments_2"] = payments_2
-        self.allEvents["Development"]?.payments[0] = "payments_1"
-        self.allEvents["Development"]?.payments[1] = "payments_2"
-        //self.allEvents["Development"]?.conclusion.totalExpense += payments_1.expense + payments_2.expense
+        self.allEvents["Development"] = EventInfo(eventName: "Development", participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"])
+        let payments_1 = PaymentsDetail(paymentName: "chick-fil-a", expense: 20, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Junfeng Zhi_ID"], note: "lunch", time: Date.now)
+        let payments_2 = PaymentsDetail(paymentName: "nuro taco", expense: 40, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Suchuan Xing_ID"], note: "dinner", time: Date.now)
+        self.allPayments["payments_1_ID"] = payments_1
+        self.allPayments["payments_2_ID"] = payments_2
+        self.allEvents["Development"]?.payments.append("payments_1_ID")
+        self.allEvents["Development"]?.payments.append("payments_2_ID")
         
-        var suchuan_pic: String = personInfo["Suchuan Xing"]?.picture ?? "No pic"
-        var dingzhou_pic: String = personInfo["Dingzhou Wang"]?.picture ?? "No pic"
-        var junfeng_pic: String = personInfo["Junfeng Zhi"]?.picture ?? "No pic"
-        personInfo["Suchuan Xing"] = PersonDetail(id: "Suchuan Xing", lname: "Xing", fname: "Suchuan", joinedEventNames: ["Development"])
-        personInfo["Dingzhou Wang"] = PersonDetail(id: "Dingzhou Wang", lname: "Wang", fname: "Dingzhou", joinedEventNames: ["Development"])
-        personInfo["Junfeng Zhi"] = PersonDetail(id: "Junfeng Zhi", lname: "Zhi", fname: "Junfeng", joinedEventNames: ["Development"])
+        var suchuan_pic: String = personInfo["Suchuan Xing_ID"]?.picture ?? "No pic"
+        var dingzhou_pic: String = personInfo["Dingzhou Wang_ID"]?.picture ?? "No pic"
+        var junfeng_pic: String = personInfo["Junfeng Zhi_ID"]?.picture ?? "No pic"
         
-        personInfo["Suchuan Xing"]!.picture = suchuan_pic
-        personInfo["Dingzhou Wang"]!.picture = dingzhou_pic
-        personInfo["Junfeng Zhi"]!.picture = junfeng_pic
+        personInfo["Suchuan Xing_ID"] = PersonDetail(id: "Suchuan Xing", lname: "Xing", fname: "Suchuan", joinedEventNames: ["Development"])
+        personInfo["Dingzhou Wang_ID"] = PersonDetail(id: "Dingzhou Wang", lname: "Wang", fname: "Dingzhou", joinedEventNames: ["Development"])
+        personInfo["Junfeng Zhi_ID"] = PersonDetail(id: "Junfeng Zhi", lname: "Zhi", fname: "Junfeng", joinedEventNames: ["Development"])
+        
+        personInfo["Suchuan Xing_ID"]!.picture = suchuan_pic
+        personInfo["Dingzhou Wang_ID"]!.picture = dingzhou_pic
+        personInfo["Junfeng Zhi_ID"]!.picture = junfeng_pic
     }
     
     

@@ -27,13 +27,17 @@ struct EventDetailsView: View {
             
             EventSummary(eventName: eventName, viewType: $viewType)
             
+            
+            // TODO: payments order may varied. sorted by key/time
             List{
-                ForEach(Array(event.payments.keys), id: \.self) { name in // TODO: payments order may varied. sorted by key/time
+                ForEach(event.payments, id: \.self) { id in
+                    let payment = storageModel.allPayments[id]!
                     NavigationLink {
-                        PaymentDetailsView(payment: event.payments[name]!)
+                        PaymentDetailsView(payment: payment)
                     } label: {
-                        PaymentRow(payment: event.payments[name]!)
-                    }.listRowInsets(EdgeInsets())
+                        PaymentRow(payment: payment)
+                    }
+                    .listRowInsets(EdgeInsets())
                 }
             }
             .padding(.horizontal, -15.0)

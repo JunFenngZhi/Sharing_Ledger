@@ -13,15 +13,16 @@ struct DetailsView: View {
     let columnMaxWidth: CGFloat = 100
     let columnMinWidth: CGFloat = 0
     
-    
     @EnvironmentObject var storageModel: StorageModel
     
     var body: some View {
         VStack(spacing: 30){
             ForEach(transferList, id: \.0) { tuple in
+                let counterName = storageModel.personInfo[tuple.0]!.firstname + " " + storageModel.personInfo[tuple.0]!.lastname
                 let amount = tuple.1
-                let payer = amount > 0 ? myName : tuple.0
-                let payee = amount > 0 ? tuple.0 : myName
+                let payer = amount > 0 ? myName : counterName
+                let payee = amount > 0 ? counterName : myName
+                
                 VStack{
                     HStack(){
                         Spacer()
@@ -70,6 +71,6 @@ struct DetailsView: View {
 
 struct DetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsView(myName: "Junfeng Zhi", transferList: [("tom", 123.45),("jason", -456.78)]).environmentObject(StorageModel())
+        DetailsView(myName: "Junfeng Zhi", transferList: [("Suchuan Xing_ID", 123.45),("Dingzhou Wang_ID", -456.78)]).environmentObject(StorageModel())
     }
 }

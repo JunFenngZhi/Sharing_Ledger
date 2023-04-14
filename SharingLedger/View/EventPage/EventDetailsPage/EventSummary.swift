@@ -13,11 +13,20 @@ struct EventSummary: View {
     @Binding var viewType: ViewType
     @EnvironmentObject var storageModel: StorageModel
     
+    var totalExpense: Double{
+        var total: Double = 0
+        let curEvent = storageModel.allEvents[eventName]!
+        for paymentID in curEvent.payments{
+            total += storageModel.allPayments[paymentID]!.expense
+        }
+        return total
+    }
+    
     var body: some View {
         let curEvent = storageModel.allEvents[eventName]!
         HStack{
             VStack(alignment: .leading){
-                Text("$" + String(format:"%.2f",curEvent.conclusion.totalExpense))
+                Text("$" + String(format:"%.2f",totalExpense))
                     .font(.title)
                     .bold()
                     .foregroundColor(.white)
@@ -30,11 +39,9 @@ struct EventSummary: View {
             
             Button(action: {
                 print("click settle")
-                curEvent.conclusion.settle(participates: curEvent.participates, allPayments: curEvent.payments)
                 withAnimation {
                     viewType = .SettlementView
                 }
-                
             }, label: {
                 Text("Settle >")
                     .foregroundColor(.white)

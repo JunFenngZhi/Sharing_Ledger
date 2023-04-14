@@ -64,9 +64,9 @@ class PaymentsDetail: Codable {
     var expense: Double
     var category: Category
     //participates contains the names of person
-    var participates: [String] // TODO: need to guarantee names are correct
+    var participates: [String]  // [PersonDetail.id]
     //payers contains the names of person
-    var payers: [String]
+    var payers: [String]   // [PersonDetail.id]
     //note contains text notes and picture notes. we only handle text notes for now.
     var note: Note
     var time: Date
@@ -127,81 +127,11 @@ class PaymentsDetail: Codable {
     }
 }
 
-
-
-class EventConclusion {
-    var totalExpense: Double = 0
-    var personExpenseList: [String: Double] = [:]  // count the amount of expense for each participants. Expense = spend - pay
-    var allSettlementResults: [String: [(String,Double)]] =  [:] // {a:[b pays a 100],[c pays a 50]...}
-    
-    init(participates: [String]){
-        for pName in participates{
-            personExpenseList[pName] = 0
-            allSettlementResults[pName] = []
-        }
-    }
-    
-    /// Calculate settlement results for all the participants. This functon should be called when enter SettlementView.
-    func settle(participates: [String], allPayments: [String: PaymentsDetail]){
-        // reset
-        personExpenseList.removeAll()
-        allSettlementResults.removeAll()
-        for pName in participates{
-            personExpenseList[pName] = 0
-            allSettlementResults[pName] = []
-        }
-        
-        // calculate personExpenseList
-        for(_, paymentDetails) in allPayments{
-            for pName in paymentDetails.participates{
-                personExpenseList[pName]! += paymentDetails.expense / Double(paymentDetails.participates.count)
-            }
-            for pName in paymentDetails.payers{
-                personExpenseList[pName]! -= paymentDetails.expense / Double(paymentDetails.payers.count)
-            }
-        }
-        
-        // calculate allSettlementResults
-        let sortedKeys = personExpenseList.keys.sorted()
-        var personExpenseListCopy = personExpenseList
-        for curPerson in sortedKeys{
-            let curExpense = personExpenseListCopy[curPerson]!
-            
-            if(curExpense > 0 && isZero_Double(num: curExpense) == false){  // cur person should pay others
-                let otherPersonList = sortedKeys.filter { p in p != curPerson}
-                for otherPerson in otherPersonList{
-                    let otherExpense = personExpenseListCopy[otherPerson]!
-                    
-                    if(otherExpense < 0 && isZero_Double(num: otherExpense) == false){ // other person should get money. curPerson pays otherPerson
-                        let payAmount = min(abs(otherExpense), abs(curExpense))
-                        personExpenseListCopy[curPerson]! -= payAmount
-                        personExpenseListCopy[otherPerson]! += payAmount
-                        allSettlementResults[curPerson]?.append((otherPerson, payAmount))
-                        allSettlementResults[otherPerson]?.append((curPerson, -1 * payAmount))
-                    }
-                    if(isZero_Double(num: personExpenseListCopy[curPerson]!) == true){
-                        break
-                    }
-                }
-            }
-        }
-        
-    }
-    
-    /// Update total expense based on all the payments. This function should be called when EventInfo.payments is updated.
-    func updateTotalExpense(allPayments: [String: PaymentsDetail]){
-        totalExpense = 0
-        for(_, paymentDetails) in allPayments{
-            totalExpense += paymentDetails.expense
-        }
-    }
-}
-
 class EventInfo: Codable {
     var id: String = ""
     var eventname: String
     var payments: [String] = [] // [PaymentsDetail.id]
-    var participates: [String]  //TODO: check participates are not repeated?
+    var participates: [String]  // [PersonDetail.id]
     
     init(id: String, eventName: String, payments: [String], participates: [String]){
         self.id = id
