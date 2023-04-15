@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct PayerRow: View {
-    let name: String
+    @EnvironmentObject var storageModel: StorageModel
+    let personID: String
     var body: some View {
+        let personInfo = storageModel.personInfo[personID]!
         HStack{
-            SmallCircleImage(image: Image("Unknown"), width: 50, height: 50, shadowRadius: 7) //TODO: update image
-            Text(name)
+            SmallRoundImage(image: Image(uiImage: imageFromString(personInfo.picture)), width: 50, height: 50, shadowRadius: 7)
+            Text(personInfo.firstname + " " + personInfo.lastname)
                 .font(.headline)
                 .padding()
         }
@@ -22,6 +24,6 @@ struct PayerRow: View {
 
 struct PayerRow_Previews: PreviewProvider {
     static var previews: some View {
-        PayerRow(name:"Junfeng")
+        PayerRow(personID:"Junfeng Zhi_ID").environmentObject(StorageModel())
     }
 }

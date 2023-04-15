@@ -14,7 +14,7 @@ enum ViewType: String{
 }
 
 struct EventView: View {
-    let eventName: String
+    let eventID: String
     
     @EnvironmentObject var storageModel: StorageModel
     @Environment(\.presentationMode) var presentationMode
@@ -24,15 +24,15 @@ struct EventView: View {
     var body: some View {
         ZStack{
             if viewType == .EventDetailsView{
-                EventDetailsView(eventName: "Development", viewType: $viewType)
+                EventDetailsView(eventID: eventID, viewType: $viewType)
                     .navigationBarBackButtonHidden(true)
                     .navigationBarItems(leading: backButton)
             }else if viewType == .NewPaymentView{
-                NewPaymentView(eventName: "Development", viewType: $viewType)
+                NewPaymentView(eventID: eventID, viewType: $viewType)
                     .navigationBarBackButtonHidden(true)
                     .transition(.move(edge: .trailing))
             }else{
-                SettlementView(eventName: "Development", viewType: $viewType)
+                SettlementView(eventID: eventID, viewType: $viewType)
                     .navigationBarBackButtonHidden(true)
                     .transition(.move(edge: .trailing))
             }
@@ -57,6 +57,6 @@ struct EventView: View {
 
 struct EventView_Previews: PreviewProvider {
     static var previews: some View {
-        EventView(eventName: "Development").environmentObject(StorageModel())
+        EventView(eventID: "Development_ID").environmentObject(StorageModel())
     }
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettlementView: View {
-    let eventName: String
+    let eventID: String
     
     @EnvironmentObject var storageModel: StorageModel
     
@@ -17,7 +17,7 @@ struct SettlementView: View {
     
     // [personID: expenseAmount] count the amount of expense for each participants. Expense = spend - pay
     var personExpenseList: [String: Double]{
-        let event = storageModel.allEvents[eventName]!
+        let event = storageModel.allEvents[eventID]!
         let allParticipatesID: [String] = event.participates
         let allPaymentIDs = event.payments
         var dict: [String: Double] = [:]
@@ -45,7 +45,7 @@ struct SettlementView: View {
     // {ID_personA: (ID_personB, 100), (ID_personC, -50]...}
     var allSettlementResults: [String: [(String,Double)]]{
         var dict: [String: [(String,Double)]] = [:]
-        let event = storageModel.allEvents[eventName]!
+        let event = storageModel.allEvents[eventID]!
         let allParticipatesID: [String] = event.participates
         let allPaymentIDs = event.payments
         
@@ -83,7 +83,7 @@ struct SettlementView: View {
 
     
     var body: some View {
-        let event: EventInfo = storageModel.allEvents[eventName]!
+        let event: EventInfo = storageModel.allEvents[eventID]!
         
         VStack{
             HStack{
@@ -101,10 +101,11 @@ struct SettlementView: View {
             List{
                 ForEach(event.participates.indices) { index in
                     let personID = event.participates[index]
-                    let personName = storageModel.personInfo[personID]!.firstname + " " + storageModel.personInfo[personID]!.lastname
-                    
+                    let personInfo = storageModel.personInfo[personID]!
+                    let personName = personInfo.firstname + " " + storageModel.personInfo[personID]!.lastname
+
                     VStack {
-                        PersonRow(picture: Image("Unknown"), name: personName, payAmount: personExpenseList[personID]!, index: index, selectedRow: $selectedRow)
+                        PersonRow(picture: Image(uiImage: imageFromString(personInfo.picture)), name: personName, payAmount: personExpenseList[personID]!, index: index, selectedRow: $selectedRow)
                         .padding(.vertical, 10)
                         .padding(.leading, -10)
                         .onTapGesture {
@@ -113,7 +114,7 @@ struct SettlementView: View {
                         
                         // settlement details for each person
                         if selectedRow == index {
-                            DetailsView(myName: personName, transferList: allSettlementResults[personID]!)
+                            DetailsView(myPersonID: personID, transferList: allSettlementResults[personID]!)
                             .padding(.horizontal, -40)
                             .padding(.vertical)
                         }
@@ -143,6 +144,6 @@ struct SettlementView: View {
 struct SettlementView_Previews: PreviewProvider {
     @State static var viewType: ViewType = .SettlementView
     static var previews: some View {
-        SettlementView(eventName: "Development", viewType: $viewType).environmentObject(StorageModel())
+        SettlementView(eventID: "Development_ID", viewType: $viewType).environmentObject(StorageModel())
     }
 }

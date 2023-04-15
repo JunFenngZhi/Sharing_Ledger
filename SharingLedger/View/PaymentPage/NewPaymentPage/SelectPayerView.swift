@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct SelectPayerView: View {
-    let participants: [String]
+    let participants: [String]  // person id
+    
+    @EnvironmentObject var storageModel: StorageModel
     
     @Binding var selectedPayer: Set<String>
     @Binding var showSelectPayerView: Bool
@@ -25,6 +27,7 @@ struct SelectPayerView: View {
             
             List(){
                 ForEach(participants.indices){ i in
+                    let personInfo = storageModel.personInfo[participants[i]]!
                     Button {
                         if selectedPayer.contains(participants[i]) == true{
                             selectedPayer.remove(participants[i])
@@ -33,8 +36,8 @@ struct SelectPayerView: View {
                         }
                     } label: {
                         HStack{
-                            SmallCircleImage(image: Image("Unknown"), width: 50, height: 50, shadowRadius: 7).padding(.trailing)
-                            Text(participants[i]).foregroundColor(.black)
+                            SmallRoundImage(image: Image(uiImage: imageFromString(personInfo.picture)), width: 50, height: 50, shadowRadius: 7).padding(.trailing)
+                            Text(personInfo.firstname + " " + personInfo.lastname).foregroundColor(.black)
                             Spacer()
                             if selectedPayer.contains(participants[i]) == true{
                                 Image(systemName: "checkmark.circle")
@@ -73,6 +76,6 @@ struct SelectPayerView: View {
 struct SelectPayerView_Previews: PreviewProvider {
     @State static var selectedPayer: Set<String> = []
     static var previews: some View {
-        SelectPayerView(participants: ["Junfeng Zhi", "Suchuan Xing", "Dingzhou Wang"], selectedPayer: $selectedPayer, showSelectPayerView: .constant(true))
+        SelectPayerView(participants: ["Junfeng Zhi_ID", "Suchuan Xing_ID", "Dingzhou Wang_ID"], selectedPayer: $selectedPayer, showSelectPayerView: .constant(true)).environmentObject(StorageModel())
     }
 }

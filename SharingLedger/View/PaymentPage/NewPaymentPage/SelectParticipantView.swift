@@ -10,6 +10,8 @@ import SwiftUI
 struct SelectParticipantView: View {
     let participants: [String]
     
+    @EnvironmentObject var storageModel: StorageModel
+    
     @Binding var selectedParticipants: Set<String>
     @Binding var showSelectParticipantsView: Bool
     
@@ -24,6 +26,7 @@ struct SelectParticipantView: View {
             
             List(){
                 ForEach(participants.indices){ i in
+                    let personInfo = storageModel.personInfo[participants[i]]!
                     Button {
                         if selectedParticipants.contains(participants[i]) == true{
                             selectedParticipants.remove(participants[i])
@@ -32,8 +35,8 @@ struct SelectParticipantView: View {
                         }
                     } label: {
                         HStack{
-                            SmallCircleImage(image: Image("Unknown"), width: 50, height: 50, shadowRadius: 7).padding(.trailing)
-                            Text(participants[i]).foregroundColor(.black)
+                            SmallRoundImage(image: Image(uiImage: imageFromString(personInfo.picture)), width: 50, height: 50, shadowRadius: 7).padding(.trailing)
+                            Text(personInfo.firstname + " " + personInfo.lastname).foregroundColor(.black)
                             Spacer()
                             if selectedParticipants.contains(participants[i]) == true{
                                 Image(systemName: "checkmark.circle")
@@ -72,6 +75,6 @@ struct SelectParticipantView: View {
 struct SelectParticipantView_Previews: PreviewProvider {
     @State static var selectedParticipants: Set<String> = []
     static var previews: some View {
-        SelectParticipantView(participants: ["Junfeng Zhi", "Suchuan Xing", "Dingzhou Wang"], selectedParticipants: $selectedParticipants, showSelectParticipantsView: .constant(true))
+        SelectParticipantView(participants: ["Junfeng Zhi_ID", "Suchuan Xing_ID", "Dingzhou Wang_ID"], selectedParticipants: $selectedParticipants, showSelectParticipantsView: .constant(true)).environmentObject(StorageModel())
     }
 }
