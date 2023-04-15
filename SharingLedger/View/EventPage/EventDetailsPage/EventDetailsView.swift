@@ -31,7 +31,7 @@ struct EventDetailsView: View {
             EventSummary(eventID: eventID, viewType: $viewType)
             
             List{
-                ForEach(event.payments, id: \.self) { id in
+                ForEach(event.payments.sorted(by: dateComparator), id: \.self) { id in
                     let payment = storageModel.allPayments[id]!
                     NavigationLink {
                         PaymentDetailsView(payment: payment)
@@ -53,6 +53,10 @@ struct EventDetailsView: View {
             }
             .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
         }
+    }
+    
+    private func dateComparator(_ lhs: String, _ rhs: String) ->Bool{
+        return storageModel.allPayments[lhs]!.time > storageModel.allPayments[rhs]!.time
     }
 }
 
