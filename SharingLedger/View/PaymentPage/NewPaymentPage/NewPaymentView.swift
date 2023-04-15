@@ -26,6 +26,8 @@ struct NewPaymentView: View {
     
     @State var showSelectPayerView: Bool = false
     @State var showSelectParticipantView: Bool = false
+    @State var showAlert: Bool = false
+    @State var alertMessage: String = "Successfully add new payment. Click back to return."
     
     @Binding var viewType: ViewType
 
@@ -106,20 +108,34 @@ struct NewPaymentView: View {
             
             HStack{
                 Spacer()
+                
                 Button("  Back  ") {
                     viewType = .EventDetailsView
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
                 .frame(maxWidth: .infinity, maxHeight: 50)
+                
                 Spacer()
+                
                 Button(" Conform ") {
-                    //TODO: interact with storage model, add new payment
-                    viewType = .EventDetailsView
-                    print("Button pressed!")
+                    do{
+                        showAlert.toggle()
+                        let newPayment = try newPaymentViewInputHandle(expenseName: expenseName, expenseAmount: expenseAmount, category: categoryList[selectedCategory], notes: notes, date: date, selectedPayer: selectedPayer, selectedParticipant: selectedParticipant)
+                        //TODO: interact with storage model to upload and sync
+                    } catch InputError.invalidArgValue(msg: let reason){
+                        alertMessage = reason
+                    } catch{
+                        alertMessage = error.localizedDescription.debugDescription
+                    }
+                }
+                .alert(isPresented: $showAlert){
+                    Alert(title: Text("Message"),message: Text(alertMessage))
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
                 .frame(maxWidth: .infinity, maxHeight: 50)
+                
                 Spacer()
+                
                 Button("  Clear  ") {
                     expenseName = ""
                     expenseAmount = ""
@@ -130,6 +146,7 @@ struct NewPaymentView: View {
                 }
                 .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
                 .frame(maxWidth: .infinity, maxHeight: 50)
+                
                 Spacer()
             }
             .padding([.leading,.trailing])
