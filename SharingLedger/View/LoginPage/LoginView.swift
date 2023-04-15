@@ -10,11 +10,10 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject var storageModel: StorageModel
     
-    @State private var showingWelcomeView = false
-    var personlist: [PersonDetail] {
-        var res: [PersonDetail] = []
-        for person in storageModel.personInfo.values {
-            res.append(person)
+    var personlist: [String] {
+        var res: [String] = []
+        for personID in storageModel.personInfo.keys {
+            res.append(personID)
         }
         return res
     }
@@ -32,12 +31,12 @@ struct LoginView: View {
                         .lineLimit(2)
                         .font(.custom("AmericanTypewriter", size: 25))
                     
-                    List(personlist) { person in
+                    List(personlist, id: \.self) { personID in
                         NavigationLink {
-                            HomePageView(name: person.firstname + " " + person.lastname)
+                            HomePageView(personID: personID)
                                 .environmentObject(storageModel)
                         } label: {
-                            LoginRow(personDetail: person)
+                            LoginRow(personID: personID)
                                 .environmentObject(storageModel)
                         }
                     }

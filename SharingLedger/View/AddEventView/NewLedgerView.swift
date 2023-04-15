@@ -17,6 +17,7 @@ struct NewLedgerView: View {
     @State var isEventNameEmptyAlertPresented: Bool = false
     @State var isEventNameExistAlertPresented: Bool = false
     @State var isPeopleRepeatedAlertPresented: Bool = false
+    
     var peopleOption: [PersonDetail] {
         var res: [PersonDetail] = []
         for person in storageModel.personInfo.values {

@@ -132,17 +132,20 @@ class EventInfo: Codable {
     var eventname: String
     var payments: [String] = [] // [PaymentsDetail.id]
     var participates: [String]  // [PersonDetail.id]
+    var createdTime: Date
     
     init(id: String, eventName: String, payments: [String], participates: [String]){
         self.id = id
         self.eventname = eventName
         self.participates = participates
         self.payments = payments
+        self.createdTime = Date()
     }
     
     init(eventName: String, participates: [String]) {
         self.eventname = eventName
         self.participates = participates
+        self.createdTime = Date()
     }
 
 }

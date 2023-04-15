@@ -11,6 +11,7 @@ class PersonDetail: Identifiable, Hashable, Codable {
     var id: String //capture firestore id
     var lastname: String
     var firstname: String
+    var fullname: String = ""
     var joinedEventNames: [String] // store the event ID
     var picture: String
     
@@ -18,6 +19,7 @@ class PersonDetail: Identifiable, Hashable, Codable {
         self.id = id
         self.lastname = lname
         self.firstname = fname
+        self.fullname = self.firstname + " " + self.lastname
         self.picture = base64pic("Unknown")!
 
         self.joinedEventNames = joinedEventNames

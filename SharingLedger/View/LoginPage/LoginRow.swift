@@ -11,12 +11,12 @@ import SwiftUI
 struct LoginRow: View {
     
     @EnvironmentObject var storageModel: StorageModel
-    var personDetail: PersonDetail
+    var personID: String
     
     var body: some View {
         HStack{
-            SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[personDetail.firstname + " " + personDetail.lastname + "_ID"]!.picture)), width: 50, height: 50, shadowRadius: 0)
-            Text(personDetail.firstname + " " + personDetail.lastname)
+            SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[personID]!.picture)), width: 50, height: 50, shadowRadius: 0)
+            Text(storageModel.personInfo[personID]!.fullname)
             
             Spacer()
         }
@@ -25,7 +25,7 @@ struct LoginRow: View {
 
 struct LoginRow_Previews: PreviewProvider {
     static var previews: some View {
-        LoginRow(personDetail: PersonDetail(id: "", lname: "Xing", fname: "Suchuan", joinedEventNames: [])).environmentObject(StorageModel())
+        LoginRow(personID: "Suchuan Xing_ID").environmentObject(StorageModel())
     }
 }
 

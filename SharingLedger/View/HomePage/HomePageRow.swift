@@ -9,26 +9,23 @@ import SwiftUI
 
 struct HomePageRow: View {
     @EnvironmentObject var storageModel: StorageModel
-    let eventName: String
+    let eventID: String
     var joinedPeopleNumber: Int {
-        return storageModel.allEvents[eventName+"_ID"]!.participates.count >= 4 ? 4 : storageModel.allEvents[eventName+"_ID"]!.participates.count
+        return storageModel.allEvents[eventID]!.participates.count >= 4 ? 4 : storageModel.allEvents[eventID]!.participates.count
     }
-    
-    
     
     var body: some View {
         NavigationView{
             VStack{
-                
-                
                 HStack{
                     Spacer()
                     Text("created at 2023-3-1 01:19:21").font(.custom("Inter Light", size: 10)).multilineTextAlignment(.trailing)
                         .offset(x: -30)
                 }
+                
                 ZStack{
                     NavigationLink {
-                        EventView(eventName: storageModel.allEvents[eventName+"_ID"]!.eventname)
+                        EventView(eventName: storageModel.allEvents[eventID]!.eventname)
                             .environmentObject(storageModel)
                         }label: {
                             Rectangle()
@@ -39,18 +36,18 @@ struct HomePageRow: View {
                     
                     VStack{
                         
-                        Text(eventName)
+                        Text(storageModel.allEvents[eventID]!.eventname)
                             .padding(.leading, -150)
                             .font(.custom("Inter Bold", size: 14)).multilineTextAlignment(.center)
                         
                         NavigationLink {
                             //jump to add people view
-                            EventView(eventName: storageModel.allEvents[eventName+"_ID"]!.eventname)
-                                .environmentObject(storageModel)
+                            
+                            
                             }label: {
                                 HStack{
                                     ForEach(0..<joinedPeopleNumber) { i in
-                                        SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[storageModel.allEvents[eventName+"_ID"]!.participates[i]]!.picture)), width: 35, height: 35, shadowRadius: 0)
+                                        SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[storageModel.allEvents[eventID]!.participates[i]]!.picture)), width: 35, height: 35, shadowRadius: 0)
                                     }
                                     
                                     
@@ -84,6 +81,6 @@ struct HomePageRow: View {
 
 struct HomePageRow_Previews: PreviewProvider {
     static var previews: some View {
-        HomePageRow(eventName: "Development").environmentObject(StorageModel())
+        HomePageRow(eventID: "Development_ID").environmentObject(StorageModel())
     }
 }

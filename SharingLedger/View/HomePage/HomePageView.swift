@@ -13,12 +13,12 @@ struct HomePageView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showSheet = false
     
-    var name: String
+    var personID: String
     var joinedEventList: [EventInfo] {
         var res: [EventInfo] = []
         
         for eventName in storageModel.allEvents.keys {
-            if storageModel.personInfo[name + "_ID"]!.joinedEventNames.contains(eventName){
+            if storageModel.personInfo[personID]!.joinedEventNames.contains(eventName){
                 res.append(storageModel.allEvents[eventName]!)
             }
         }
@@ -33,8 +33,8 @@ struct HomePageView: View {
                     .font(.custom("Inter", size: 30))
                     .fontWeight(.bold)
                 HStack{
-                    SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[name+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
-                    Text("Welcome, " + name + "!")
+                    SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[personID]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                    Text("Welcome, " + storageModel.personInfo[personID]!.fullname + "!")
                         .font(.custom("Inter", size: 15))
                         .fontWeight(.bold)
                     Spacer()
@@ -55,7 +55,7 @@ struct HomePageView: View {
                 
                 ForEach(joinedEventList, id: \.self){eventInfo in
                    
-                    HomePageRow(eventName: eventInfo.eventname)
+                    HomePageRow(eventID: eventInfo.id)
                         .environmentObject(storageModel)
                         .foregroundColor(.black)
                         
@@ -86,6 +86,6 @@ struct HomePageView: View {
 
 struct HomePageView_Previews: PreviewProvider {
     static var previews: some View {
-        HomePageView(name: "Suchuan Xing").environmentObject(StorageModel())
+        HomePageView(personID: "Suchuan Xing_ID").environmentObject(StorageModel())
     }
 }
