@@ -23,7 +23,7 @@ struct OverlapPersonPicture: View {
                         .frame(width: 30, height: 30)
                         .clipShape(Circle())
                         .overlay{
-                            Circle().stroke(.gray, lineWidth: 4)
+                            Circle().stroke(.gray, lineWidth: 0)
                         }
                         .offset(x: -50 + CGFloat(index * 20))
                         .shadow(radius: 3)

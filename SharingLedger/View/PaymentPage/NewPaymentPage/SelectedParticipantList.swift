@@ -23,7 +23,7 @@ struct SelectedParticipantList: View {
                        .frame(width: 40, height: 40)
                        .clipShape(Circle())
                        .overlay{
-                           Circle().stroke(.gray, lineWidth: 4)
+                           Circle().stroke(.gray, lineWidth: 1)
                        }
                        .offset(x: CGFloat(index * -15))
                        .shadow(radius: 3)

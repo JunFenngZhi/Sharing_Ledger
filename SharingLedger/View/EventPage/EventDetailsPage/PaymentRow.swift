@@ -11,7 +11,7 @@ struct PaymentRow: View {
     let payment: PaymentsDetail
     var body: some View {
         HStack{
-            SmallCircleImage(image: Image(payment.category.rawValue), width: 50, height: 50,shadowRadius: 7)
+            SmallRoundImage(image: Image(payment.category.rawValue), width: 50, height: 50,shadowRadius: 7)
             VStack(alignment: .leading){
                 Text(payment.paymentName)
                     .font(.headline)

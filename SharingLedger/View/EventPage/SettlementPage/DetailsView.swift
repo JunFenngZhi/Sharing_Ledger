@@ -30,7 +30,7 @@ struct DetailsView: View {
                         Spacer()
                         
                         VStack(alignment: .center){
-                            SmallCircleImage(image: Image(uiImage: imageFromString(payer.picture)), width: 30, height: 30, shadowRadius: 3)
+                            SmallRoundImage(image: Image(uiImage: imageFromString(payer.picture)), width: 30, height: 30, shadowRadius: 3)
                             Text(payer.firstname + " " + payer.lastname).font(.footnote)
                         }
                         .frame(minWidth:columnMinWidth, maxWidth:columnMaxWidth)
@@ -48,7 +48,7 @@ struct DetailsView: View {
                         Spacer()
                         
                         VStack(alignment: .center){
-                            SmallCircleImage(image: Image(uiImage: imageFromString(payee.picture)), width: 30, height: 30, shadowRadius: 3)
+                            SmallRoundImage(image: Image(uiImage: imageFromString(payee.picture)), width: 30, height: 30, shadowRadius: 3)
                             Text(payee.firstname + " " + payee.lastname).font(.footnote)
                         }
                         .frame(minWidth:columnMinWidth, maxWidth:columnMaxWidth)

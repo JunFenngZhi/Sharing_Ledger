@@ -17,7 +17,7 @@ struct PersonRow: View {
     
     var body: some View {
         HStack {
-            SmallCircleImage(image: Image("Unknown"), width: 30, height: 30, shadowRadius: 3)
+            SmallRoundImage(image: picture, width: 30, height: 30, shadowRadius: 3)
             Text(name).font(.headline)
             Image(systemName: selectedRow == index ? "chevron.up" : "chevron.down")
             Spacer()

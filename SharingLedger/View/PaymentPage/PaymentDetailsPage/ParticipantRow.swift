@@ -14,7 +14,7 @@ struct ParticipantRow: View {
     var body: some View {
         let personInfo = storageModel.personInfo[personID]!
         HStack{
-            SmallCircleImage(image: Image(uiImage: imageFromString(personInfo.picture)), width: 50, height: 50, shadowRadius: 7) 
+            SmallRoundImage(image: Image(uiImage: imageFromString(personInfo.picture)), width: 50, height: 50, shadowRadius: 7) 
             Text(personInfo.firstname + " " + personInfo.lastname)
                 .font(.headline)
                 .padding()

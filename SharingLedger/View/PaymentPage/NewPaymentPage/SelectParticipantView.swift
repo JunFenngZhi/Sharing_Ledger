@@ -35,7 +35,7 @@ struct SelectParticipantView: View {
                         }
                     } label: {
                         HStack{
-                            SmallCircleImage(image: Image(uiImage: imageFromString(personInfo.picture)), width: 50, height: 50, shadowRadius: 7).padding(.trailing)
+                            SmallRoundImage(image: Image(uiImage: imageFromString(personInfo.picture)), width: 50, height: 50, shadowRadius: 7).padding(.trailing)
                             Text(personInfo.firstname + " " + personInfo.lastname).foregroundColor(.black)
                             Spacer()
                             if selectedParticipants.contains(participants[i]) == true{

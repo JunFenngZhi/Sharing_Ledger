@@ -18,7 +18,7 @@ struct PaymentDetailsView: View {
         VStack{
             VStack(alignment: .leading){
                 HStack{
-                    SmallCircleImage(image: Image(payment.category.rawValue), width: 50, height: 50, shadowRadius: 7)
+                    SmallRoundImage(image: Image(payment.category.rawValue), width: 50, height: 50, shadowRadius: 7)
                     Text(payment.paymentName).font(.headline)
                     Spacer()
                     Button("Edit✏️") {
