@@ -17,7 +17,6 @@ struct PaymentDetailsView: View {
     var body: some View {
         VStack{
             VStack(alignment: .leading){
-                //Text(DateFormatter().string(from: payment.time))
                 HStack{
                     SmallCircleImage(image: Image(payment.category.rawValue), width: 50, height: 50, shadowRadius: 7)
                     Text(payment.paymentName).font(.headline)
@@ -30,10 +29,15 @@ struct PaymentDetailsView: View {
                 }
                 .padding()
                 
-                Text("$" + String(format:"%.2f", payment.expense))
-                    .font(.title)
-                    .bold()
-                    .padding(.leading)
+                HStack{
+                    Text("$" + String(format:"%.2f", payment.expense))
+                        .font(.title)
+                        .bold()
+                    Spacer()
+                    Text(payment.time, formatter: DateFormatter.dateTime)
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }.padding(.horizontal)
             }
             
             Spacer()

@@ -43,3 +43,11 @@ func base64pic(_ imageName: String) -> String? {
     }
     return base64String
 }
+
+func isZero_Double(num: Double) -> Bool{
+    let tolerance = 0.000001
+    if(abs(num) > tolerance){
+        return false;
+    }
+    return true
+}

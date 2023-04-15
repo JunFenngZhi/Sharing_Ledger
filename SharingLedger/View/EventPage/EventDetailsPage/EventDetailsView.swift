@@ -30,8 +30,6 @@ struct EventDetailsView: View {
             
             EventSummary(eventID: eventID, viewType: $viewType)
             
-            
-            // TODO: payments order may varied. sorted by key/time
             List{
                 ForEach(event.payments, id: \.self) { id in
                     let payment = storageModel.allPayments[id]!
