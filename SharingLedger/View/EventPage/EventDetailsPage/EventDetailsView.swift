@@ -21,7 +21,7 @@ struct EventDetailsView: View {
                     .font(.headline)
                     .fontWeight(.heavy)
                 Spacer()
-                OverlapPersonPicture(nameList: event.participates)
+                OverlapPersonPicture(personIdList: event.participates)
             }
             .padding([.trailing, .leading])
             

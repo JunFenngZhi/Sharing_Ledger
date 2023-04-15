@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct SelectedParticipantList: View {
+    @EnvironmentObject var storageModel: StorageModel
+    
     let selectedParticipant: Set<String>
-    var image: Image = Image("Unknown") //TODO: placeholder,get image through environmentObject
     
     var body: some View {
         HStack(){
+            let firstThree = Array(selectedParticipant.prefix(3))
             ForEach(0..<3) { index in
                 if(index < selectedParticipant.count){
-                    Image("Unknown")
+                    let personInfo = storageModel.personInfo[firstThree[index]]!
+                    Image(uiImage: imageFromString(personInfo.picture))
                        .resizable()
                        .frame(width: 40, height: 40)
                        .clipShape(Circle())
@@ -42,6 +45,6 @@ struct SelectedParticipantList: View {
 
 struct SelectedParticipantList_Previews: PreviewProvider {
     static var previews: some View {
-        SelectedParticipantList(selectedParticipant: ["123","456","789","222"])
+        SelectedParticipantList(selectedParticipant: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"]).environmentObject(StorageModel())
     }
 }
