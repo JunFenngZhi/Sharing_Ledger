@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct EventDetailsView: View {
-    let eventName: String
+    let eventID: String
+    var eventName: String{
+        return storageModel.allEvents[eventID]!.eventname
+    }
     
     @EnvironmentObject var storageModel: StorageModel
     @Binding var viewType: ViewType
     
     var body: some View {
-        let event: EventInfo = storageModel.allEvents[eventName]!
+        let event: EventInfo = storageModel.allEvents[eventID]!
         VStack{
             HStack{
                 Text(eventName)
@@ -25,7 +28,7 @@ struct EventDetailsView: View {
             }
             .padding([.trailing, .leading])
             
-            EventSummary(eventName: eventName, viewType: $viewType)
+            EventSummary(eventID: eventID, viewType: $viewType)
             
             
             // TODO: payments order may varied. sorted by key/time
@@ -58,6 +61,6 @@ struct EventDetailsView: View {
 struct EventDetailsView_Previews: PreviewProvider {
     @State static var viewType: ViewType = .EventDetailsView
     static var previews: some View {
-        EventDetailsView(eventName: "Development", viewType: $viewType).environmentObject(StorageModel())
+        EventDetailsView(eventID: "Development_ID", viewType: $viewType).environmentObject(StorageModel())
     }
 }

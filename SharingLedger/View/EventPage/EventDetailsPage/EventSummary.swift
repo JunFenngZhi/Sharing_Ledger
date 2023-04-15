@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct EventSummary: View {
-    let eventName: String
+    let eventID: String
     
     @Binding var viewType: ViewType
     @EnvironmentObject var storageModel: StorageModel
     
     var totalExpense: Double{
         var total: Double = 0
-        let curEvent = storageModel.allEvents[eventName]!
+        let curEvent = storageModel.allEvents[eventID]!
         for paymentID in curEvent.payments{
             total += storageModel.allPayments[paymentID]!.expense
         }
@@ -23,7 +23,6 @@ struct EventSummary: View {
     }
     
     var body: some View {
-        let curEvent = storageModel.allEvents[eventName]!
         HStack{
             VStack(alignment: .leading){
                 Text("$" + String(format:"%.2f",totalExpense))
@@ -57,6 +56,6 @@ struct EventSummary: View {
 struct EventSummary_Previews: PreviewProvider {
     @State static var viewType: ViewType = .EventDetailsView
     static var previews: some View {
-        EventSummary(eventName: "Development", viewType: $viewType).environmentObject(StorageModel())
+        EventSummary(eventID: "Development_ID", viewType: $viewType).environmentObject(StorageModel())
     }
 }

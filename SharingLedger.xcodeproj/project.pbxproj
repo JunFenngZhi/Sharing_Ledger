@@ -214,13 +214,13 @@
 		04FCBB2329D0C75200C971F2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04FCBB2C29D3C12100C971F2 /* LoginPage */,
+				046C6E5A29D607DD000F82C3 /* HomePage */,
 				049146AC29EA05AD00AD1644 /* AddPeoplePage */,
 				049146A329E7DD3700AD1644 /* AddEventView */,
-				046C6E5A29D607DD000F82C3 /* HomePage */,
 				2EDD95CA29D4E930007B05E5 /* HelperView */,
 				2EDD95CE29D4E930007B05E5 /* EventPage */,
 				2EDD95D029D4E930007B05E5 /* PaymentPage */,
-				04FCBB2C29D3C12100C971F2 /* LoginPage */,
 			);
 			path = View;
 			sourceTree = "<group>";

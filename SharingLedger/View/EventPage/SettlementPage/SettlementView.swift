@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettlementView: View {
-    let eventName: String
+    let eventID: String
     
     @EnvironmentObject var storageModel: StorageModel
     
@@ -17,7 +17,7 @@ struct SettlementView: View {
     
     // [personID: expenseAmount] count the amount of expense for each participants. Expense = spend - pay
     var personExpenseList: [String: Double]{
-        let event = storageModel.allEvents[eventName]!
+        let event = storageModel.allEvents[eventID]!
         let allParticipatesID: [String] = event.participates
         let allPaymentIDs = event.payments
         var dict: [String: Double] = [:]
@@ -45,7 +45,7 @@ struct SettlementView: View {
     // {ID_personA: (ID_personB, 100), (ID_personC, -50]...}
     var allSettlementResults: [String: [(String,Double)]]{
         var dict: [String: [(String,Double)]] = [:]
-        let event = storageModel.allEvents[eventName]!
+        let event = storageModel.allEvents[eventID]!
         let allParticipatesID: [String] = event.participates
         let allPaymentIDs = event.payments
         
@@ -83,7 +83,7 @@ struct SettlementView: View {
 
     
     var body: some View {
-        let event: EventInfo = storageModel.allEvents[eventName]!
+        let event: EventInfo = storageModel.allEvents[eventID]!
         
         VStack{
             HStack{
@@ -144,6 +144,6 @@ struct SettlementView: View {
 struct SettlementView_Previews: PreviewProvider {
     @State static var viewType: ViewType = .SettlementView
     static var previews: some View {
-        SettlementView(eventName: "Development", viewType: $viewType).environmentObject(StorageModel())
+        SettlementView(eventID: "Development_ID", viewType: $viewType).environmentObject(StorageModel())
     }
 }
