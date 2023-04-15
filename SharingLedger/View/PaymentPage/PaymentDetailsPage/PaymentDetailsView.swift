@@ -10,6 +10,7 @@ import SwiftUI
 struct PaymentDetailsView: View {
     let payment: PaymentsDetail
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var storageModel: StorageModel
     
     @State var showEdit = false
     
@@ -18,7 +19,7 @@ struct PaymentDetailsView: View {
             VStack(alignment: .leading){
                 //Text(DateFormatter().string(from: payment.time))
                 HStack{
-                    SmallCircleImage(image: Image("Unknown"), width: 50, height: 50, shadowRadius: 7)
+                    SmallCircleImage(image: Image(payment.category.rawValue), width: 50, height: 50, shadowRadius: 7)
                     Text(payment.paymentName).font(.headline)
                     Spacer()
                     Button("Edit✏️") {
@@ -42,14 +43,14 @@ struct PaymentDetailsView: View {
             List(){
                 Section(header: Text("Participants: ").font(.subheadline).foregroundColor(.cyan).bold()){
                     ForEach(payment.participates.indices){
-                        ParticipantRow(name: payment.participates[$0], amount: Double(payment.expense)/Double(payment.participates.count))
+                        ParticipantRow(personID: payment.participates[$0], amount: Double(payment.expense)/Double(payment.participates.count))
                     }
                 }
                 .listRowInsets(EdgeInsets())
                 
                 Section(header: Text("Payers: ").font(.subheadline).foregroundColor(.cyan).bold()){
                     ForEach(payment.payers.indices){
-                        PayerRow(name: payment.payers[$0])
+                        PayerRow(personID: payment.payers[$0])
                     }
                 }
                 .listRowInsets(EdgeInsets())
@@ -73,6 +74,6 @@ struct PaymentDetailsView: View {
 
 struct PaymentDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentDetailsView(payment: PaymentsDetail(paymentName: "chick-fil-a", expense: 23.45, category: .Restaurant, participates: ["Junfeng Zhi", "Dingzhou Wang", "Suchuan Xing"], payers: ["Junfeng Zhi"], note: "lunch", time: Date.now))
+        PaymentDetailsView(payment: PaymentsDetail(paymentName: "chick-fil-a", expense: 23.45, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Junfeng Zhi_ID"], note: "lunch", time: Date.now)).environmentObject(StorageModel())
     }
 }

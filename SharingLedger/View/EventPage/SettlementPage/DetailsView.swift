@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DetailsView: View {
-    let myName: String
+    let myPersonID: String
     let transferList: [(String, Double)]
     let columnMaxWidth: CGFloat = 100
     let columnMinWidth: CGFloat = 0
@@ -16,20 +16,22 @@ struct DetailsView: View {
     @EnvironmentObject var storageModel: StorageModel
     
     var body: some View {
+        let myPersonInfo = storageModel.personInfo[myPersonID]!
+        
         VStack(spacing: 30){
             ForEach(transferList, id: \.0) { tuple in
-                let counterName = storageModel.personInfo[tuple.0]!.firstname + " " + storageModel.personInfo[tuple.0]!.lastname
+                let counterPersonInfo = storageModel.personInfo[tuple.0]!
                 let amount = tuple.1
-                let payer = amount > 0 ? myName : counterName
-                let payee = amount > 0 ? counterName : myName
+                let payer = amount > 0 ? myPersonInfo : counterPersonInfo
+                let payee = amount > 0 ? counterPersonInfo : myPersonInfo
                 
                 VStack{
                     HStack(){
                         Spacer()
                         
                         VStack(alignment: .center){
-                            SmallCircleImage(image: Image("Unknown"), width: 30, height: 30, shadowRadius: 3)
-                            Text(payer).font(.footnote)
+                            SmallCircleImage(image: Image(uiImage: imageFromString(payer.picture)), width: 30, height: 30, shadowRadius: 3)
+                            Text(payer.firstname + " " + payer.lastname).font(.footnote)
                         }
                         .frame(minWidth:columnMinWidth, maxWidth:columnMaxWidth)
                         
@@ -46,8 +48,8 @@ struct DetailsView: View {
                         Spacer()
                         
                         VStack(alignment: .center){
-                            SmallCircleImage(image: Image("Unknown"), width: 30, height: 30, shadowRadius: 3)
-                            Text(payee).font(.footnote)
+                            SmallCircleImage(image: Image(uiImage: imageFromString(payee.picture)), width: 30, height: 30, shadowRadius: 3)
+                            Text(payee.firstname + " " + payee.lastname).font(.footnote)
                         }
                         .frame(minWidth:columnMinWidth, maxWidth:columnMaxWidth)
                         
@@ -71,6 +73,6 @@ struct DetailsView: View {
 
 struct DetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailsView(myName: "Junfeng Zhi", transferList: [("Suchuan Xing_ID", 123.45),("Dingzhou Wang_ID", -456.78)]).environmentObject(StorageModel())
+        DetailsView(myPersonID: "Junfeng Zhi_ID", transferList: [("Suchuan Xing_ID", 123.45),("Dingzhou Wang_ID", -456.78)]).environmentObject(StorageModel())
     }
 }

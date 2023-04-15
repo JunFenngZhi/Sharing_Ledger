@@ -66,8 +66,9 @@ struct NewPaymentView: View {
                     }
                     else{
                         HStack(spacing: 10){
-                            ForEach(selectedPayer.sorted(), id: \.self){name in
-                                SmallCircleImage(image: Image("Unknown"), width: 40, height: 40, shadowRadius: 2)
+                            ForEach(selectedPayer.sorted(), id: \.self){id in
+                                let personInfo = storageModel.personInfo[id]!
+                                SmallCircleImage(image: Image(uiImage: imageFromString(personInfo.picture)), width: 40, height: 40, shadowRadius: 2)
                             }
                         }
                         .padding(.vertical)

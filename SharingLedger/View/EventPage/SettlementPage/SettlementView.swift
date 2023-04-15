@@ -101,10 +101,11 @@ struct SettlementView: View {
             List{
                 ForEach(event.participates.indices) { index in
                     let personID = event.participates[index]
-                    let personName = storageModel.personInfo[personID]!.firstname + " " + storageModel.personInfo[personID]!.lastname
-                    
+                    let personInfo = storageModel.personInfo[personID]!
+                    let personName = personInfo.firstname + " " + storageModel.personInfo[personID]!.lastname
+
                     VStack {
-                        PersonRow(picture: Image("Unknown"), name: personName, payAmount: personExpenseList[personID]!, index: index, selectedRow: $selectedRow)
+                        PersonRow(picture: Image(uiImage: imageFromString(personInfo.picture)), name: personName, payAmount: personExpenseList[personID]!, index: index, selectedRow: $selectedRow)
                         .padding(.vertical, 10)
                         .padding(.leading, -10)
                         .onTapGesture {
@@ -113,7 +114,7 @@ struct SettlementView: View {
                         
                         // settlement details for each person
                         if selectedRow == index {
-                            DetailsView(myName: personName, transferList: allSettlementResults[personID]!)
+                            DetailsView(myPersonID: personID, transferList: allSettlementResults[personID]!)
                             .padding(.horizontal, -40)
                             .padding(.vertical)
                         }
