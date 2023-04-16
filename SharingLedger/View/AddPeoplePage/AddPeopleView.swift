@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct AddPeopleView: View {
     @EnvironmentObject var storageModel: StorageModel
     var eventName: String
@@ -29,6 +28,8 @@ struct AddPeopleView: View {
     var body: some View {
         NavigationView {
             Form{
+                Text(eventName)
+                
                 VStack {
                     Text("Selected option: \(peopleOption[selection].firstname+" "+peopleOption[selection].lastname)")
                     

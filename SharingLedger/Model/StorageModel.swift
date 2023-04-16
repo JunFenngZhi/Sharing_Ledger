@@ -17,7 +17,9 @@ class StorageModel: ObservableObject {
     }
     
     func initForTest(){
-    self.allEvents["Development_ID"] = EventInfo(eventName: "Development", participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"])
+        var newevent = EventInfo(eventName: "Development", participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"])
+        newevent.id = "Development_ID"
+    self.allEvents["Development_ID"] = newevent
     let payments_1 = PaymentsDetail(paymentName: "chick-fil-a", expense: 20, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Junfeng Zhi_ID"], note: "lunch", time: Date.now)
         let payments_2 = PaymentsDetail(paymentName: "nuro taco", expense: 40, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Suchuan Xing_ID"], note: "dinner", time: Date.now.addingTimeInterval(-1*60*60*24))
     self.allPayments["payments_1_ID"] = payments_1
@@ -53,6 +55,29 @@ class StorageModel: ObservableObject {
             let personDetail: PersonDetail = buildPersonDetailFromDukePerson(dukePerson: dukePerson)
             personInfo[personDetail.firstname + " " + personDetail.lastname + "_ID"] = personDetail
         }
+    }
+    
+    func addNewEvent(newEvent: EventInfo) throws {
+        let viewModel = ViewModel()
+        
+        DispatchQueue.global(qos: .background).async {
+            viewModel.add_EventInfo(toAdd: newEvent) { documentID, error in
+                guard let eventID = documentID, error == nil else {
+                    print("Error adding EventInfo document: \(error!)")
+                    return
+                }
+                // sync storage model with database
+                if(viewModel.allEvents.isEmpty){
+                    throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
+                }
+                self.allEvents = viewModel.allEvents
+                
+                // update eventInfo to add newPayment's id.
+                
+                
+            }
+        }
+        
     }
     
     /// Add new Payments to specific events. Sync the changes with backend database.
@@ -96,4 +121,7 @@ class StorageModel: ObservableObject {
         //TODO: not finish yet
         return true
     }
+    
+    
+    
 }

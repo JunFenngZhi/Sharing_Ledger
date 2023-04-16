@@ -43,7 +43,6 @@ struct HomePageRow: View {
                         NavigationLink {
                             //jump to add people view
                             
-                            
                             }label: {
                                 HStack{
                                     ForEach(0..<joinedPeopleNumber) { i in
