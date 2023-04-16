@@ -57,7 +57,7 @@ struct ContentView: View {
                 let p_detail = PaymentsDetail(paymentName: "test_payment1", expense: 1234, category: Category.Restaurant, participates: ["Suchuan Xing", "Dingzhou Wang"], payers: ["Suchuan Xing"], note: "test_note", time: Date())
                 Button(action: {
                     model.add_PersonDetail(toAdd: pd)
-                    model.add_PaymentsDetail(toAdd: p_detail)
+//                    model.add_PaymentsDetail(toAdd: p_detail)
                     lastname = ""
                     firstname = ""
                     joinedEventNames = ""

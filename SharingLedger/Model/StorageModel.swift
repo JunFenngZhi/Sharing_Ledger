@@ -59,18 +59,34 @@ class StorageModel: ObservableObject {
     func addNewPayments(newPayment: PaymentsDetail, eventID: String) throws {
         // upload newPayment object to database
         let viewModel = ViewModel()
-        guard let paymentID = viewModel.add_PaymentsDetail(toAdd: newPayment) else{
-            throw SyncError.DownloadFailure(msg: "Fail to upload PaymenttDetail object.")
+//        guard let paymentID = viewModel.add_PaymentsDetail(toAdd: newPayment) else{
+//            throw SyncError.DownloadFailure(msg: "Fail to upload PaymenttDetail object.")
+//        }
+        DispatchQueue.global(qos: .background).async {
+            viewModel.add_PaymentsDetail(toAdd: newPayment) { documentID, error in
+                guard let paymentID = documentID, error == nil else {
+                    print("Error adding PaymentsDetail document: \(error!)")
+                    return
+                }
+                // sync storage model with database
+                if(viewModel.allEvents.isEmpty){
+                    throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
+                }
+                self.allEvents = viewModel.allEvents
+                
+                // update eventInfo to add newPayment's id.
+                self.allEvents[eventID]?.payments.append(paymentID)
+            }
         }
         
-        // sync storage model with database
-        if(viewModel.allEvents.isEmpty){
-            throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
-        }
-        self.allEvents = viewModel.allEvents
-        
-        // update eventInfo to add newPayment's id.
-        self.allEvents[eventID]?.payments.append(paymentID)
+//        // sync storage model with database
+//        if(viewModel.allEvents.isEmpty){
+//            throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
+//        }
+//        self.allEvents = viewModel.allEvents
+//
+//        // update eventInfo to add newPayment's id.
+//        self.allEvents[eventID]?.payments.append(paymentID)
     }
     
     /// Delete specific event. Sync the changes with backend database

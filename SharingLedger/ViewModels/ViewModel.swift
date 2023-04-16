@@ -273,12 +273,34 @@ class ViewModel: ObservableObject{
     
     
     // add
-    func add_EventInfo(toAdd: EventInfo) -> String?{
+//    func add_EventInfo(toAdd: EventInfo) -> String?{
+//        let db = Firestore.firestore()
+//        var documentReference: DocumentReference? = nil
+//        documentReference = db.collection("EventInfo").addDocument(data: ["eventname":toAdd.eventname, "payments":toAdd.payments, "participates": toAdd.participates]) { error in
+//            if let error = error {
+//                print("Error adding EventInfo document: \(error)")
+//            } else {
+//                let documentID = documentReference?.documentID
+//                print("EventInfo document added successfully with ID: \(documentID ?? "")")
+//                toAdd.id = documentID ?? ""
+//                db.collection("EventInfo").document(documentID!).updateData(["id": toAdd.id])
+//                self.allEvents = [:]
+//                self.get_EventInfo()
+//            }
+//        }
+//        let res = documentReference?.documentID
+//        return res
+//    }
+    func add_EventInfo(toAdd: EventInfo, completionHandler: @escaping (String?, Error?) throws -> Void) {
         let db = Firestore.firestore()
         var documentReference: DocumentReference? = nil
         documentReference = db.collection("EventInfo").addDocument(data: ["eventname":toAdd.eventname, "payments":toAdd.payments, "participates": toAdd.participates]) { error in
             if let error = error {
-                print("Error adding EventInfo document: \(error)")
+                do {
+                    try completionHandler(nil, error)
+                } catch {
+                    print("Error executing EventInfo completion handler: \(error)")
+                }
             } else {
                 let documentID = documentReference?.documentID
                 print("EventInfo document added successfully with ID: \(documentID ?? "")")
@@ -286,57 +308,139 @@ class ViewModel: ObservableObject{
                 db.collection("EventInfo").document(documentID!).updateData(["id": toAdd.id])
                 self.allEvents = [:]
                 self.get_EventInfo()
+                do {
+                    try completionHandler(documentID, nil)
+                } catch {
+                    print("Error executing EventInfo completion handler: \(error)")
+                }
             }
         }
-        let res = documentReference?.documentID
-        return res
     }
+
     
-    func add_Note(toAdd: Note)->String?{
+//    func add_Note(toAdd: Note)->String?{
+//        let db = Firestore.firestore()
+//        var documentReference: DocumentReference? = nil
+//        documentReference = db.collection("Note").addDocument(data: ["texts":toAdd.texts, "pictures":toAdd.pictures]){ error in
+//            // Check error
+//            if let error = error {
+//                print("Error adding Note document: \(error)")
+//            } else {
+//                let documentID = documentReference?.documentID
+//                print("Note document added successfully with ID: \(documentID ?? "")")
+//                toAdd.id = documentID ?? ""
+//                db.collection("Note").document(documentID!).updateData(["id": toAdd.id])
+//                self.get_Note()
+//            }
+//        }
+//        let res = documentReference?.documentID
+//        return res
+//    }
+    func add_Note(toAdd: Note, completionHandler: @escaping (String?, Error?) throws -> Void) {
         let db = Firestore.firestore()
         var documentReference: DocumentReference? = nil
         documentReference = db.collection("Note").addDocument(data: ["texts":toAdd.texts, "pictures":toAdd.pictures]){ error in
             // Check error
             if let error = error {
-                print("Error adding Note document: \(error)")
+                do {
+                    try completionHandler(nil, error)
+                } catch {
+                    print("Error executing Note completion handler: \(error)")
+                }
             } else {
                 let documentID = documentReference?.documentID
                 print("Note document added successfully with ID: \(documentID ?? "")")
                 toAdd.id = documentID ?? ""
                 db.collection("Note").document(documentID!).updateData(["id": toAdd.id])
                 self.get_Note()
+                do {
+                    try completionHandler(documentID, nil)
+                } catch {
+                    print("Error executing Note completion handler: \(error)")
+                }
             }
         }
-        let res = documentReference?.documentID
-        return res
     }
+
     
-    func add_PaymentsDetail(toAdd: PaymentsDetail)->String?{
+//    func add_PaymentsDetail(toAdd: PaymentsDetail)->String?{
+//        let db = Firestore.firestore()
+//        var documentReference: DocumentReference? = nil
+//        documentReference = db.collection("PaymentsDetail").addDocument(data: ["paymentName":toAdd.paymentName, "expense":toAdd.expense, "category":toAdd.category.rawValue, "participates":toAdd.participates, "payers":toAdd.payers, "note": toAdd.note.texts[0], "time": toAdd.time]){ error in
+//            if let error = error {
+//                print("Error adding PaymentsDetail document: \(error)")
+//            } else {
+//                let documentID = documentReference?.documentID
+//                print("PaymentsDetail document added successfully with ID: \(documentID ?? "")")
+//                toAdd.id = documentID ?? ""
+//                db.collection("PaymentsDetail").document(documentID!).updateData(["id": toAdd.id])
+//                self.allPayments = [:]
+//                self.get_PaymentsDetail()
+//            }
+//        }
+//        let res = documentReference?.documentID
+//        return res
+//    }
+    func add_PaymentsDetail(toAdd: PaymentsDetail, completionHandler: @escaping (String?, Error?) throws -> Void) {
         let db = Firestore.firestore()
         var documentReference: DocumentReference? = nil
-        documentReference = db.collection("PaymentsDetail").addDocument(data: ["paymentName":toAdd.paymentName, "expense":toAdd.expense, "category":toAdd.category.rawValue, "participates":toAdd.participates, "payers":toAdd.payers, "note": toAdd.note.texts[0], "time": toAdd.time]){ error in
+        documentReference = db.collection("PaymentsDetail").addDocument(data: ["paymentName":toAdd.paymentName, "expense":toAdd.expense, "category":toAdd.category.rawValue, "participates":toAdd.participates, "payers":toAdd.payers, "note": toAdd.note.texts[0], "time":toAdd.time]) { error in
             if let error = error {
-                print("Error adding PaymentsDetail document: \(error)")
-            } else {
-                let documentID = documentReference?.documentID
-                print("PaymentsDetail document added successfully with ID: \(documentID ?? "")")
-                toAdd.id = documentID ?? ""
-                db.collection("PaymentsDetail").document(documentID!).updateData(["id": toAdd.id])
-                self.allPayments = [:]
-                self.get_PaymentsDetail()
+                do {
+                    try completionHandler(nil, error)
+                } catch {
+                    print("Error executing PaymentsDetail completion handler: \(error)")
+                }
+                return
+            }
+            
+            let documentID = documentReference?.documentID
+            print("PaymentsDetail document added successfully with ID: \(documentID ?? "")")
+            toAdd.id = documentID ?? ""
+            db.collection("PaymentsDetail").document(documentID!).updateData(["id": toAdd.id])
+            self.allPayments = [:]
+            self.get_PaymentsDetail()
+            do {
+                try completionHandler(documentID, nil)
+            } catch {
+                print("Error executing PaymentsDetail completion handler: \(error)")
             }
         }
-        let res = documentReference?.documentID
-        return res
     }
     
-    func add_PersonDetail(toAdd: PersonDetail)->String?{
+//    func add_PersonDetail(toAdd: PersonDetail)->String?{
+//        let db = Firestore.firestore()
+//        var documentReference: DocumentReference? = nil
+//        documentReference = db.collection("PersonDetail").addDocument(data: ["firstname":toAdd.firstname, "lastname":toAdd.lastname, "joinedEventNames":toAdd.joinedEventNames]){ error in
+//            // Check error
+//            if let error = error {
+//                print("Error adding PersonDetail document: \(error)")
+//            }
+//            else{
+//                let documentID = documentReference?.documentID
+//                print("PersonDetail document added successfully with ID: \(documentID ?? "")")
+//                toAdd.id = documentID ?? ""
+//                db.collection("PersonDetail").document(documentID!).updateData(["id": toAdd.id])
+//                self.personInfo = [:]
+//                self.get_PersonDetail()
+//            }
+//        }
+//        let res = documentReference?.documentID
+//        return res
+//    }
+    
+    func add_PersonDetail(toAdd: PersonDetail, completionHandler: @escaping (String?, Error?) throws -> Void) {
         let db = Firestore.firestore()
         var documentReference: DocumentReference? = nil
         documentReference = db.collection("PersonDetail").addDocument(data: ["firstname":toAdd.firstname, "lastname":toAdd.lastname, "joinedEventNames":toAdd.joinedEventNames]){ error in
             // Check error
             if let error = error {
-                print("Error adding PersonDetail document: \(error)")
+                do {
+                    try completionHandler(nil, error)
+                } catch {
+                    print("Error executing PersonDetail completion handler: \(error)")
+                }
+                return
             }
             else{
                 let documentID = documentReference?.documentID
@@ -345,11 +449,15 @@ class ViewModel: ObservableObject{
                 db.collection("PersonDetail").document(documentID!).updateData(["id": toAdd.id])
                 self.personInfo = [:]
                 self.get_PersonDetail()
+                do {
+                    try completionHandler(documentID, nil)
+                } catch {
+                    print("Error executing PersonDetail completion handler: \(error)")
+                }
             }
         }
-        let res = documentReference?.documentID
-        return res
     }
+
     
     
     // delete
