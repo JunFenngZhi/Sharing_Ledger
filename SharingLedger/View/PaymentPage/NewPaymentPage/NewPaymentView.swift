@@ -117,7 +117,7 @@ struct NewPaymentView: View {
                 
                 Spacer()
                 
-                Button(" Conform ") {
+                Button(" Confirm ") {
                     do{
                         showAlert.toggle()
                         let newPayment = try newPaymentViewInputHandle(expenseName: expenseName, expenseAmount: expenseAmount, category: categoryList[selectedCategory], notes: notes, date: date, selectedPayer: selectedPayer, selectedParticipant: selectedParticipant)

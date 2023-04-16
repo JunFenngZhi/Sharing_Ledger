@@ -82,44 +82,37 @@ class StorageModel: ObservableObject {
     
     /// Add new Payments to specific events. Sync the changes with backend database.
     func addNewPayments(newPayment: PaymentsDetail, eventID: String) throws {
-        // upload newPayment object to database
         let viewModel = ViewModel()
-//        guard let paymentID = viewModel.add_PaymentsDetail(toAdd: newPayment) else{
-//            throw SyncError.DownloadFailure(msg: "Fail to upload PaymenttDetail object.")
-//        }
         DispatchQueue.global(qos: .background).async {
-            viewModel.add_PaymentsDetail(toAdd: newPayment) { documentID, error in
+            viewModel.add_PaymentsDetail(toAdd: newPayment) { documentID, error in  //为什么handler跑两次
                 guard let paymentID = documentID, error == nil else {
                     print("Error adding PaymentsDetail document: \(error!)")
                     return
                 }
                 // sync storage model with database
-                if(viewModel.allEvents.isEmpty){
+                if(viewModel.allPayments.isEmpty){
                     throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
                 }
-                self.allEvents = viewModel.allEvents
+                self.allPayments = viewModel.allPayments
                 
                 // update eventInfo to add newPayment's id.
                 self.allEvents[eventID]?.payments.append(paymentID)
+                viewModel.update_EventInfo(toUpdate: self.allEvents[eventID]!)
             }
         }
-        
-//        // sync storage model with database
-//        if(viewModel.allEvents.isEmpty){
-//            throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
-//        }
-//        self.allEvents = viewModel.allEvents
-//
-//        // update eventInfo to add newPayment's id.
-//        self.allEvents[eventID]?.payments.append(paymentID)
     }
     
     /// Delete specific event. Sync the changes with backend database
-    func deletePayments(payment: PaymentsDetail, eventID: String) -> Bool{
+    func deletePayments(payment: PaymentsDetail, eventID: String){
         let viewModel = ViewModel()
         viewModel.delete_PaymentsDetail(toDelete: payment)
-        //TODO: not finish yet
-        return true
+        
+        // update eventInfo to remove Payment's id.
+        self.allEvents[eventID]?.payments.removeAll(where: { id in
+            return id == payment.id
+        })
+        
+        viewModel.update_EventInfo(toUpdate: self.allEvents[eventID]!)
     }
     
     
