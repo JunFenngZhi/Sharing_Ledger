@@ -36,12 +36,12 @@ struct NewLedgerView: View {
                     
                     Button(action: {
                                 // Add your action here
-                        let newname = peopleOption[selection].firstname+" "+peopleOption[selection].lastname
-                        if addedPeopleList.contains(newname) {
+                        let newPeopleID = peopleOption[selection].id
+                        if addedPeopleList.contains(newPeopleID) {
                             isPeopleRepeatedAlertPresented = true
                             return
                         }
-                        addedPeopleList.append(newname)
+                        addedPeopleList.append(newPeopleID)
                             }) {
                                 Text("add")
                                     .fontWeight(.bold)
@@ -55,29 +55,28 @@ struct NewLedgerView: View {
                     Picker("", selection: $selection) {
                         ForEach(0..<peopleOption.count) { index in
                             HStack{
-                                SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[peopleOption[index].firstname+" "+peopleOption[index].lastname+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
-                                Text(peopleOption[index].firstname+" "+peopleOption[index].lastname)
+                                SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[peopleOption[index].id]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                                Text(peopleOption[index].fullname)
                             }
                         }
                     }
                     .pickerStyle(.wheel)
                     .frame(height: 150)
                     .onChange(of: selection) { value in
-                        print("Invite member: \(peopleOption[value])")
-                        // perform any action here
+                       
                     }
                 }
                 
-                ForEach(addedPeopleList, id: \.self){ addedPeopleName in
+                ForEach(addedPeopleList, id: \.self){ addedPeopleID in
                     
                     HStack{
-                        SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[addedPeopleName+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
-                        Text(addedPeopleName)
+                        SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[addedPeopleID]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                        Text(storageModel.personInfo[addedPeopleID]!.fullname)
                         Spacer()
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
-                            if let index = addedPeopleList.firstIndex(of: addedPeopleName) {
+                            if let index = addedPeopleList.firstIndex(of: addedPeopleID) {
                                 addedPeopleList.remove(at: index)
                             }
                         } label: {
@@ -107,18 +106,27 @@ struct NewLedgerView: View {
                     isEventNameEmptyAlertPresented = true
                     return
                 }
-                if storageModel.allEvents.keys.contains(eventName) {
+                let allevents = storageModel.allEvents.values
+                var alleventsName :[String] = []
+                for event in allevents {
+                    alleventsName.append(event.eventname)
+                }
+                if alleventsName.contains(eventName) {
                     isEventNameExistAlertPresented = true
                     return
                 }
                 
                 let newEvent: EventInfo = EventInfo(eventName: eventName, participates: addedPeopleList)
+                
+                //TODO: add database function
+                
+                
                 storageModel.allEvents[eventName] = newEvent
                 for name in addedPeopleList {
                     storageModel.personInfo[name+"_ID"]!.joinedEventNames.append(eventName)
                 }
                 isNewLedgerShown = false
-                //TODO: add database function
+                
             } label: {
                 Label("Save", systemImage: "chevron.left")
                     .labelStyle(.titleOnly)

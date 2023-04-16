@@ -25,7 +25,7 @@ struct HomePageRow: View {
                 
                 ZStack{
                     NavigationLink {
-                        EventView(eventID: eventName+"_ID")
+                        EventView(eventID: eventID)
                             .environmentObject(storageModel)
                         }label: {
                             Rectangle()
@@ -42,8 +42,8 @@ struct HomePageRow: View {
                         
                         NavigationLink {
                             //jump to add people view
-                            EventView(eventID: eventName+"_ID")
-                                .environmentObject(storageModel)
+                            
+                            
                             }label: {
                                 HStack{
                                     ForEach(0..<joinedPeopleNumber) { i in
