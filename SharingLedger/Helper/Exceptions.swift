@@ -11,3 +11,8 @@ enum InputError: Error {
     case invalidArgValue(msg: String)
     case ArgMissing(msg: String)
 }
+
+enum SyncError: Error{
+    case UploadFailure(msg:String)
+    case DownloadFailure(msg:String)
+}

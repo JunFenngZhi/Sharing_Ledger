@@ -56,17 +56,28 @@ class StorageModel: ObservableObject {
     }
     
     /// Add new Payments to specific events. Sync the changes with backend database.
-    func addNewPayments(newPayment: PaymentsDetail, eventID: String) -> Bool{
-        // upload newPayment object to database and add it to the dict of the storage model.
+    func addNewPayments(newPayment: PaymentsDetail, eventID: String) throws {
+        // upload newPayment object to database
         let viewModel = ViewModel()
-        viewModel.add_PaymentsDetail(toAdd: newPayment)  //TODO: how to get the new object.
+        guard let paymentID = viewModel.add_PaymentsDetail(toAdd: newPayment) else{
+            throw SyncError.DownloadFailure(msg: "Fail to upload PaymenttDetail object.")
+        }
         
-        // update eventInfo to add its key.
-        return true
+        // sync storage model with database
+        if(viewModel.allEvents.isEmpty){
+            throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
+        }
+        self.allEvents = viewModel.allEvents
+        
+        // update eventInfo to add newPayment's id.
+        self.allEvents[eventID]?.payments.append(paymentID)
     }
     
     /// Delete specific event. Sync the changes with backend database
     func deletePayments(payment: PaymentsDetail, eventID: String) -> Bool{
+        let viewModel = ViewModel()
+        viewModel.delete_PaymentsDetail(toDelete: payment)
+        //TODO: not finish yet
         return true
     }
 }

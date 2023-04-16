@@ -37,7 +37,6 @@ struct EventSummary: View {
             Spacer()
             
             Button(action: {
-                print("click settle")
                 withAnimation {
                     viewType = .SettlementView
                 }

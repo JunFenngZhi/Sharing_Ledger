@@ -47,7 +47,6 @@ struct SettlementView: View {
         var dict: [String: [(String,Double)]] = [:]
         let event = storageModel.allEvents[eventID]!
         let allParticipatesID: [String] = event.participates
-        let allPaymentIDs = event.payments
         
         // init
         for personID in allParticipatesID{
