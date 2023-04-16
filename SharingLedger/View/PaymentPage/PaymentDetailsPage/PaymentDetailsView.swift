@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PaymentDetailsView: View {
+    let eventID: String
     let payment: PaymentsDetail
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var storageModel: StorageModel
@@ -68,7 +69,7 @@ struct PaymentDetailsView: View {
             .padding(.top, -9.0)
             
             Button("Delete🗑") {
-                //TODO: delte this payment
+                storageModel.deletePayments(payment: payment, eventID: eventID)
                 self.presentationMode.wrappedValue.dismiss()  // jump bakc to previous view
             }
             .buttonStyle(GrowingButton(backGroundColor: .red, foreGroundColor: .white))
@@ -78,6 +79,6 @@ struct PaymentDetailsView: View {
 
 struct PaymentDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentDetailsView(payment: PaymentsDetail(paymentName: "chick-fil-a", expense: 23.45, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Junfeng Zhi_ID"], note: "lunch", time: Date.now)).environmentObject(StorageModel())
+        PaymentDetailsView(eventID: "Development_ID", payment: PaymentsDetail(paymentName: "chick-fil-a", expense: 23.45, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Junfeng Zhi_ID"], note: "lunch", time: Date.now)).environmentObject(StorageModel())
     }
 }

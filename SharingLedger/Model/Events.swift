@@ -162,7 +162,7 @@ extension EventInfo: Hashable{
     
 }
 
-class AllEvents { //TODO: add to firestore
+class AllEvents {
     //The key of eventDict is eventname
     var eventDict: [String: EventInfo] = [:]
 }

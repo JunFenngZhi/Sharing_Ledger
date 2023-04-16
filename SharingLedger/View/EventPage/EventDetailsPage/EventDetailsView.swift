@@ -34,7 +34,7 @@ struct EventDetailsView: View {
                 ForEach(event.payments.sorted(by: dateComparator), id: \.self) { id in
                     let payment = storageModel.allPayments[id]!
                     NavigationLink {
-                        PaymentDetailsView(payment: payment)
+                        PaymentDetailsView(eventID: eventID, payment: payment)
                     } label: {
                         PaymentRow(payment: payment)
                     }
@@ -49,7 +49,6 @@ struct EventDetailsView: View {
                 withAnimation {
                     viewType = .NewPaymentView
                 }
-                print("Button pressed!")
             }
             .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
         }
