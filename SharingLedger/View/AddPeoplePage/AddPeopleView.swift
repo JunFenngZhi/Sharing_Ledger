@@ -28,7 +28,7 @@ struct AddPeopleView: View {
     var body: some View {
         NavigationView {
             Form{
-                Text(storageModel.allEvents[eventID]!.eventname)
+                //Text(storageModel.allEvents[eventID]!.eventname)
                 
                 VStack {
                     Text("Selected option: \(peopleOption[selection].fullname)")
@@ -87,8 +87,9 @@ struct AddPeopleView: View {
                     
                 }
             }
+            .foregroundColor(.black)
             .multilineTextAlignment(.leading)
-            .navigationTitle("New Ledger")
+            .navigationTitle(storageModel.allEvents[eventID]!.eventname)
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarItems(leading: Button {
                 isNewLedgerShown = false

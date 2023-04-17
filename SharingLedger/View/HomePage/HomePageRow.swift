@@ -41,26 +41,31 @@ struct HomePageRow: View {
                             .padding(.leading, -150)
                             .font(.custom("Inter Bold", size: 14)).multilineTextAlignment(.center)
                         
-                        NavigationLink {
-                            //jump to add people view
-                            AddPeopleView(eventID: eventID, isNewLedgerShown: $showSheet)
-                                .environmentObject(storageModel)
-                            }label: {
-                                HStack{
-                                    ForEach(0..<joinedPeopleNumber) { i in
-                                        SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[storageModel.allEvents[eventID]!.participates[i]]!.picture)), width: 35, height: 35, shadowRadius: 0)
-                                    }
-                                    
-                                    
-                                    
-                                    
-                                    Text("...").font(.custom("Inter Bold", size: 14)).multilineTextAlignment(.center)
-                                    
-                                    PlusButton()
-                                    
-                                    
+                        
+                        Button {
+                            showSheet = true
+                        }label: {
+                            HStack{
+                                ForEach(0..<joinedPeopleNumber) { i in
+                                    SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[storageModel.allEvents[eventID]!.participates[i]]!.picture)), width: 35, height: 35, shadowRadius: 0)
+                                }
+                                
+                                
+                                
+                                
+                                Text("...").font(.custom("Inter Bold", size: 14)).multilineTextAlignment(.center)
+                                
+                                PlusButton()
+                                
+                                
+                            }
+                                
+                                .sheet(isPresented: $showSheet){
+                                    AddPeopleView(eventID: eventID, isNewLedgerShown: $showSheet)
+                                        .environmentObject(storageModel)
                                 }
                         }
+                        
                         
                         
                         Divider()
