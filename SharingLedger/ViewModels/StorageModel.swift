@@ -85,7 +85,7 @@ class StorageModel: ObservableObject {
         return personDetail
     }
     
-    //TODO: move functions to fireStoreManager. Abstract them with provided completionHandler function
+   // TODO: Abstract functions below with provided completionHandler
     /// load all the data of PersonDetail column from database and save it to personInfo
     func getPersonDetail_Firestore(){
         let db = Firestore.firestore()
@@ -185,7 +185,8 @@ class StorageModel: ObservableObject {
                 for personId in newEvent.participates {
                     self.personInfo[personId]!.joinedEventNames.append(newEvent.id)
                     let personInfo = self.personInfo[personId]!
-                    FireStoreManager().updatePersonDetail(toUpdate: personInfo)
+                    //FireStoreManager().updatePersonDetail(toUpdate: personInfo)
+                    self.updatePersonDetail_FireStore(toUpdate: personInfo)
                 }
             }
         }
@@ -194,10 +195,8 @@ class StorageModel: ObservableObject {
     /// update given event in local cache and EventInfo column.
     /// update personInfo to change their connection with given event.
     func updateEventParticipants_FireStore(updateEvent: EventInfo, oldParticipants: [String], newParticipants: [String]){
-        let firestoreMgr = FireStoreManager()
-        
         self.allEvents[updateEvent.id] = updateEvent
-        firestoreMgr.updateEventInfo(toUpdate: updateEvent)
+        self.updateEventInfo_FireStore(toUpdate: updateEvent)
         
         // delete removed participants
         for oldPersonID in oldParticipants{
@@ -205,7 +204,7 @@ class StorageModel: ObservableObject {
                 self.personInfo[oldPersonID]?.joinedEventNames.removeAll(where: { joinedEventID in
                     return joinedEventID == updateEvent.id
                 })
-                firestoreMgr.updatePersonDetail(toUpdate: self.personInfo[oldPersonID]!)
+                self.updatePersonDetail_FireStore(toUpdate: self.personInfo[oldPersonID]!)
             }
         }
         
@@ -213,7 +212,7 @@ class StorageModel: ObservableObject {
         for newPersonID in newParticipants{
             if(oldParticipants.contains(newPersonID) == false){
                 self.personInfo[newPersonID]!.joinedEventNames.append(updateEvent.id)
-                firestoreMgr.updatePersonDetail(toUpdate: self.personInfo[newPersonID]!)
+                self.updatePersonDetail_FireStore(toUpdate: self.personInfo[newPersonID]!)
             }
         }
     }
@@ -236,7 +235,7 @@ class StorageModel: ObservableObject {
                 
                 // update eventInfo to add newPayment's id.
                 self.allEvents[eventID]?.payments.append(newPayment.id)
-                FireStoreManager().updateEventInfo(toUpdate: self.allEvents[eventID]!)
+                self.updateEventInfo_FireStore(toUpdate: self.allEvents[eventID]!)
             }
         }
     }
@@ -257,9 +256,48 @@ class StorageModel: ObservableObject {
                 self.allEvents[eventID]?.payments.removeAll(where: { id in
                     return id == deletePayment.id
                 })
-                FireStoreManager().updateEventInfo(toUpdate: self.allEvents[eventID]!)
+                self.updateEventInfo_FireStore(toUpdate: self.allEvents[eventID]!)
             }
         }
     }
     
+    /// update a document in PersonDetail column in firestore database.
+    func updatePersonDetail_FireStore(toUpdate: PersonDetail){
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(toUpdate)
+            let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+            
+            let db = Firestore.firestore()
+            db.collection("PersonDetail").document(toUpdate.id).setData(dictionary){ error in
+                if let error = error {
+                    print("❗️ Error[updatePersonDetail_FireStore]: Fail to update PersonDetail \(toUpdate.fullname). Details:" + error.localizedDescription)
+                } else {
+                    print("✅ PersonDetail \(toUpdate.fullname) update successfully!")
+                }
+            }
+        } catch let error {
+            print("❗️ Error[updatePersonDetail_FireStore]: Fail to generate dictionary. Details:" + error.localizedDescription)
+        }
+    }
+    
+    /// update a document in EventInfo column in firestore database
+    func updateEventInfo_FireStore(toUpdate: EventInfo){
+        do {
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(toUpdate)
+            let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
+
+            let db = Firestore.firestore()
+            db.collection("EventInfo").document(toUpdate.id).setData(dictionary){ error in
+                if let error = error {
+                    print("❗️ Error[updateEventInfo]: Fail to update EventInfo \(toUpdate.eventname). Details:" + error.localizedDescription)
+                } else {
+                    print("✅ EventInfo \(toUpdate.eventname) update successfully!")
+                }
+            }
+        } catch let error {
+            print("❗️ Error[updateEventInfo]: Fail to generate dictionary. Details:" + error.localizedDescription)
+        }
+    }
 }

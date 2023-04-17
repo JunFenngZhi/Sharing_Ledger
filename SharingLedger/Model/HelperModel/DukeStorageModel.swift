@@ -73,10 +73,7 @@ class DukeStorageModel: ObservableObject {
                         self.personDict = res
                         //this is update
                         storageModel.initFromDukeStorageModel(dukeStorageModel: self)
-                        
-                        //TODO: init for test ********** delete when finish
-                        
-                        
+
                         print(self.personDict["ys331"] as Any)
                         
                     } catch let error {
