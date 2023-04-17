@@ -14,13 +14,22 @@ class StorageModel: ObservableObject {
     
     init(){
         initForTest()
+        let viewModel = ViewModel()
+        viewModel.get_EventInfo()
+        viewModel.get_PaymentsDetail()  // async
+        if(viewModel.allEvents.isEmpty || viewModel.allPayments.isEmpty){
+            print("synchronizaiton error here.")
+        }
+        self.allEvents = viewModel.allEvents
+        self.allPayments = viewModel.allPayments
     }
     
     func initForTest(){
         var newevent = EventInfo(eventName: "Development", participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"])
         newevent.id = "Development_ID"
-    self.allEvents["Development_ID"] = newevent
-    let payments_1 = PaymentsDetail(paymentName: "chick-fil-a", expense: 20, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Junfeng Zhi_ID"], note: "lunch", time: Date.now)
+        self.allEvents["Development_ID"] = newevent
+        
+        let payments_1 = PaymentsDetail(paymentName: "chick-fil-a", expense: 20, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Junfeng Zhi_ID"], note: "lunch", time: Date.now)
         let payments_2 = PaymentsDetail(paymentName: "nuro taco", expense: 40, category: .Restaurant, participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"], payers: ["Suchuan Xing_ID"], note: "dinner", time: Date.now.addingTimeInterval(-1*60*60*24))
     self.allPayments["payments_1_ID"] = payments_1
     self.allPayments["payments_2_ID"] = payments_2
@@ -114,7 +123,7 @@ class StorageModel: ObservableObject {
     func addNewPayments(newPayment: PaymentsDetail, eventID: String) throws {
         let viewModel = ViewModel()
         DispatchQueue.global(qos: .background).async {
-            viewModel.add_PaymentsDetail(toAdd: newPayment) { documentID, error in  //为什么handler跑两次
+            viewModel.add_PaymentsDetail(toAdd: newPayment) { documentID, error in
                 guard let paymentID = documentID, error == nil else {
                     print("Error adding PaymentsDetail document: \(error!)")
                     return
