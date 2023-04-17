@@ -49,7 +49,43 @@ class StorageModel: ObservableObject {
         getPaymentsDetail_Firestore()
     }
     
-    //TODO: move these get function to fireStoreManager
+    func initFromDukeStorageModel(dukeStorageModel: DukeStorageModel){
+        let viewModel = ViewModel()
+        for netid in dukeStorageModel.personDict.keys {
+            let dukePerson: DukePerson = dukeStorageModel.personDict[netid]!
+            let personDetail: PersonDetail = buildPersonDetailFromDukePerson(dukePerson: dukePerson)
+            personInfo[personDetail.firstname + " " + personDetail.lastname + "_ID"] = personDetail
+            
+            DispatchQueue.global(qos: .background).async {
+                viewModel.add_PersonDetail(toAdd: personDetail) { documentID, error in
+                    guard let personID = documentID, error == nil else {
+                        print("Error adding PersonDetail document: \(error!)")
+                        return
+                    }
+                    
+                    if(viewModel.personInfo.isEmpty){
+                        throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
+                    }
+                    self.personInfo = viewModel.personInfo
+                    
+                    
+                }
+                
+            }
+            
+        }
+    }
+    
+    private func buildPersonDetailFromDukePerson(dukePerson: DukePerson) -> PersonDetail{
+        let id: String = dukePerson.firstname + " " + dukePerson.lastname + "_ID"
+        let lname: String = dukePerson.lastname
+        let fname: String = dukePerson.firstname
+        let personDetail: PersonDetail = PersonDetail(id: id, lname: lname, fname: fname, joinedEventNames: [])
+        personDetail.picture = dukePerson.picture
+        return personDetail
+    }
+    
+    //TODO: move functions to fireStoreManager. Abstract them with provided completionHandler function
     /// load all the data of PersonDetail column from database and save it to personInfo
     func getPersonDetail_Firestore(){
         let db = Firestore.firestore()
@@ -225,133 +261,5 @@ class StorageModel: ObservableObject {
             }
         }
     }
-    
-    
-    
-    
-    private func buildPersonDetailFromDukePerson(dukePerson: DukePerson) -> PersonDetail{
-        let id: String = dukePerson.firstname + " " + dukePerson.lastname + "_ID"
-        let lname: String = dukePerson.lastname
-        let fname: String = dukePerson.firstname
-        let personDetail: PersonDetail = PersonDetail(id: id, lname: lname, fname: fname, joinedEventNames: [])
-        personDetail.picture = dukePerson.picture
-        return personDetail
-    }
-    
-    func initFromDukeStorageModel(dukeStorageModel: DukeStorageModel){
-        let viewModel = ViewModel()
-        for netid in dukeStorageModel.personDict.keys {
-            let dukePerson: DukePerson = dukeStorageModel.personDict[netid]!
-            let personDetail: PersonDetail = buildPersonDetailFromDukePerson(dukePerson: dukePerson)
-            personInfo[personDetail.firstname + " " + personDetail.lastname + "_ID"] = personDetail
-            
-            DispatchQueue.global(qos: .background).async {
-                viewModel.add_PersonDetail(toAdd: personDetail) { documentID, error in
-                    guard let personID = documentID, error == nil else {
-                        print("Error adding PersonDetail document: \(error!)")
-                        return
-                    }
-                    
-                    if(viewModel.personInfo.isEmpty){
-                        throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
-                    }
-                    self.personInfo = viewModel.personInfo
-                    
-                    
-                }
-                
-            }
-            
-        }
-    }
-    
-    func addNewEvent(newEvent: EventInfo) throws {
-        let viewModel = ViewModel()
-        
-        DispatchQueue.global(qos: .background).async {
-            viewModel.add_EventInfo(toAdd: newEvent) { documentID, error in
-                guard let eventID = documentID, error == nil else {
-                    print("Error adding EventInfo document: \(error!)")
-                    return
-                }
-                // sync storage model with database
-                if(viewModel.allEvents.isEmpty){
-                    throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
-                }
-                self.allEvents = viewModel.allEvents
-                
-                // update eventInfo to add newPayment's id.
-                for pid in self.allEvents[eventID]!.participates {
-                    
-                    self.personInfo[pid]!.joinedEventNames.append(eventID)
-                    let newPersonDetail: PersonDetail = self.personInfo[pid]!
-                    viewModel.update_PersonDetail(toUpdate: newPersonDetail)
-                }
-                
-            }
-        }
-        
-    }
-    
-    func updateEvent(newEvent: EventInfo, oldEvent: EventInfo) throws {
-        let viewModel = ViewModel()
-        DispatchQueue.global(qos: .background).async {
-            viewModel.update_EventInfo(toUpdate: newEvent)
-            
-            self.allEvents[oldEvent.id] = newEvent
-            
-            //participates who are in old event should delete the eventID in their joinedEvent, new event add the participates
-            for personID in oldEvent.participates {
-                if let index = self.personInfo[personID]!.joinedEventNames.firstIndex(of: oldEvent.id) {
-                    self.personInfo[personID]!.joinedEventNames.remove(at: index)
-                    viewModel.update_PersonDetail(toUpdate: self.personInfo[personID]!)
-                }
-            }
-            
-            for personID in newEvent.participates {
-                self.personInfo[personID]!.joinedEventNames.append(newEvent.id)
-                viewModel.update_PersonDetail(toUpdate: self.personInfo[personID]!)
-            }
-            
-            
-        }
-    }
-    
-    /// Add new Payments to specific events. Sync the changes with backend database.
-    func addNewPayments(newPayment: PaymentsDetail, eventID: String) throws {
-        let viewModel = ViewModel()
-        DispatchQueue.global(qos: .background).async {
-            viewModel.add_PaymentsDetail(toAdd: newPayment) { documentID, error in
-                guard let paymentID = documentID, error == nil else {
-                    print("Error adding PaymentsDetail document: \(error!)")
-                    return
-                }
-                // sync storage model with database
-                if(viewModel.allPayments.isEmpty){
-                    throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
-                }
-                self.allPayments = viewModel.allPayments
-                
-                // update eventInfo to add newPayment's id.
-                self.allEvents[eventID]?.payments.append(paymentID)
-                viewModel.update_EventInfo(toUpdate: self.allEvents[eventID]!)
-            }
-        }
-    }
-    
-    /// Delete specific event. Sync the changes with backend database
-    func deletePayments(payment: PaymentsDetail, eventID: String){
-        let viewModel = ViewModel()
-        viewModel.delete_PaymentsDetail(toDelete: payment)
-        
-        // update eventInfo to remove Payment's id.
-        self.allEvents[eventID]?.payments.removeAll(where: { id in
-            return id == payment.id
-        })
-        
-        viewModel.update_EventInfo(toUpdate: self.allEvents[eventID]!)
-    }
-    
-    
     
 }

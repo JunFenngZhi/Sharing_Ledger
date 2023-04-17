@@ -17,7 +17,7 @@ struct LoginRow: View {
         HStack{
             SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[personID]!.picture)), width: 50, height: 50, shadowRadius: 0)
             Text(storageModel.personInfo[personID]!.fullname)
-            Text(storageModel.personInfo[personID]!.id)
+            //Text(storageModel.personInfo[personID]!.id)
             
             Spacer()
         }
