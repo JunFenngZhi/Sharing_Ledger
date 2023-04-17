@@ -23,7 +23,11 @@ struct NewLedgerView: View {
         for person in storageModel.personInfo.values {
             res.append(person)
         }
+        for pd in res {
+            print(pd.id)
+        }
         return res
+        
     }
     
     var body: some View {
@@ -55,6 +59,8 @@ struct NewLedgerView: View {
                     Picker("", selection: $selection) {
                         ForEach(0..<peopleOption.count) { index in
                             HStack{
+                                
+                                
                                 SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[peopleOption[index].id]!.picture)), width: 28, height: 28, shadowRadius: 0)
                                 Text(peopleOption[index].fullname)
                             }
@@ -119,12 +125,12 @@ struct NewLedgerView: View {
                 let newEvent: EventInfo = EventInfo(eventName: eventName, participates: addedPeopleList)
                 
                 //TODO: add database function
-                
-                
-                storageModel.allEvents[eventName] = newEvent
-                for name in addedPeopleList {
-                    storageModel.personInfo[name+"_ID"]!.joinedEventNames.append(eventName)
+                do {
+                    try storageModel.addNewEvent(newEvent: newEvent)
+                }catch {
+                    print("add new event failed")
                 }
+                
                 isNewLedgerShown = false
                 
             } label: {

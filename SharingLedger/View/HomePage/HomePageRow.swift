@@ -9,13 +9,14 @@ import SwiftUI
 
 struct HomePageRow: View {
     @EnvironmentObject var storageModel: StorageModel
+    @State private var showSheet = false
     let eventID: String
     var joinedPeopleNumber: Int {
         return storageModel.allEvents[eventID]!.participates.count >= 4 ? 4 : storageModel.allEvents[eventID]!.participates.count
     }
     
     var body: some View {
-        NavigationView{
+        //NavigationView{
             VStack{
                 HStack{
                     Spacer()
@@ -42,7 +43,8 @@ struct HomePageRow: View {
                         
                         NavigationLink {
                             //jump to add people view
-                            
+                            AddPeopleView(eventID: eventID, isNewLedgerShown: $showSheet)
+                                .environmentObject(storageModel)
                             }label: {
                                 HStack{
                                     ForEach(0..<joinedPeopleNumber) { i in
@@ -74,7 +76,7 @@ struct HomePageRow: View {
                 }
                 
             }
-        }
+        //}
     }
 }
 

@@ -9,13 +9,13 @@ import SwiftUI
 
 struct AddPeopleView: View {
     @EnvironmentObject var storageModel: StorageModel
-    var eventName: String
+    var eventID: String
     @State private var selection = 0
-    @State private var addedPeopleList: [String] = []
+    @State private var addedPeopleList: [String] = []//contains the person id
     @Binding var isNewLedgerShown: Bool
-    @State var isAlertPresented: Bool = false
-    @State var isEventNameEmptyAlertPresented: Bool = false
-    @State var isEventNameExistAlertPresented: Bool = false
+    @State var isAlertPresented: Bool = false // at least one person Alert
+    //@State var isEventNameEmptyAlertPresented: Bool = false
+    //@State var isEventNameExistAlertPresented: Bool = false
     @State var isPeopleRepeatedAlertPresented: Bool = false
     var peopleOption: [PersonDetail] {
         var res: [PersonDetail] = []
@@ -28,19 +28,19 @@ struct AddPeopleView: View {
     var body: some View {
         NavigationView {
             Form{
-                Text(eventName)
+                Text(storageModel.allEvents[eventID]!.eventname)
                 
                 VStack {
-                    Text("Selected option: \(peopleOption[selection].firstname+" "+peopleOption[selection].lastname)")
+                    Text("Selected option: \(peopleOption[selection].fullname)")
                     
                     Button(action: {
                                 // Add your action here
-                        let newname = peopleOption[selection].firstname+" "+peopleOption[selection].lastname
-                        if addedPeopleList.contains(newname) {
+                        let newPersonID = peopleOption[selection].id
+                        if addedPeopleList.contains(newPersonID) {
                             isPeopleRepeatedAlertPresented = true
                             return
                         }
-                        addedPeopleList.append(newname)
+                        addedPeopleList.append(newPersonID)
                             }) {
                                 Text("add")
                                     .fontWeight(.bold)
@@ -54,29 +54,29 @@ struct AddPeopleView: View {
                     Picker("", selection: $selection) {
                         ForEach(0..<peopleOption.count) { index in
                             HStack{
-                                SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[peopleOption[index].firstname+" "+peopleOption[index].lastname+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
-                                Text(peopleOption[index].firstname+" "+peopleOption[index].lastname)
+                                SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[peopleOption[index].id]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                                Text(peopleOption[index].fullname)
                             }
                         }
                     }
                     .pickerStyle(.wheel)
                     .frame(height: 150)
                     .onChange(of: selection) { value in
-                        print("Invite member: \(peopleOption[value])")
+                        //print("Invite member: \(peopleOption[value])")
                         // perform any action here
                     }
                 }
                 
-                ForEach(addedPeopleList, id: \.self){ addedPeopleName in
+                ForEach(addedPeopleList, id: \.self){ addedPeopleID in
                     
                     HStack{
-                        SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[addedPeopleName+"_ID"]!.picture)), width: 28, height: 28, shadowRadius: 0)
-                        Text(addedPeopleName)
+                        SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[addedPeopleID]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                        Text(storageModel.personInfo[addedPeopleID]!.fullname)
                         Spacer()
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
-                            if let index = addedPeopleList.firstIndex(of: addedPeopleName) {
+                            if let index = addedPeopleList.firstIndex(of: addedPeopleID) {
                                 addedPeopleList.remove(at: index)
                             }
                         } label: {
@@ -102,22 +102,19 @@ struct AddPeopleView: View {
                     isAlertPresented = true
                     return
                 }
-                if eventName == "" {
-                    isEventNameEmptyAlertPresented = true
-                    return
-                }
-                if storageModel.allEvents.keys.contains(eventName) {
-                    isEventNameExistAlertPresented = true
-                    return
+                
+                //TODO: add database function
+                
+                var updatedEvent: EventInfo = EventInfo(id: eventID, eventName: storageModel.allEvents[eventID]!.eventname, payments: storageModel.allEvents[eventID]!.payments, participates: addedPeopleList)
+                updatedEvent.createdTime = storageModel.allEvents[eventID]!.createdTime
+                do {
+                    try storageModel.updateEvent(newEvent: updatedEvent, oldEvent: storageModel.allEvents[eventID]!)
+                }catch {
+                    print("update event failed")
                 }
                 
-                let newEvent: EventInfo = EventInfo(eventName: eventName, participates: addedPeopleList)
-                storageModel.allEvents[eventName] = newEvent
-                for name in addedPeopleList {
-                    storageModel.personInfo[name+"_ID"]!.joinedEventNames.append(eventName)
-                }
                 isNewLedgerShown = false
-                //TODO: add database function
+                
             } label: {
                 Label("Save", systemImage: "chevron.left")
                     .labelStyle(.titleOnly)
@@ -125,18 +122,6 @@ struct AddPeopleView: View {
                 .alert("Event must contain at least one person", isPresented: $isAlertPresented) {
                 Button("OK") {
                     isAlertPresented = false
-                }
-                    
-                }
-                .alert("Event name must not be empty", isPresented: $isEventNameEmptyAlertPresented) {
-                Button("OK") {
-                    isEventNameEmptyAlertPresented = false
-                }
-                    
-                }
-                .alert("Event name already exists", isPresented: $isEventNameExistAlertPresented) {
-                Button("OK") {
-                    isEventNameExistAlertPresented = false
                 }
                     
                 }
@@ -151,11 +136,14 @@ struct AddPeopleView: View {
             
             
         }
+        .onAppear{
+            self.addedPeopleList = storageModel.allEvents[eventID]!.participates
+        }
     }
 }
 
 struct AddPeopleView_Previews: PreviewProvider {
     static var previews: some View {
-        AddPeopleView(eventName: "Development_ID",isNewLedgerShown: .constant(true))
+        AddPeopleView(eventID: "Development_ID",isNewLedgerShown: .constant(true))
     }
 }

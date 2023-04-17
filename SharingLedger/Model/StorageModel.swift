@@ -27,13 +27,13 @@ class StorageModel: ObservableObject {
     self.allEvents["Development_ID"]?.payments.append("payments_1_ID")
     self.allEvents["Development_ID"]?.payments.append("payments_2_ID")
     
-    var suchuan_pic: String = personInfo["Suchuan Xing_ID"]?.picture ?? "No pic"
-    var dingzhou_pic: String = personInfo["Dingzhou Wang_ID"]?.picture ?? "No pic"
-    var junfeng_pic: String = personInfo["Junfeng Zhi_ID"]?.picture ?? "No pic"
+        let suchuan_pic: String = personInfo["Suchuan Xing_ID"]?.picture ?? "No pic"
+        let dingzhou_pic: String = personInfo["Dingzhou Wang_ID"]?.picture ?? "No pic"
+        let junfeng_pic: String = personInfo["Junfeng Zhi_ID"]?.picture ?? "No pic"
     
-    personInfo["Suchuan Xing_ID"] = PersonDetail(id: "Suchuan Xing", lname: "Xing", fname: "Suchuan", joinedEventNames: ["Development_ID"])
-    personInfo["Dingzhou Wang_ID"] = PersonDetail(id: "Dingzhou Wang", lname: "Wang", fname: "Dingzhou", joinedEventNames: ["Development_ID"])
-    personInfo["Junfeng Zhi_ID"] = PersonDetail(id: "Junfeng Zhi", lname: "Zhi", fname: "Junfeng", joinedEventNames: ["Development_ID"])
+    personInfo["Suchuan Xing_ID"] = PersonDetail(id: "Suchuan Xing_ID", lname: "Xing", fname: "Suchuan", joinedEventNames: ["Development_ID"])
+    personInfo["Dingzhou Wang_ID"] = PersonDetail(id: "Dingzhou Wang_ID", lname: "Wang", fname: "Dingzhou", joinedEventNames: ["Development_ID"])
+    personInfo["Junfeng Zhi_ID"] = PersonDetail(id: "Junfeng Zhi_ID", lname: "Zhi", fname: "Junfeng", joinedEventNames: ["Development_ID"])
     
     personInfo["Suchuan Xing_ID"]!.picture = suchuan_pic
     personInfo["Dingzhou Wang_ID"]!.picture = dingzhou_pic
@@ -74,10 +74,40 @@ class StorageModel: ObservableObject {
                 
                 // update eventInfo to add newPayment's id.
                 
+                for pid in self.allEvents[eventID]!.participates {
+                    
+                    self.personInfo[pid]!.joinedEventNames.append(eventID)
+                    let newPersonDetail: PersonDetail = self.personInfo[pid]!
+                    viewModel.update_PersonDetail(toUpdate: newPersonDetail)
+                }
                 
             }
         }
         
+    }
+    
+    func updateEvent(newEvent: EventInfo, oldEvent: EventInfo) throws {
+        let viewModel = ViewModel()
+        DispatchQueue.global(qos: .background).async {
+            viewModel.update_EventInfo(toUpdate: newEvent)
+            
+            self.allEvents[oldEvent.id] = newEvent
+            
+            //participates who are in old event should delete the eventID in their joinedEvent, new event add the participates
+            for personID in oldEvent.participates {
+                if let index = self.personInfo[personID]!.joinedEventNames.firstIndex(of: oldEvent.id) {
+                    self.personInfo[personID]!.joinedEventNames.remove(at: index)
+                    viewModel.update_PersonDetail(toUpdate: self.personInfo[personID]!)
+                }
+            }
+            
+            for personID in newEvent.participates {
+                self.personInfo[personID]!.joinedEventNames.append(newEvent.id)
+                viewModel.update_PersonDetail(toUpdate: self.personInfo[personID]!)
+            }
+            
+            
+        }
     }
     
     /// Add new Payments to specific events. Sync the changes with backend database.
