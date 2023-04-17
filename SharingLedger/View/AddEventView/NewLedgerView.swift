@@ -23,9 +23,9 @@ struct NewLedgerView: View {
         for person in storageModel.personInfo.values {
             res.append(person)
         }
-        for pd in res {
-            print(pd.id)
-        }
+//        for pd in res {
+//            print(pd.id)
+//        }
         return res
         
     }
@@ -124,12 +124,7 @@ struct NewLedgerView: View {
                 
                 let newEvent: EventInfo = EventInfo(eventName: eventName, participates: addedPeopleList)
                 
-                //TODO: add database function
-                do {
-                    try storageModel.addNewEvent(newEvent: newEvent)
-                }catch {
-                    print("add new event failed")
-                }
+                storageModel.addNewEvent_FireStore(newEvent: newEvent) // add new event to local cache and firestore database
                 
                 isNewLedgerShown = false
                 
@@ -171,6 +166,6 @@ struct NewLedgerView: View {
 
 struct NewLedgerView_Previews: PreviewProvider {
     static var previews: some View {
-        NewLedgerView(isNewLedgerShown: .constant(true))
+        NewLedgerView(isNewLedgerShown: .constant(true)).environmentObject(StorageModel())
     }
 }

@@ -46,6 +46,7 @@ struct HomePageRow: View {
                             showSheet = true
                         }label: {
                             HStack{
+                                // TODO: fix bug here. delete 1 people will cause error
                                 ForEach(0..<joinedPeopleNumber) { i in
                                     SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[storageModel.allEvents[eventID]!.participates[i]]!.picture)), width: 35, height: 35, shadowRadius: 0)
                                 }

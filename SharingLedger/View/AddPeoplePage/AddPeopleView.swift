@@ -104,15 +104,9 @@ struct AddPeopleView: View {
                     return
                 }
                 
-                //TODO: add database function
+                let updatedEvent: EventInfo = EventInfo(id: eventID, eventName: storageModel.allEvents[eventID]!.eventname, payments: storageModel.allEvents[eventID]!.payments, participates: addedPeopleList, createdTime: storageModel.allEvents[eventID]!.createdTime)
                 
-                var updatedEvent: EventInfo = EventInfo(id: eventID, eventName: storageModel.allEvents[eventID]!.eventname, payments: storageModel.allEvents[eventID]!.payments, participates: addedPeopleList)
-                updatedEvent.createdTime = storageModel.allEvents[eventID]!.createdTime
-                do {
-                    try storageModel.updateEvent(newEvent: updatedEvent, oldEvent: storageModel.allEvents[eventID]!)
-                }catch {
-                    print("update event failed")
-                }
+                storageModel.updateEventParticipants_FireStore(updateEvent: updatedEvent, oldParticipants: storageModel.allEvents[eventID]!.participates, newParticipants: addedPeopleList)
                 
                 isNewLedgerShown = false
                 

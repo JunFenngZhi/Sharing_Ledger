@@ -11,12 +11,10 @@ import FirebaseCore
 @main
 struct SharingLedgerApp: App {
     @StateObject private var storageModel = StorageModel()
-    @StateObject private var dukeStorageModel = DukeStorageModel()
+    //@StateObject private var dukeStorageModel = DukeStorageModel()
     
     init(){
         FirebaseApp.configure()
-        
-        
     }
 
     var body: some Scene {
@@ -24,11 +22,8 @@ struct SharingLedgerApp: App {
             EntryView()
                 .environmentObject(storageModel)
                 .onAppear(){
-                    //dukeStorageModel.getDataFromServer(storageModel: storageModel)
-                    DispatchQueue.global(qos: .background).async {
-                        storageModel.initFromFireStoreDatabase()
-                    }
-                    print("start init storageModel")
+                    print("✅ Start init storageModel from firestore Database")
+                    storageModel.initFromFireStoreDatabase()
                 }
         }
     }

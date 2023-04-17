@@ -17,9 +17,9 @@ struct HomePageView: View {
     var joinedEventList: [EventInfo] {
         var res: [EventInfo] = []
         
-        for eventName in storageModel.allEvents.keys {
-            if storageModel.personInfo[personID]!.joinedEventNames.contains(eventName){
-                res.append(storageModel.allEvents[eventName]!)
+        for eventID in storageModel.allEvents.keys {
+            if storageModel.personInfo[personID]!.joinedEventNames.contains(eventID){
+                res.append(storageModel.allEvents[eventID]!)
             }
         }
         return res
@@ -53,16 +53,12 @@ struct HomePageView: View {
                             }
                     }
                     
-                    
                     ForEach(joinedEventList, id: \.self){eventInfo in
-                        
                         HomePageRow(eventID: eventInfo.id)
                             .environmentObject(storageModel)
                             .foregroundColor(.black)
-                        
-                        
+
                     }
-                    
                 }
             }
 //        }
