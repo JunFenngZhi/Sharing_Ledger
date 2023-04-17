@@ -69,7 +69,7 @@ struct PaymentDetailsView: View {
             .padding(.top, -9.0)
             
             Button("Delete🗑") {
-                storageModel.deletePayments(payment: payment, eventID: eventID)
+                storageModel.deletePayment_FireStore(deletePayment: payment, eventID: eventID)
                 self.presentationMode.wrappedValue.dismiss()  // jump bakc to previous view
             }
             .buttonStyle(GrowingButton(backGroundColor: .red, foreGroundColor: .white))

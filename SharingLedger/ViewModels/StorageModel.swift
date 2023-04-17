@@ -130,7 +130,7 @@ class StorageModel: ObservableObject {
     }
 
     /// add a new event to EventInfo column and allEvents dict.
-    /// Update personInfo dict and PersonDetails column to add joinEvent.
+    /// update personInfo dict and PersonDetails column to add joinEvent.
     func addNewEvent_FireStore(newEvent: EventInfo){
         let db = Firestore.firestore()
         var documentReference: DocumentReference? = nil
@@ -178,6 +178,50 @@ class StorageModel: ObservableObject {
             if(oldParticipants.contains(newPersonID) == false){
                 self.personInfo[newPersonID]!.joinedEventNames.append(updateEvent.id)
                 firestoreMgr.updatePersonDetail(toUpdate: self.personInfo[newPersonID]!)
+            }
+        }
+    }
+    
+    /// add a new payment to PaymentsDetail column and allPayments dict.
+    /// update allEvents dict and EventInfo column to add connection
+    func addNewPayment_FireStore(newPayment: PaymentsDetail, eventID: String){
+        let db = Firestore.firestore()
+        var documentReference: DocumentReference? = nil
+        documentReference = db.collection("PaymentsDetail").addDocument(data: ["paymentName":newPayment.paymentName, "expense":newPayment.expense, "category":newPayment.category.rawValue, "participates":newPayment.participates, "payers":newPayment.payers, "note": newPayment.note.texts[0], "time":newPayment.time]) { error in
+            if error != nil{
+                print("❗️ Error[addNewPayment_FireStore]: Fail to add \(newPayment.paymentName). Details:" + error.debugDescription)
+            } else {
+                let documentID = documentReference?.documentID
+                print("✅ PaymentsDetail \(newPayment.paymentName) is added successfully with ID: \(documentID ?? "")")
+                newPayment.id = documentID ?? ""  //update local PaymentsDetail, fill id.
+                db.collection("PaymentsDetail").document(documentID!).updateData(["id": newPayment.id])// update firestore document, fill id.
+                
+                self.allPayments[newPayment.id] = newPayment // add to local cache
+                
+                // update eventInfo to add newPayment's id.
+                self.allEvents[eventID]?.payments.append(newPayment.id)
+                FireStoreManager().updateEventInfo(toUpdate: self.allEvents[eventID]!)
+            }
+        }
+    }
+    
+    /// delete a specific payment locally and remotely.
+    /// update allEvents dict and EventInfo column to remove the connection
+    func deletePayment_FireStore(deletePayment: PaymentsDetail, eventID: String){
+        let db = Firestore.firestore()
+        
+        db.collection("PaymentsDetail").document(deletePayment.id).delete{ error in
+            if error != nil{
+                print("❗️ Error[deletePayment_FireStore]: Fail to delete \(deletePayment.paymentName). Details:" + error.debugDescription)
+            }else{
+                print("✅ PaymentsDetail \(deletePayment.paymentName) is deleted successfully.")
+                self.allPayments.removeValue(forKey: deletePayment.id)
+                
+                // update eventInfo to remove Payment's id.
+                self.allEvents[eventID]?.payments.removeAll(where: { id in
+                    return id == deletePayment.id
+                })
+                FireStoreManager().updateEventInfo(toUpdate: self.allEvents[eventID]!)
             }
         }
     }

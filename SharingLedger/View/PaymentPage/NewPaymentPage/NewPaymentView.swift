@@ -121,10 +121,8 @@ struct NewPaymentView: View {
                     do{
                         showAlert.toggle()
                         let newPayment = try newPaymentViewInputHandle(expenseName: expenseName, expenseAmount: expenseAmount, category: categoryList[selectedCategory], notes: notes, date: date, selectedPayer: selectedPayer, selectedParticipant: selectedParticipant)
-                        try storageModel.addNewPayments(newPayment: newPayment, eventID: eventID)
+                        storageModel.addNewPayment_FireStore(newPayment: newPayment, eventID: eventID)
                     } catch InputError.invalidArgValue(msg: let reason){
-                        alertMessage = reason
-                    } catch SyncError.DownloadFailure(msg: let reason), SyncError.UploadFailure(msg: let reason){
                         alertMessage = reason
                     } catch{
                         alertMessage = error.localizedDescription.debugDescription

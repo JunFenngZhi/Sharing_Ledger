@@ -50,4 +50,5 @@ class FireStoreManager{
             print("❗️ Error[updateEventInfo]: Fail to generate dictionary. Details:" + error.localizedDescription)
         }
     }
+
 }
