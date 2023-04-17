@@ -13,15 +13,23 @@ class StorageModel: ObservableObject {
     @Published var allPayments: [String: PaymentsDetail] = [:] // PaymentsDetail.id : PaymentsDetail
     
     init(){
-        initForTest()
+        //initForTest()
         let viewModel = ViewModel()
-        viewModel.get_EventInfo()
-        viewModel.get_PaymentsDetail()  // async
-        if(viewModel.allEvents.isEmpty || viewModel.allPayments.isEmpty){
+        viewModel.get_PersonDetail()
+        if (viewModel.personInfo.isEmpty) {
             print("synchronizaiton error here.")
         }
-        self.allEvents = viewModel.allEvents
-        self.allPayments = viewModel.allPayments
+//        viewModel.get_EventInfo()
+//        viewModel.get_PaymentsDetail()  // async
+//        if(viewModel.allEvents.isEmpty || viewModel.allPayments.isEmpty){
+//            print("synchronizaiton error here.")
+//        }
+//        self.allEvents = viewModel.allEvents
+//        self.allPayments = viewModel.allPayments
+        while (viewModel.personInfo.count < 21){
+            print(viewModel.personInfo.count)
+        }
+        self.personInfo = viewModel.personInfo
     }
     
     func initForTest(){
@@ -58,11 +66,32 @@ class StorageModel: ObservableObject {
         return personDetail
     }
     
+    
+    
     func initFromDukeStorageModel(dukeStorageModel: DukeStorageModel){
+        let viewModel = ViewModel()
         for netid in dukeStorageModel.personDict.keys {
             let dukePerson: DukePerson = dukeStorageModel.personDict[netid]!
             let personDetail: PersonDetail = buildPersonDetailFromDukePerson(dukePerson: dukePerson)
             personInfo[personDetail.firstname + " " + personDetail.lastname + "_ID"] = personDetail
+            
+            DispatchQueue.global(qos: .background).async {
+                viewModel.add_PersonDetail(toAdd: personDetail) { documentID, error in
+                    guard let personID = documentID, error == nil else {
+                        print("Error adding PersonDetail document: \(error!)")
+                        return
+                    }
+                    
+                    if(viewModel.personInfo.isEmpty){
+                        throw SyncError.DownloadFailure(msg: "Fail to download data from database.")
+                    }
+                    self.personInfo = viewModel.personInfo
+                    
+                    
+                }
+                
+            }
+            
         }
     }
     

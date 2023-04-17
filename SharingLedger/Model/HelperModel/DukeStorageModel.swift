@@ -75,7 +75,7 @@ class DukeStorageModel: ObservableObject {
                         storageModel.initFromDukeStorageModel(dukeStorageModel: self)
                         
                         //TODO: init for test ********** delete when finish
-                        storageModel.initForTest()
+                        
                         
                         print(self.personDict["ys331"] as Any)
                         
