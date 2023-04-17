@@ -25,7 +25,9 @@ struct SharingLedgerApp: App {
                 .environmentObject(storageModel)
                 .onAppear(){
                     //dukeStorageModel.getDataFromServer(storageModel: storageModel)
-                    
+                    DispatchQueue.global(qos: .background).async {
+                        storageModel.initFromFireStoreDatabase()
+                    }
                     print("start init storageModel")
                 }
         }

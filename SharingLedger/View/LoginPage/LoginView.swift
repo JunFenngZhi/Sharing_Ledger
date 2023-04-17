@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
-
+import FirebaseCore
 struct LoginView: View {
     @EnvironmentObject var storageModel: StorageModel
+    
     
     var personlist: [String] {
         var res: [String] = []
@@ -44,7 +45,9 @@ struct LoginView: View {
                 }
             }
         }
+        
     }
+        
 }
 
 struct LoginView_Previews: PreviewProvider {

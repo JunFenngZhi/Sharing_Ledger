@@ -245,7 +245,7 @@ class ViewModel: ObservableObject{
                 // no errors
                 if let snapshot = snapshot{
                     // Update in main thread
-                    DispatchQueue.main.async {
+                    //DispatchQueue.main.async {
                         // get all documents and create todos
                         //for doc in snapshot.documents , we can write like this
                         self.PersonDetail_list = snapshot.documents.map { d in
@@ -254,12 +254,16 @@ class ViewModel: ObservableObject{
                                 id: d.documentID,
                                 lname: d["lastname"] as? String ?? "",
                                 fname: d["firstname"] as? String ?? "",
-                                joinedEventNames: d["joinedEventNames"] as? [String] ?? [""]
+                                joinedEventNames: d["joinedEventNames"] as? [String] ?? [""],
+                                picture: d["picture"] as? String ?? ""
                             )
                             self.personInfo[person.id] = person
                             return person
                         }
-                    }
+                    //}
+                }
+                else{
+                    
                 }
             }else{
                 // handle
@@ -432,7 +436,7 @@ class ViewModel: ObservableObject{
     func add_PersonDetail(toAdd: PersonDetail, completionHandler: @escaping (String?, Error?) throws -> Void) {
         let db = Firestore.firestore()
         var documentReference: DocumentReference? = nil
-        documentReference = db.collection("PersonDetail").addDocument(data: ["firstname":toAdd.firstname, "lastname":toAdd.lastname, "joinedEventNames":toAdd.joinedEventNames]){ error in
+        documentReference = db.collection("PersonDetail").addDocument(data: ["firstname":toAdd.firstname, "lastname":toAdd.lastname, "joinedEventNames":toAdd.joinedEventNames, "picture":toAdd.picture]){ error in
             // Check error
             if let error = error {
                 do {

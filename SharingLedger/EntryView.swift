@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EntryView: View {
     @EnvironmentObject var storageModel: StorageModel
+    
     var body: some View {
         LoginView()
             .environmentObject(storageModel)

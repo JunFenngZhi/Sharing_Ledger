@@ -15,13 +15,12 @@ class PersonDetail: Identifiable, Hashable, Codable {
     var joinedEventNames: [String] // store the event ID
     var picture: String
     
-    init(id: String, lname: String, fname: String, joinedEventNames: [String]){
+    init(id: String, lname: String, fname: String, joinedEventNames: [String], picture: String = base64pic("Unknown")!){
         self.id = id
         self.lastname = lname
         self.firstname = fname
         self.fullname = self.firstname + " " + self.lastname
-        self.picture = base64pic("Unknown")!
-
+        self.picture = picture
         self.joinedEventNames = joinedEventNames
     }
     

@@ -14,11 +14,15 @@ class StorageModel: ObservableObject {
     
     init(){
         //initForTest()
-        let viewModel = ViewModel()
-        viewModel.get_PersonDetail()
-        if (viewModel.personInfo.isEmpty) {
-            print("synchronizaiton error here.")
-        }
+//        let viewModel = ViewModel()
+//
+//            viewModel.get_PaymentsDetail()
+//            viewModel.get_PersonDetail()
+//
+//        if (viewModel.personInfo.isEmpty) {
+//            print("synchronizaiton error here.")
+//        }
+        
 //        viewModel.get_EventInfo()
 //        viewModel.get_PaymentsDetail()  // async
 //        if(viewModel.allEvents.isEmpty || viewModel.allPayments.isEmpty){
@@ -26,8 +30,22 @@ class StorageModel: ObservableObject {
 //        }
 //        self.allEvents = viewModel.allEvents
 //        self.allPayments = viewModel.allPayments
+        
+//        while (viewModel.personInfo.count < 21){
+//
+//        }
+//        self.personInfo = viewModel.personInfo
+    }
+    
+    func initFromFireStoreDatabase(){
+        let viewModel = ViewModel()
+        viewModel.get_PaymentsDetail()
+        viewModel.get_PersonDetail()
+        if (viewModel.personInfo.isEmpty) {
+            print("synchronizaiton error here.")
+        }
         while (viewModel.personInfo.count < 21){
-            print(viewModel.personInfo.count)
+
         }
         self.personInfo = viewModel.personInfo
     }
