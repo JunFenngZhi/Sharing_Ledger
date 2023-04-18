@@ -17,6 +17,7 @@ struct AddPeopleView: View {
     //@State var isEventNameEmptyAlertPresented: Bool = false
     //@State var isEventNameExistAlertPresented: Bool = false
     @State var isPeopleRepeatedAlertPresented: Bool = false
+    @State var isPeopleInPaymentAlertPresented: Bool = false
     var peopleOption: [PersonDetail] {
         var res: [PersonDetail] = []
         for person in storageModel.personInfo.values {
@@ -76,6 +77,7 @@ struct AddPeopleView: View {
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
+                            
                             if let index = addedPeopleList.firstIndex(of: addedPeopleID) {
                                 addedPeopleList.remove(at: index)
                             }
