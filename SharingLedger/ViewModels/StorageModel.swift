@@ -300,4 +300,16 @@ class StorageModel: ObservableObject {
             print("❗️ Error[updateEventInfo]: Fail to generate dictionary. Details:" + error.localizedDescription)
         }
     }
+    
+    func calculatePaymentForOnePerson(personID: String, eventID: String) -> Double{
+        var payment : Double = 0
+        for PaymentID in self.allEvents[eventID]!.payments{
+            if self.allPayments[PaymentID]!.participates.contains(personID) {
+                let needToPayNum = self.allPayments[PaymentID]!.participates.count
+                let expense = self.allPayments[PaymentID]!.expense
+                payment += expense/Double(needToPayNum)
+            }
+        }
+        return payment
+    }
 }

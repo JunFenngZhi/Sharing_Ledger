@@ -145,7 +145,7 @@ class EventInfo: Codable {
     init(eventName: String, participates: [String]) {
         self.eventname = eventName
         self.participates = participates
-        self.createdTime = Date()
+        self.createdTime = Date.now
     }
 
 }

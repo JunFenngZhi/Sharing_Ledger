@@ -10,9 +10,20 @@ import SwiftUI
 struct HomePageRow: View {
     @EnvironmentObject var storageModel: StorageModel
     @State private var showSheet = false
+    let personID: String
     let eventID: String
-    var joinedPeopleNumber: Int {
-        return storageModel.allEvents[eventID]!.participates.count >= 4 ? 4 : storageModel.allEvents[eventID]!.participates.count
+    var joinedPeopleNumberObservedLessThanFourID: [String] {
+        var joinedPeopleNumber = storageModel.allEvents[eventID]!.participates.count >= 4 ? 4 : storageModel.allEvents[eventID]!.participates.count
+        var res : [String] = []
+        var start = 0
+        for personid in storageModel.allEvents[eventID]!.participates {
+            
+            if start < joinedPeopleNumber {
+                res.append(personid)
+            }
+            start += 1
+        }
+        return res
     }
     
     var body: some View {
@@ -20,7 +31,7 @@ struct HomePageRow: View {
             VStack{
                 HStack{
                     Spacer()
-                    Text("created at 2023-3-1 01:19:21").font(.custom("Inter Light", size: 10)).multilineTextAlignment(.trailing)
+                    Text("created at " + printDate(date: storageModel.allEvents[eventID]!.createdTime)).font(.custom("Inter Light", size: 10)).multilineTextAlignment(.trailing)
                         .offset(x: -30)
                 }
                 
@@ -47,8 +58,9 @@ struct HomePageRow: View {
                         }label: {
                             HStack{
                                 // TODO: fix bug here. delete 1 people will cause error
-                                ForEach(0..<joinedPeopleNumber) { i in
-                                    SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[storageModel.allEvents[eventID]!.participates[i]]!.picture)), width: 35, height: 35, shadowRadius: 0)
+                                
+                                ForEach (joinedPeopleNumberObservedLessThanFourID, id: \.self) {personID in
+                                    SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[personID]!.picture)), width: 35, height: 35, shadowRadius: 0)
                                 }
                                 
                                 
@@ -63,7 +75,7 @@ struct HomePageRow: View {
                                 
                                 .sheet(isPresented: $showSheet){
                                     AddPeopleView(eventID: eventID, isNewLedgerShown: $showSheet)
-                                        .environmentObject(storageModel)
+//                                        .environmentObject(storageModel)
                                 }
                         }
                         
@@ -74,7 +86,7 @@ struct HomePageRow: View {
                         HStack{
                             Spacer()
                             
-                            Text("my payment  US$ 2500.1").font(.custom("Inter Bold", size: 10)).multilineTextAlignment(.center)
+                            Text("my payment  US$ "+String(storageModel.calculatePaymentForOnePerson(personID: personID, eventID: eventID))).font(.custom("Inter Bold", size: 10)).multilineTextAlignment(.center)
                                 .offset(x:-40)
                         }
                     }
@@ -88,6 +100,6 @@ struct HomePageRow: View {
 
 struct HomePageRow_Previews: PreviewProvider {
     static var previews: some View {
-        HomePageRow(eventID: "Development_ID").environmentObject(StorageModel())
+        HomePageRow(personID: "Suchuan",eventID: "Development_ID").environmentObject(StorageModel())
     }
 }

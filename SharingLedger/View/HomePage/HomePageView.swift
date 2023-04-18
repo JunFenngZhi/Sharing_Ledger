@@ -54,8 +54,8 @@ struct HomePageView: View {
                     }
                     
                     ForEach(joinedEventList, id: \.self){eventInfo in
-                        HomePageRow(eventID: eventInfo.id)
-                            .environmentObject(storageModel)
+                        HomePageRow(personID: personID,eventID: eventInfo.id)
+//                            .environmentObject(storageModel)
                             .foregroundColor(.black)
 
                     }

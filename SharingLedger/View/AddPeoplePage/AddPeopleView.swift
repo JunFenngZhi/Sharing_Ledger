@@ -105,8 +105,10 @@ struct AddPeopleView: View {
                 }
                 
                 let updatedEvent: EventInfo = EventInfo(id: eventID, eventName: storageModel.allEvents[eventID]!.eventname, payments: storageModel.allEvents[eventID]!.payments, participates: addedPeopleList, createdTime: storageModel.allEvents[eventID]!.createdTime)
-                
+                let oldParticipants = storageModel.allEvents[eventID]!.participates
+                let newParticipants = addedPeopleList
                 storageModel.updateEventParticipants_FireStore(updateEvent: updatedEvent, oldParticipants: storageModel.allEvents[eventID]!.participates, newParticipants: addedPeopleList)
+                
                 
                 isNewLedgerShown = false
                 

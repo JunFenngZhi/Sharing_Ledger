@@ -51,3 +51,10 @@ func isZero_Double(num: Double) -> Bool{
     }
     return true
 }
+
+func printDate(date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    let dateString = formatter.string(from: Date())
+    return dateString
+}
