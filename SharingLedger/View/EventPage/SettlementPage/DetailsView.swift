@@ -58,12 +58,12 @@ struct DetailsView: View {
                     HStack(){
                         Text("US$" + String(format:"%.2f",abs(amount))).font(.title2)
                         Spacer()
-                        Button {
-                            //TODO: add notification
-                        } label: {
-                            Text("Notify").font(.title2)
-                                .foregroundColor(amount > 0 && isZero_Double(num: abs(amount)) == false ? Color.red : Color.green)
-                        }.offset(x:-15)
+//                        Button {
+//                            //TODO: add notification
+//                        } label: {
+//                            Text("Notify").font(.title2)
+//                                .foregroundColor(amount > 0 && isZero_Double(num: abs(amount)) == false ? Color.red : Color.green)
+//                        }.offset(x:-15)
                     }.padding(.horizontal, 30)
                 }
             }

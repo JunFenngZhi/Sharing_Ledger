@@ -22,11 +22,11 @@ struct PaymentDetailsView: View {
                     SmallRoundImage(image: Image(payment.category.rawValue), width: 50, height: 50, shadowRadius: 7)
                     Text(payment.paymentName).font(.headline)
                     Spacer()
-                    Button("Edit✏️") {
-                        //TODO: pop out the view to edit payment.
-                        showEdit.toggle()
-                    }
-                    .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
+//                    Button("Edit✏️") {
+//                        //TODO: pop out the view to edit payment.
+//                        showEdit.toggle()
+//                    }
+//                    .buttonStyle(GrowingButton(backGroundColor: themeColor, foreGroundColor: .white))
                 }
                 .padding()
                 
