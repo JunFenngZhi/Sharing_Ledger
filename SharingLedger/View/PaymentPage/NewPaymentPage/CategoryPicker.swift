@@ -9,12 +9,13 @@ import SwiftUI
 
 struct CategoryPicker: View {
     let categoryList: [Category]
+    let categoryNum: Int
 
     @Binding var selectedCategoryIndex: Int
 
     var body: some View {
         HStack(spacing: 20) {
-            ForEach(0..<categoryList.count) { index in
+            ForEach(0..<categoryNum, id: \.self) { index in
                 Button(action: {
                     self.selectedCategoryIndex = index
                 }) {
@@ -39,6 +40,6 @@ struct CategoryPicker: View {
 struct CategoryPicker_Previews: PreviewProvider {
     @State static var selectedCategoryIndex: Int = 0
     static var previews: some View {
-        CategoryPicker(categoryList:[.Hotel, .Traffic], selectedCategoryIndex: $selectedCategoryIndex)
+        CategoryPicker(categoryList:[.Hotel, .Traffic], categoryNum: 2, selectedCategoryIndex: $selectedCategoryIndex)
     }
 }

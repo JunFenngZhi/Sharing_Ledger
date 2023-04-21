@@ -25,20 +25,20 @@ struct SelectParticipantView: View {
 
             
             List(){
-                ForEach(participants.indices){ i in
-                    let personInfo = storageModel.personInfo[participants[i]]!
+                ForEach(participants, id: \.self){ personID in
+                    let personInfo = storageModel.personInfo[personID]!
                     Button {
-                        if selectedParticipants.contains(participants[i]) == true{
-                            selectedParticipants.remove(participants[i])
+                        if selectedParticipants.contains(personID) == true{
+                            selectedParticipants.remove(personID)
                         }else{
-                            selectedParticipants.insert(participants[i])
+                            selectedParticipants.insert(personID)
                         }
                     } label: {
                         HStack{
                             SmallRoundImage(image: Image(uiImage: imageFromString(personInfo.picture)), width: 50, height: 50, shadowRadius: 7).padding(.trailing)
                             Text(personInfo.firstname + " " + personInfo.lastname).foregroundColor(.black)
                             Spacer()
-                            if selectedParticipants.contains(participants[i]) == true{
+                            if selectedParticipants.contains(personID) == true{
                                 Image(systemName: "checkmark.circle")
                             }
                         }

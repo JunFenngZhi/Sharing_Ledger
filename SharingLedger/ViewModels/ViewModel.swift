@@ -127,7 +127,7 @@ class ViewModel: ObservableObject{
     }
     
     func updateData_(toUpdate: PersonDetail) {
-        let city = City(name: "Los Angeles",
+        let _ = City(name: "Los Angeles",
                         state: "CA",
                         country: "USA",
                         isCapital: false,
@@ -141,7 +141,7 @@ class ViewModel: ObservableObject{
             let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
 
             let db = Firestore.firestore()
-            try db.collection("PaymentsDetail").document("ID1").setData(dictionary)
+            db.collection("PaymentsDetail").document("ID1").setData(dictionary)
         } catch let error {
             print("Error writing city to Firestore: \(error)")
         }
@@ -549,7 +549,7 @@ class ViewModel: ObservableObject{
             let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
 
             let db = Firestore.firestore()
-            try db.collection("EventInfo").document(toUpdate.id).setData(dictionary)
+            db.collection("EventInfo").document(toUpdate.id).setData(dictionary)
         } catch let error {
             print("Error updating EventInfo to Firestore: \(error)")
         }
@@ -562,7 +562,7 @@ class ViewModel: ObservableObject{
             let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
 
             let db = Firestore.firestore()
-            try db.collection("Note").document(toUpdate.id).setData(dictionary)
+            db.collection("Note").document(toUpdate.id).setData(dictionary)
         } catch let error {
             print("Error updating Note to Firestore: \(error)")
         }
@@ -575,7 +575,7 @@ class ViewModel: ObservableObject{
             let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
 
             let db = Firestore.firestore()
-            try db.collection("PaymentsDetail").document(toUpdate.id).setData(dictionary)
+            db.collection("PaymentsDetail").document(toUpdate.id).setData(dictionary)
         } catch let error {
             print("Error updating PaymentsDetail to Firestore: \(error)")
         }
@@ -588,7 +588,7 @@ class ViewModel: ObservableObject{
             let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
 
             let db = Firestore.firestore()
-            try db.collection("PersonDetail").document(toUpdate.id).setData(dictionary)
+            db.collection("PersonDetail").document(toUpdate.id).setData(dictionary)
         } catch let error {
             print("Error updating PersonDetail to Firestore: \(error)")
         }

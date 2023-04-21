@@ -36,7 +36,7 @@ struct NewPaymentView: View {
         VStack(){
             VStack(alignment: .leading){
                 Text("Category").font(.title2)
-                CategoryPicker(categoryList:categoryList, selectedCategoryIndex: $selectedCategory)
+                CategoryPicker(categoryList:categoryList, categoryNum: 5, selectedCategoryIndex: $selectedCategory)
             }
             
             Rectangle().fill(Color(UIColor.systemGroupedBackground))

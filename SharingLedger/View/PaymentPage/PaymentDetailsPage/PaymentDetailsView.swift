@@ -47,15 +47,15 @@ struct PaymentDetailsView: View {
 
             List(){
                 Section(header: Text("Participants: ").font(.subheadline).foregroundColor(.cyan).bold()){
-                    ForEach(payment.participates.indices){
-                        ParticipantRow(personID: payment.participates[$0], amount: Double(payment.expense)/Double(payment.participates.count))
+                    ForEach(payment.participates, id: \.self){ personID in
+                        ParticipantRow(personID: personID, amount: Double(payment.expense)/Double(payment.participates.count))
                     }
                 }
                 .listRowInsets(EdgeInsets())
                 
                 Section(header: Text("Payers: ").font(.subheadline).foregroundColor(.cyan).bold()){
-                    ForEach(payment.payers.indices){
-                        PayerRow(personID: payment.payers[$0])
+                    ForEach(payment.payers, id: \.self){ personID in
+                        PayerRow(personID: personID)
                     }
                 }
                 .listRowInsets(EdgeInsets())

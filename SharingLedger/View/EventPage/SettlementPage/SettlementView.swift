@@ -98,7 +98,7 @@ struct SettlementView: View {
                 .padding(.vertical, -5)
             
             List{
-                ForEach(event.participates.indices) { index in
+                ForEach(event.participates.indices, id: \.self) { index in
                     let personID = event.participates[index]
                     let personInfo = storageModel.personInfo[personID]!
                     let personName = personInfo.firstname + " " + storageModel.personInfo[personID]!.lastname

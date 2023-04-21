@@ -19,7 +19,7 @@ class StorageModel: ObservableObject {
     }
     
     func initForPreViewTest(){
-        var newevent = EventInfo(eventName: "Development", participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"])
+        let newevent = EventInfo(eventName: "Development", participates: ["Junfeng Zhi_ID", "Dingzhou Wang_ID", "Suchuan Xing_ID"])
         newevent.id = "Development_ID"
         self.allEvents["Development_ID"] = newevent
         
@@ -58,7 +58,7 @@ class StorageModel: ObservableObject {
             
             DispatchQueue.global(qos: .background).async {
                 viewModel.add_PersonDetail(toAdd: personDetail) { documentID, error in
-                    guard let personID = documentID, error == nil else {
+                    guard let _ = documentID, error == nil else {
                         print("Error adding PersonDetail document: \(error!)")
                         return
                     }
