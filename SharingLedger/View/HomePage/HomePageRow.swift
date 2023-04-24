@@ -13,7 +13,7 @@ struct HomePageRow: View {
     let personID: String
     let eventID: String
     var joinedPeopleNumberObservedLessThanFourID: [String] {
-        var joinedPeopleNumber = storageModel.allEvents[eventID]!.participates.count >= 4 ? 4 : storageModel.allEvents[eventID]!.participates.count
+        let joinedPeopleNumber = storageModel.allEvents[eventID]!.participates.count >= 4 ? 4 : storageModel.allEvents[eventID]!.participates.count
         var res : [String] = []
         var start = 0
         for personid in storageModel.allEvents[eventID]!.participates {

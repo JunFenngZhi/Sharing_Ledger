@@ -53,10 +53,10 @@ struct AddPeopleView: View {
                             .cornerRadius(10)
                             
                     Picker("", selection: $selection) {
-                        ForEach(0..<peopleOption.count) { index in
+                        ForEach(peopleOption, id: \.self) { people in
                             HStack{
-                                SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[peopleOption[index].id]!.picture)), width: 28, height: 28, shadowRadius: 0)
-                                Text(peopleOption[index].fullname)
+                                SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[people.id]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                                Text(people.fullname)
                             }
                         }
                     }
@@ -107,8 +107,7 @@ struct AddPeopleView: View {
                 }
                 
                 let updatedEvent: EventInfo = EventInfo(id: eventID, eventName: storageModel.allEvents[eventID]!.eventname, payments: storageModel.allEvents[eventID]!.payments, participates: addedPeopleList, createdTime: storageModel.allEvents[eventID]!.createdTime)
-                let oldParticipants = storageModel.allEvents[eventID]!.participates
-                let newParticipants = addedPeopleList
+                
                 storageModel.updateEventParticipants_FireStore(updateEvent: updatedEvent, oldParticipants: storageModel.allEvents[eventID]!.participates, newParticipants: addedPeopleList)
                 
                 
