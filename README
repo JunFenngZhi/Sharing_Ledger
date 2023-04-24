@@ -1,0 +1,55 @@
+1. Explanation about 17 warnings: 
+    All the 17 warnings are related to Google FireStore Database which is imported into Pods.
+
+
+2. App File Structure
+    a. Entrance: SharingLedger/SharingLedgerApp
+        The Entrance contains configuration with FireStore Database and Synchronization(update) between different Devices.
+        And Entrance will go into the EntryView(Login View)
+    b. Different Views
+        All the Views' definitions are defined under SharingLedger/View
+    c. Models
+        There are 3 models defined in SharingLedger/ViewModels, SharingLedger/Model/HelperModel
+        a. DukeStorageModel: it is a helper model which pulls the Json data from ECE564 server and store the person name, picture into local cache and initialize the StorageModel.
+        b. StorageModel: it is the main model to store all the local info for ShareLedgerApp.
+            StorageModel contains 3 major variables: 
+                1. PersonInfo: this contains all the person Info.[PersonID: PersonDetail]
+                2. AllEvents: this contains all the events. [EventID: EventInfo]
+                3. AllPayments: this contains all the payments. [PaymentID: paymentDetail]
+        c. ViewModel: it is the model to act as the API to communicate with FireStore Database.
+    d. Helpers
+        These includes Error Handlers, Utility functions, Data Formatter, View Input Handlers.
+
+3. Functions Explanation:
+    a. LoginView
+        This is the first view when opening the ShareLedgerApp. 
+        On this page, you can choose yourself to login by just click your name(Or you can choose any one in ECE564 class to login)
+    b. HomePage
+        After you choose one person to login, you will go into the HomePage.
+        In HomePage, you will see an addEvent Button on the top of View. When you click it, you will go to AddEventView.
+        If there are existing events that you have already joined in, you will see them.
+        On each event, if you click the picture of students or "+" sign, you will go to AddpeopleView.
+        On each event, if you click the white background, you will go to EventDetailsPage
+    c. AddEventView
+        On this page, you can add new Event, give your new event special name and add new participates to your new event.
+        Watch out, you can not give your event a blank name or add no participates to your new event.
+    d. AddpeopleView
+        This View is just like AddEventView, but it is used for existed event under your name.
+        In this event, you can edit the number of people in this event.
+        If you want to add person, just choose and click "add" button.
+        If you want to delete person, just swipe the row of person and click "delete"
+    e. EventDetailPage
+        This page will show you a brief conclusion about this event.
+        Including total expenses and different payments.
+        If you click "Settle", you will go to SettlePage.
+        If you click each payment, you will go to PaymentDetailPage.
+        if you click "New Payment", you will go to NewPaymentPage.
+    f. SettlePage
+        This page will shows who should pay/get what amount of money to whoever in the event which is calculated automatically.
+        If you click the name or photo of one person, you can have a further detail about the settlement.
+    g. PaymentDetailPage
+        This page will shows the details about this payment including participates, payers, notes.
+        And also you can click "Delete" button to delete this payment.
+    h. NewPaymentpage
+        In this page, you can create new payment.
+        Including name, catogory, money, payers, participates, notes.
