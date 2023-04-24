@@ -1,6 +1,10 @@
 # Sharing Ledger
 ## Introduction
 This is a final project for ECE564 mobile APP development.We plan to develop an app that could record all kinds of expenses in our life to help us track our financial status. One of the main features in our appis that we could create a sharing ledger used for group activity, where everyone can add their spending in the ledger and finally the app will calculate how much each person should pay. With our app, we don’t need manually spilt the bill after event, which is quite time consuming and error prone.
+## Running Environment
+* Apple Swift version 5.7.2
+* Apple iphone 14 Pro
+* FireStore swift SDK
 
 ## App structure
 ### Overview
@@ -51,9 +55,15 @@ There are 2 models defined in SharingLedger/ViewModels, SharingLedger/Model Help
   - And also you can click "Delete" button to delete this payment.
 - **NewPaymentpage**
   - In this page, you can create new payment, including name, catogory, money, payers, participates, notes.
+- **Synchronization**
+  - All the updates will upload to the firestore database, and these changes will be synchornized to all other devices automatically.
 
 ## APP preview
-EventList
-![Image text](https://github.com/JunFenngZhi/Sharing_Ledger/blob/main/preView_Images/EditEvent.png) 
-![Alt text](preView_Images/EditEvent.png)
+EditEvent -> eventList -> paymentList -> paymentDetails -> newPayment -> Settlement.  
+<img src="preView_Images/EditEvent.png" alt="EditEvent.png" width="300" height="600"/>
+<img src="preView_Images/eventList.png" alt="eventList.png" width="300" height="600"/>
+<img src="preView_Images/paymentList.png" alt="paymentList.png" width="300" height="600"/>
+<img src="preView_Images/paymentDetails.png" alt="paymentDetails.png" width="300" height="600"/>
+<img src="preView_Images/newPayment.png" alt="newPayment.png" width="300" height="600"/>
+<img src="preView_Images/Settlement.png" alt="Settlement.png" width="300" height="600"/>
 
