@@ -57,7 +57,7 @@ struct NewLedgerView: View {
                             .cornerRadius(10)
                             
                     Picker("", selection: $selection) {
-                        ForEach(0..<peopleOption.count) { index in
+                        ForEach(0..<21) { index in
                             HStack{
                                 
                                 

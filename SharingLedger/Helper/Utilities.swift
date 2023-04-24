@@ -58,3 +58,14 @@ func printDate(date: Date) -> String {
     let dateString = formatter.string(from: Date())
     return dateString
 }
+
+func StringToDate(date: String) -> Date {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    let dateString = date
+    if let date = dateFormatter.date(from: dateString) {
+        return date
+    } else {
+        return Date()
+    }
+}

@@ -29,11 +29,11 @@ struct HomePageRow: View {
     var body: some View {
         //NavigationView{
             VStack{
-                HStack{
-                    Spacer()
-                    Text("created at " + printDate(date: storageModel.allEvents[eventID]!.createdTime)).font(.custom("Inter Light", size: 10)).multilineTextAlignment(.trailing)
-                        .offset(x: -30)
-                }
+//                HStack{
+//                    Spacer()
+//                    Text("created at " + printDate(date: storageModel.allEvents[eventID]!.createdTime)).font(.custom("Inter Light", size: 10)).multilineTextAlignment(.trailing)
+//                        .offset(x: -30)
+//                }
                 
                 ZStack{
                     NavigationLink {

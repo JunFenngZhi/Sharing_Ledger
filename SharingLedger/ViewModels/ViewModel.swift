@@ -160,7 +160,8 @@ class ViewModel: ObservableObject{
                                 id: d.documentID,
                                 eventName: d["eventname"] as! String,
                                 payments: d["payments"] as! [String],
-                                participates: d["participates"] as! [String]
+                                participates: d["participates"] as! [String],
+                                createdTime: (d["createdTime"] as? Timestamp)?.dateValue() ?? Date()
                             )
                             self.allEvents[eventInfo.id] = eventInfo
                             return eventInfo
@@ -298,7 +299,7 @@ class ViewModel: ObservableObject{
     func add_EventInfo(toAdd: EventInfo, completionHandler: @escaping (String?, Error?) throws -> Void) {
         let db = Firestore.firestore()
         var documentReference: DocumentReference? = nil
-        documentReference = db.collection("EventInfo").addDocument(data: ["eventname":toAdd.eventname, "payments":toAdd.payments, "participates": toAdd.participates]) { error in
+        documentReference = db.collection("EventInfo").addDocument(data: ["eventname":toAdd.eventname, "payments":toAdd.payments, "participates": toAdd.participates, "createdTime": toAdd.createdTime]) { error in
             if let error = error {
                 do {
                     try completionHandler(nil, error)
