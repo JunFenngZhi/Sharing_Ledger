@@ -26,6 +26,7 @@ struct AddPeopleView: View {
         return res
     }
     
+    
     var body: some View {
         NavigationView {
             Form{
@@ -53,10 +54,10 @@ struct AddPeopleView: View {
                             .cornerRadius(10)
                             
                     Picker("", selection: $selection) {
-                        ForEach(peopleOption, id: \.self) { people in
+                        ForEach(0..<21) { index in
                             HStack{
-                                SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[people.id]!.picture)), width: 28, height: 28, shadowRadius: 0)
-                                Text(people.fullname)
+                                SmallRoundImage(image: Image(uiImage: imageFromString(storageModel.personInfo[peopleOption[index].id]!.picture)), width: 28, height: 28, shadowRadius: 0)
+                                Text(peopleOption[index].fullname)
                             }
                         }
                     }
@@ -77,6 +78,12 @@ struct AddPeopleView: View {
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
+                            for paymentID in storageModel.allEvents[eventID]!.payments {
+                                if storageModel.allPayments[paymentID]!.participates.contains(addedPeopleID) || storageModel.allPayments[paymentID]!.payers.contains(addedPeopleID) {
+                                    isPeopleInPaymentAlertPresented = true
+                                    return
+                                }
+                            }
                             
                             if let index = addedPeopleList.firstIndex(of: addedPeopleID) {
                                 addedPeopleList.remove(at: index)
@@ -126,6 +133,12 @@ struct AddPeopleView: View {
                 .alert("This person has already been added", isPresented: $isPeopleRepeatedAlertPresented) {
                 Button("OK") {
                     isPeopleRepeatedAlertPresented = false
+                }
+                    
+                }
+                .alert("This person is in one of payments, so he can not be removed", isPresented: $isPeopleInPaymentAlertPresented) {
+                Button("OK") {
+                    isPeopleInPaymentAlertPresented = false
                 }
                     
                 }
