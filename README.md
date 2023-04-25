@@ -1,10 +1,14 @@
 # Sharing Ledger
 ## Introduction
 This is a final project for ECE564 mobile APP development.We plan to develop an app that could record all kinds of expenses in our life to help us track our financial status. One of the main features in our appis that we could create a sharing ledger used for group activity, where everyone can add their spending in the ledger and finally the app will calculate how much each person should pay. With our app, we don’t need manually spilt the bill after event, which is quite time consuming and error prone.
+
 ## Running Environment
 * Apple Swift version 5.7.2
-* Apple iphone 14 Pro
+* Apple iphone 14 Pro IOS 16.1
 * FireStore swift SDK
+
+## How to run
+Open `SharingLedger.xcworkspace` file using Xcode, and then build the project. The app will automatically run in the simulator.
 
 ## App structure
 ### Overview
